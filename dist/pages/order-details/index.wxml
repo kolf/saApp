@@ -1,0 +1,476 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{isFetching}}">
+        <view class="page order-details__root bg-gray">
+            <at-activity-indicator compid="{{$compid__324}}"></at-activity-indicator>
+        </view>
+    </block>
+    <view class="page order-details__root bg-gray" wx:else>
+        <view class="order-details__panel">
+            <view class="at-row">
+                <view class="at-col at-col-8">
+                    <view class="order-details__panel-heading">
+                        <view class="order-details__panel-heading-title">{{fawOrder.orderTypeName}}</view>
+                        <view>{{fawOrder.processStatusName}}</view>
+                    </view>
+                    <view class="order-details__panel-body">
+                        <block>
+                            <block wx:if="{{fawOrder.orderStatus != 3}}">
+                                <view>已等待时间： {{downTime[0]}}天{{downTime[1]}}小时{{downTime[2]}}分钟{{downTime[3]}}秒</view>
+                            </block>
+                            <block wx:else>{{evaluationStatusMap[fawOrder.evaluationStatus]}}</block>
+                        </block>
+                    </view>
+                </view>
+                <view class="at-col at-col-4">
+                    <image src="{{anonymousState__temp}}" mode="widthFix" style="width:100px;height:86px"></image>
+                </view>
+            </view>
+        </view>
+        <view class="order-details__panel gap-top">
+            <view class="order-details__panel-heading">客户信息</view>
+            <view class="order-details__panel-body">
+                <view class="at-row">
+                    <view class="at-col at-col-4">姓名：</view>
+                    <view class="at-col at-col-8">{{customer.realName}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-4">性别：</view>
+                    <view class="at-col at-col-8">{{customer.genderName}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-4">手机号码：</view>
+                    <view class="at-col at-col-8">{{customer.phone}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-4">所有车辆：</view>
+                    <view class="at-col at-col-8 at-col--wrap">{{anonymousState__temp2}}</view>
+                </view>
+            </view>
+        </view>
+        <block wx:if="{{fawOrder.orderType === 4}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">被介绍人信息</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row">
+                        <view class="at-col at-col-4">被介绍人姓名:</view>
+                        <view class="at-col at-col-8">{{fawOrderItem.realName}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">被介绍人手机号码:</view>
+                        <view class="at-col at-col-8">{{fawOrderItem.phone}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp17}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">评估车辆信息</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row">
+                        <view class="at-col at-col-4">车型：</view>
+                        <view class="at-col at-col-8">{{assessmentCar.carName}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">购车时间：</view>
+                        <view class="at-col at-col-8">{{assessmentCar.buyTime}} 年</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">车架号VIN码：</view>
+                        <view class="at-col at-col-8 at-col--wrap">{{assessmentCar.vinCode}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{fawOrder.orderType === 2 && escFawOrderDTO}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading" bindtap="handleOrderClick">关联的二手车订单信息
+                    <at-icon compid="{{$compid__325}}"></at-icon>
+                </view>
+                <view class="order-details__panel-body">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">订单类别：</view>
+                        <view class="at-col at-col-7">{{escFawOrderDTO.fawOrder.orderTypeName}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-5">订单号：</view>
+                        <view class="at-col at-col-7">{{escFawOrderDTO.fawOrder.orderNo}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-5">服务申请提交时间：</view>
+                        <view class="at-col at-col-7">{{escFawOrderDTO.fawOrder.createTime}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-5">服务顾问转发时间：</view>
+                        <view class="at-col at-col-7">{{escFawOrderDTO.orderTimeDTO.saTransferTime || escFawOrderDTO.fawOrder.createTime}}</view>
+                    </view>
+                    <view>
+                        <view class="at-row">
+                            <view class="at-col at-col-5">服务顾问：</view>
+                            <view class="at-col at-col-7">{{escFawOrderDTO.fawOrderForwards[0].adviserRealName}}</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-5">服务顾问手机号：</view>
+                            <view class="at-col at-col-7">{{escFawOrderDTO.fawOrderForwards[0].phone}}</view>
+                        </view>
+                    </view>
+                    <block wx:if="{{escFawOrderDTO.fawOrderForwards[1]}}">
+                        <view>
+                            <view class="at-row">
+                                <view class="at-col at-col-5">评估服务完成时间：</view>
+                                <view class="at-col at-col-7">{{escFawOrderDTO.orderTimeDTO.escCompletionTime}}</view>
+                            </view>
+                            <view class="at-row">
+                                <view class="at-col at-col-5">二手车顾问：</view>
+                                <view class="at-col at-col-7">{{escFawOrderDTO.fawOrderForwards[1].adviserRealName}}</view>
+                            </view>
+                            <view class="at-row">
+                                <view class="at-col at-col-5">二手车顾问手机号：</view>
+                                <view class="at-col at-col-7">{{escFawOrderDTO.fawOrderForwards[1].phone}}</view>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp18}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">意向车型</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row">
+                        <view class="at-col at-col-4">意向车型：</view>
+                        <view class="at-col at-col-8">{{intentionCar.carName}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <view class="order-details__panel border-top">
+            <view class="order-details__panel-heading">{{fawDistributor.name}}</view>
+            <view class="order-details__panel-body">
+                <view class="at-row">
+                    <view class="at-col at-col-4">地址：</view>
+                    <view class="at-col at-col-8 at-col--wrap">{{fawDistributor.address}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-4">服务热线：</view>
+                    <view class="at-col at-col-8">{{fawDistributor.serviceHotline}}</view>
+                </view>
+                <block wx:if="{{!escFawOrderDTO}}">
+                    <view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">服务顾问：</view>
+                            <view class="at-col at-col-8">{{saUser.adviserRealName}}</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">服务顾问手机号：</view>
+                            <view class="at-col at-col-8">{{saUser.phone}}</view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:if="{{anonymousState__temp19}}">
+                    <view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">二手车顾问：</view>
+                            <view class="at-col at-col-8">{{escUser.adviserRealName}}</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">二手车顾问手机号：</view>
+                            <view class="at-col at-col-8">{{escUser.phone}}</view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:if="{{anonymousState__temp20}}">
+                    <view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">销售顾问：</view>
+                            <view class="at-col at-col-8">{{xsUser.adviserRealName}}</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">销售顾问手机号：</view>
+                            <view class="at-col at-col-8">{{xsUser.phone}}</view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </view>
+        <view class="order-details__panel border-top">
+            <view class="order-details__panel-heading">服务订单信息</view>
+            <view class="order-details__panel-body">
+                <view class="at-row">
+                    <view class="at-col at-col-5">订单类别：</view>
+                    <view class="at-col at-col-7">{{fawOrder.orderTypeName}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-5">订单号：</view>
+                    <view class="at-col at-col-7">{{fawOrder.orderNo}}</view>
+                </view>
+                <view class="at-row">
+                    <view class="at-col at-col-5">服务申请提交时间：</view>
+                    <view class="at-col at-col-7">{{orderTimeDTO.orderCreateTime}}</view>
+                </view>
+                <block wx:if="{{anonymousState__temp21}}">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">服务顾问转发时间：</view>
+                        <view class="at-col at-col-7">{{orderTimeDTO.saTransferTime || "---- -- -- --:--:--"}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{anonymousState__temp22}}">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">二手车顾问完成时间：</view>
+                        <view class="at-col at-col-7">{{orderTimeDTO.escCompletionTime || "---- -- -- --:--:--"}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{anonymousState__temp23}}">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">销售顾问受理时间：</view>
+                        <view class="at-col at-col-7">{{orderTimeDTO.xsAcceptTime || "---- -- -- --:--:--"}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{anonymousState__temp24}}">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">销售顾问完成时间：</view>
+                        <view class="at-col at-col-7">{{orderTimeDTO.xsCompletionTime || "---- -- -- --:--:--"}}</view>
+                    </view>
+                </block>
+                <block wx:if="{{orderTimeDTO.orderCompletionTime}}">
+                    <view class="at-row">
+                        <view class="at-col at-col-5">订单完成时间：</view>
+                        <view class="at-col at-col-7">{{orderTimeDTO.orderCompletionTime}}</view>
+                    </view>
+                </block>
+            </view>
+        </view>
+        <block wx:if="{{escFiles.length > 0}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">评估单照片<text class="text-error">*(用户不可见）</text>
+                </view>
+                <view class="order-details__panel-body">
+                    <view class="at-row image-list">
+                        <view wx:key="id" class="image-list-item" bindtap="onPreviewImage" wx:for="{{escFiles}}" wx:for-item="f" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{escFiles}}" data-e-tap-a-b="{{f}}">
+                            <image class="img" src="{{f.fileUrl}}" mode="aspectFill"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{aCardFiles.length > 0}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">A卡照片</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row image-list">
+                        <view wx:key="id" class="image-list-item" bindtap="onPreviewImage" wx:for="{{aCardFiles}}" wx:for-item="f" wx:for-index="_anonIdx4" data-e-tap-so="this" data-e-tap-a-a="{{aCardFiles}}" data-e-tap-a-b="{{f}}">
+                            <image class="img" src="{{f.fileUrl}}" mode="aspectFill"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{cCardFiles.length > 0}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">C卡照片</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row image-list">
+                        <view wx:key="id" class="image-list-item" bindtap="onPreviewImage" wx:for="{{cCardFiles}}" wx:for-item="f" wx:for-index="_anonIdx6" data-e-tap-so="this" data-e-tap-a-a="{{cCardFiles}}" data-e-tap-a-b="{{f}}">
+                            <image class="img" src="{{f.fileUrl}}" mode="aspectFill"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{fawOrderItem.checkPhone}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">成交信息</view>
+                <view class="order-details__panel-body">
+                    <view class="at-row">
+                        <view class="at-col at-col-4">购车人姓名：</view>
+                        <view class="at-col at-col-8">{{fawOrderItem.buyName}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">购车人手机号：</view>
+                        <view class="at-col at-col-8">{{fawOrderItem.checkPhone}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">车辆VIN码：</view>
+                        <view class="at-col at-col-8">{{fawOrderItem.vinCode}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">上牌时间：</view>
+                        <view class="at-col at-col-8">{{anonymousState__temp3}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp25}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">请上传评估单照片<text class="text-error">*(至少一张，用户不可见)</text>
+                </view>
+                <view class="order-details__panel-body">
+                    <at-image-picker compid="{{$compid__326}}"></at-image-picker>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp26}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">请选择本次工作完成情况</view>
+                <view class="order-details__panel-body">
+                    <x-radio compid="{{$compid__327}}"></x-radio>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp27}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">请上传A卡照片<text class="text-error">*(至少一张，用户不可见)</text>
+                </view>
+                <view class="order-details__panel-body">
+                    <at-image-picker compid="{{$compid__328}}"></at-image-picker>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp28}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">请填写超时理由<text class="text-error">*(用户不可见）</text>
+                </view>
+                <view class="order-details__panel-body">
+                    <at-textarea compid="{{$compid__329}}"></at-textarea>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp29}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">{{escUser.timeoutReason ? "评估工作是否超时：" : "A卡上传工作是否超时："}}<text class="text-error">*(用户不可见）</text>
+                </view>
+                <view class="order-details__panel-body">
+                    <at-textarea compid="{{$compid__330}}"></at-textarea>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp30}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">未成交原因</view>
+                <view class="order-details__panel-body">
+                    <at-textarea compid="{{$compid__331}}"></at-textarea>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp31}}">
+            <view class="order-details__panel border-top">
+                <view class="order-details__panel-heading">请选择本次工作完成情况</view>
+                <view class="order-details__panel-body">
+                    <view class="checkbox-container">
+                        <view class="at-checkbox">
+                            <view class="{{orderResult === '1' ? 'at-checkbox__option no-border at-checkbox__option--selected' : 'at-checkbox__option no-border'}}">
+                                <view class="at-checkbox__option-wrap">
+                                    <view class="at-checkbox__option-cnt" bindtap="handleOrderResultChange" data-e-tap-so="this" data-e-tap-a-a="1">
+                                        <view class="at-checkbox__icon-cnt"><text class="taro-text at-icon at-icon-check"></text>
+                                        </view>
+                                        <view class="at-checkbox__title">成交：请提交成交车主、车辆信息</view>
+                                    </view>
+                                    <view class="at-checkbox__input-panel">
+                                        <at-button compid="{{$compid__332}}">行驶证扫描</at-button>
+                                        <view class="order-details__panel-heading" style="{{anonymousState__temp8}}"><text class="text-error">* </text>购车人姓名</view>
+                                        <view class="order-details__panel-body">
+                                            <at-input compid="{{$compid__333}}"></at-input>
+                                        </view>
+                                        <view class="order-details__panel-heading" style="{{anonymousState__temp9}}"><text class="text-error">* </text>车辆VIN码</view>
+                                        <view class="order-details__panel-body">
+                                            <at-input compid="{{$compid__334}}"></at-input>
+                                        </view>
+                                        <view class="order-details__panel-heading" style="{{anonymousState__temp10}}"><text class="text-error">* </text>上牌时间</view>
+                                        <view class="order-details__panel-body">
+                                            <picker mode="date" bindchange="anonymousFunc2">
+                                                <view class="input__text">
+                                                    <block>
+                                                        <block wx:if="{{vinData.releaseDate}}">{{vinData.releaseDate}}</block>
+                                                        <block wx:else><text class="input__placeholder">请填写上牌时间或行驶证扫描</text>
+                                                        </block>
+                                                    </block>
+                                                </view>
+                                            </picker><text class="text-error" style="{{anonymousState__temp11}}">注：以上获取信息有误，可手动录入或修改</text>
+                                        </view>
+                                        <view class="order-details__panel-heading" style="{{anonymousState__temp12}}"><text class="text-error">* </text>请手动填写购车人手机号</view>
+                                        <view class="order-details__panel-body">
+                                            <at-input compid="{{$compid__335}}"></at-input><text class="text-error" style="{{anonymousState__temp13}}">注：请核对订单发起人或被介绍人的手机号后填写</text>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="{{orderResult === '0' ? 'at-checkbox__option at-checkbox__option--selected' : 'at-checkbox__option'}}">
+                                <view class="at-checkbox__option-wrap">
+                                    <view class="at-checkbox__option-cnt" bindtap="handleOrderResultChange" data-e-tap-so="this" data-e-tap-a-a="0">
+                                        <view class="at-checkbox__icon-cnt"><text class="taro-text at-icon at-icon-check"></text>
+                                        </view>
+                                        <view class="at-checkbox__title">未成交</view>
+                                    </view>
+                                    <view class="at-checkbox__desc">
+                                        <at-textarea compid="{{$compid__336}}"></at-textarea>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp32}}">
+            <at-list compid="{{$compid__337}}">
+                <at-list-item compid="{{$compid__338}}"></at-list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{anonymousState__temp33}}">
+            <at-list compid="{{$compid__339}}">
+                <at-list-item compid="{{$compid__340}}"></at-list-item>
+                <view class="rule-link" bindtap="anonymousFunc4">规则说明</view>
+            </at-list>
+        </block>
+        <block wx:if="{{fawOrder.orderType === 1 && zhxcFawOrderDTO.fawOrder}}">
+            <at-list compid="{{$compid__341}}">
+                <at-list-item compid="{{$compid__342}}"></at-list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{anonymousState__temp34}}">
+            <at-list compid="{{$compid__343}}">
+                <at-list-item compid="{{$compid__344}}"></at-list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{anonymousState__temp35}}">
+            <at-list compid="{{$compid__345}}">
+                <at-list-item compid="{{$compid__346}}"></at-list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{hasReplacementOrder === '1'}}">
+            <at-list compid="{{$compid__347}}">
+                <list-item compid="{{$compid__348}}">
+                    <view slot="extra">
+                        <picker mode="selector" range="{{anonymousState__temp15}}" bindchange="handleCarSelect">
+                            <view class="picker">{{anonymousState__temp16}}</view>
+                        </picker>
+                    </view>
+                </list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{anonymousState__temp36}}">
+            <at-list compid="{{$compid__349}}">
+                <at-list-item compid="{{$compid__350}}"></at-list-item>
+            </at-list>
+        </block>
+        <block wx:if="{{anonymousState__temp37}}">
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__351}}">确认并转发</at-button>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp38}}">
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__352}}">确认完成</at-button>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp39}}">
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__353}}">确认完成</at-button>
+            </view>
+        </block>
+        <block wx:if="{{anonymousState__temp40}}">
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__354}}">确认并继续跟进</at-button>
+            </view>
+        </block>
+    </view>
+</block>

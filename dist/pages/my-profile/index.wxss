@@ -1,0 +1,3 @@
+.my-profile__root {
+  padding-bottom: 120rpx;
+}

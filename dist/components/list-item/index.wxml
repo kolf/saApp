@@ -1,0 +1,23 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="at-list__item">
+        <view class="at-list__item-container">
+            <view class="at-list__item-content item-content">
+                <view class="item-content__info">
+                    <view class="item-content__info-title">{{title}}
+                        <block wx:if="{{isRequire}}"><text class="item-content__isRequire">*</text>
+                        </block>
+                    </view>
+                </view>
+            </view>
+            <view class="at-list__item-extra item-extra">
+                <view class="item-extra__info item-extra__info">
+                    <slot name="extra"></slot>
+                </view>
+                <block wx:if="{{arrow}}">
+                    <view class="item-extra__icon"><text class="{{'at-icon item-extra__icon-arrow at-icon-chevron-' + arrow}}"></text>
+                    </view>
+                </block>
+            </view>
+        </view>
+    </view>
+</block>

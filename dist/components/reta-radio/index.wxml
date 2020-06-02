@@ -1,0 +1,8 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="reta-radio__root">
+        <view bindtap="handleChange" wx:key="value" class="{{activeKey === index ? 'reta-radio__item active' : 'reta-radio__item'}}" wx:for="{{loopArray67}}" wx:for-item="icon" wx:for-index="index" data-e-tap-so="this" data-e-tap-a-a="{{index}}">
+            <at-icon compid="{{icon.$compid__464}}"></at-icon>
+            <view>{{icon.$original.label}}</view>
+        </view>
+    </view>
+</block>

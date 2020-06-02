@@ -1,0 +1,16 @@
+.owner {
+  &__root {
+    background: #f7f7f7;
+    padding-bottom: 160px;
+  }
+  &__search-bar {
+    padding: 16px 24px;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    & > .at-avatar {
+      margin-right: 12px;
+    }
+  }
+}

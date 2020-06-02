@@ -1,0 +1,73 @@
+<template name="renderMain">
+    <block>
+        <block wx:if="{{isFetching}}">
+            <at-activity-indicator compid="{{$compid__382}}"></at-activity-indicator>
+        </block>
+        <block wx:elif="{{showType === 0}}">
+            <view class="report__main">
+                <tendency-chart compid="{{$compid__383}}"></tendency-chart>
+                <view class="at-list  text-center">
+                    <view class="at-row at-list__item table-head text-center bg-gray">
+                        <view class="at-col at-col-6">业务项</view>
+                        <view class="at-col at-col-6">总台数</view>
+                    </view>
+                    <view class="table-body">
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-6">接单台数</view>
+                            <view class="at-col at-col-6">{{data.Total.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-6">完成台数</view>
+                            <view class="at-col at-col-6">{{data.WCNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-6">超时台数</view>
+                            <view class="at-col at-col-6">{{data.CSNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-6">仅评估台数</view>
+                            <view class="at-col at-col-6">{{data.PGNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-6">推荐置换台数</view>
+                            <view class="at-col at-col-6">{{data.ZHNum.total}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:elif="{{showType === 1}}">
+            <view class="report__main">
+                <statistical-chart compid="{{$compid__384}}"></statistical-chart>
+                <view class="at-list  text-center">
+                    <view class="at-row at-list__item table-head text-center bg-gray">
+                        <view class="at-col at-col-3">日期</view>
+                        <view class="at-col at-col-3">评估台数</view>
+                        <view class="at-col at-col-3">推荐置换台数</view>
+                        <view class="at-col at-col-3">完成台数</view>
+                    </view>
+                    <view class="table-body">
+                        <view class="at-row at-list__item" wx:for="{{data}}" wx:for-item="d" wx:for-index="_anonIdx2">
+                            <view class="at-col at-col-3">{{d.date}}</view>
+                            <view class="at-col at-col-3">{{d.PGTotal}}</view>
+                            <view class="at-col at-col-3">{{d.ZHTotal}}</view>
+                            <view class="at-col at-col-3">{{d.Total}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </block>
+</template>
+<block wx:if="{{$taroCompReady}}">
+    <view class="page report__root">
+        <at-tabs compid="{{$compid__385}}"></at-tabs>
+        <view class="report__control-wrap">
+            <at-segmented-control compid="{{$compid__386}}"></at-segmented-control>
+        </view>
+        <view class="border-bottom report__pager">
+            <pager compid="{{$compid__387}}"></pager>
+        </view>
+        <template is="renderMain" data="{{...anonymousState__temp3}}"></template>
+    </view>
+</block>

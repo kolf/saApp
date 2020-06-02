@@ -1,0 +1,10 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="{{className + ' pager__root'}}">
+        <view class="pager__buttom" bindtap="funPrivateefzzz">
+            <at-icon compid="{{$compid__461}}"></at-icon>
+        </view><text class="pager__title">{{title}}</text>
+        <view class="pager__buttom" bindtap="funPrivateegzzz">
+            <at-icon compid="{{$compid__462}}"></at-icon>
+        </view>
+    </view>
+</block>

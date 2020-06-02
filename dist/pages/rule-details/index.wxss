@@ -1,0 +1,17 @@
+.rule-details__heading {
+  margin-top: 48rpx;
+}
+.rule-details__service {
+  padding: 48rpx;
+  text-align: center;
+}
+.rule-details__p {
+  margin-top: 0;
+}
+.contact-button {
+  border: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 12rpx;
+  color: #2254f5;
+}

@@ -1,0 +1,22 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page">
+        <view class="page-content">
+            <view class="result__title">
+                <image src="{{logoUrl}}" class="img" mode="widthFix" style="width:200px"></image>
+            </view>
+            <view class="result__content">{{textMap[checkStatus]}}</view>
+        </view>
+        <view class="page-footer">
+            <view class="submit-button-wrap">
+                <block>
+                    <block wx:if="{{checkStatus === '2'}}">
+                        <at-button compid="{{$compid__265}}">重新填写信息</at-button>
+                    </block>
+                    <block wx:else>
+                        <at-button compid="{{$compid__266}}">切换帐号</at-button>
+                    </block>
+                </block>
+            </view>
+        </view>
+    </view>
+</block>

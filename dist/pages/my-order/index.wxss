@@ -1,0 +1,12 @@
+.order__root {
+  padding-bottom: 120rpx;
+}
+.order__list {
+  margin-top: 24rpx;
+}
+.order__list-item {
+  margin-bottom: 24rpx;
+}
+.order__alert {
+  margin-top: 24rpx;
+}

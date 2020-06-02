@@ -1,0 +1,13 @@
+.qa-index__root {
+  padding-bottom: 100rpx;
+}
+.qa-index__list {
+  padding: 24rpx;
+}
+.qa-index__list-item {
+  margin-bottom: 24rpx;
+  font-size: 0;
+}
+.qa-index__list-item .img {
+  width: 100%;
+}

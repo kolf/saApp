@@ -1,0 +1,11 @@
+.user-avatar__root {
+  display: flex;
+}
+.user-avatar__content {
+  margin-left: 20rpx;
+}
+.user-avatar__desc {
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: #666;
+}

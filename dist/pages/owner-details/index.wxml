@@ -1,0 +1,65 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!data}}">
+        <view></view>
+    </block>
+    <view class="page owner-details bg-gray" wx:else>
+        <at-modal compid="{{$compid__302}}">
+            <at-modal-header>提示</at-modal-header>
+            <at-modal-content>
+                <view class="update-name__title">请修正车主姓名</view>
+                <at-input compid="{{$compid__303}}"></at-input>
+            </at-modal-content>
+            <at-modal-action>
+                <button bindtap="confirmUpdateName" data-e-tap-so="this" data-e-tap-a-a="{{false}}">取消</button>
+                <button bindtap="confirmUpdateName" data-e-tap-so="this" data-e-tap-a-a="{{true}}">确定</button>
+            </at-modal-action>
+        </at-modal>
+        <view class="owner-details__body">
+            <view class="owner-details__heading">
+                <image class="img" src="{{data.avatarUrl}}" mode="aspectFill" style="width:120px;height:120px" bindtap="openAvater" data-e-tap-so="this" data-e-tap-a-a="{{data.avatarUrl}}"></image>
+            </view>
+            <at-list>
+                <at-list-item compid="{{$compid__304}}"></at-list-item>
+                <at-list-item compid="{{$compid__305}}"></at-list-item>
+                <at-list-item compid="{{$compid__306}}"></at-list-item>
+                <at-list-item compid="{{$compid__307}}"></at-list-item>
+                <at-list-item compid="{{$compid__308}}"></at-list-item>
+                <at-list-item compid="{{$compid__309}}"></at-list-item>
+                <at-list-item compid="{{$compid__310}}"></at-list-item>
+                <view class="owner-details__car-list">
+                    <view wx:key="carId" class="owner-details__car-list-item" wx:for="{{data.carList}}" wx:for-item="car" wx:for-index="_anonIdx2">
+                        <view class="at-row">
+                            <view class="at-col at-col-4">车型</view>
+                            <view class="at-col">{{car.carName}}</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">购车时间</view>
+                            <view class="at-col">{{car.buyTime}} 年</view>
+                        </view>
+                        <view class="at-row">
+                            <view class="at-col at-col-4">车架VIN码</view>
+                            <view class="at-col">{{car.vinCode}}</view>
+                        </view>
+                    </view>
+                </view>
+            </at-list>
+            <at-list compid="{{$compid__311}}">
+                <at-list-item compid="{{$compid__312}}"></at-list-item>
+                <view>
+                    <view wx:key="orderId" class="owner-details__order-list-item" bindtap="handleOrderClick" wx:for="{{data.orderList}}" wx:for-item="order" wx:for-index="_anonIdx4" data-e-tap-so="this" data-e-tap-a-a="{{order.id}}">
+                        <view class="at-row">
+                            <view class="at-col">{{order.createTime}}</view>
+                            <view class="at-col at-col-3">{{order.orderTypeName}}</view>
+                            <view class="at-col at-col-2">{{order.orderStatusName}}</view>
+                        </view>
+                    </view>
+                </view>
+            </at-list>
+        </view>
+        <view class="submit-button-wrap">
+            <block wx:if="{{isNew === '1'}}">
+                <at-button compid="{{$compid__313}}">确认绑定</at-button>
+            </block>
+        </view>
+    </view>
+</block>

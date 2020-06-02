@@ -1,0 +1,23 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page index__root">
+        <view class="page-content">
+            <view class="index__lead">
+                <image src="{{imgUrl}}" class="img" mode="widthFix" style="width:200px"></image>
+            </view>
+            <view class="index__feature-list">
+                <view>
+                    <at-icon compid="{{$compid__237}}"></at-icon><text class="index__feature-item-title">客户维系</text>
+                </view>
+                <view>
+                    <at-icon compid="{{$compid__238}}"></at-icon><text class="index__feature-item-title">业务处理</text>
+                </view>
+                <view>
+                    <at-icon compid="{{$compid__239}}"></at-icon><text class="index__feature-item-title">业务查看</text>
+                </view>
+            </view>
+        </view>
+        <view class="page-footer" style="{{anonymousState__temp}}">
+            <at-button compid="{{$compid__240}}">开始使用</at-button>
+        </view>
+    </view>
+</block>

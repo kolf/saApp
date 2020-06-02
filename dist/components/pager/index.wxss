@@ -1,0 +1,11 @@
+.pager__root {
+  text-align: center;
+}
+.pager__title {
+  display: inline-block;
+  padding: 24rpx;
+}
+.pager__buttom {
+  display: inline-block;
+  padding: 24rpx;
+}

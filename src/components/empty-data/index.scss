@@ -1,0 +1,12 @@
+.empty-data {
+  &__root {
+    min-height: 94vw;
+    margin: auto;
+    padding: 30vh 60px 24vh;
+    text-align: center;
+  }
+  &__content {
+    padding-top: 84px;
+    font-size: 12 * 3px;
+  }
+}

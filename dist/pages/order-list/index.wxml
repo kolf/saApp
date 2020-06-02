@@ -1,0 +1,16 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page order__root bg-gray">
+        <block>
+            <block wx:if="{{listData.length > 0}}">
+                <view class="order__list">
+                    <view class="order__list-item" wx:key="orderId" wx:for="{{loopArray56}}" wx:for-item="order" wx:for-index="_anonIdx2">
+                        <order-card compid="{{order.$compid__418}}"></order-card>
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <empty-data compid="{{$compid__419}}">系统还没有此类订单 我相信就在今天</empty-data>
+            </block>
+        </block>
+    </view>
+</block>

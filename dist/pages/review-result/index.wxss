@@ -1,0 +1,9 @@
+.result__title {
+  text-align: center;
+  padding: 120rpx 24rpx;
+}
+.result__content {
+  font-size: 36rpx;
+  text-align: center;
+  padding: 72rpx 48rpx;
+}

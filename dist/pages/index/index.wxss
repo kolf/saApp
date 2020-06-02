@@ -1,0 +1,13 @@
+.index__lead {
+  margin: auto;
+  padding: 12vh 24rpx 12vh;
+  text-align: center;
+}
+.index__feature-list view {
+  text-align: center;
+  padding: 24rpx 12rpx;
+  color: #3247cd;
+}
+.index__feature-item-title {
+  margin-left: 24rpx;
+}

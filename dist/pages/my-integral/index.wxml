@@ -1,0 +1,10 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page bg-gray">
+        <view class="content">
+            <at-list compid="{{$compid__321}}">
+                <at-list-item compid="{{$compid__322}}"></at-list-item>
+                <at-list-item compid="{{$compid__323}}"></at-list-item>
+            </at-list>
+        </view>
+    </view>
+</block>

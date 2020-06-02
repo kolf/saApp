@@ -1,0 +1,34 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!userInfo}}">
+        <view></view>
+    </block>
+    <view class="page bg-gray" wx:else>
+        <view class="content">
+            <at-list compid="{{$compid__254}}">
+                <at-list-item compid="{{$compid__255}}"></at-list-item>
+                <at-list-item compid="{{$compid__256}}"></at-list-item>
+                <list-item compid="{{$compid__257}}">
+                    <view slot="extra">
+                        <picker disabled="{{submitUserInfo.gender ? true : false}}" mode="selector" range="{{genderNames}}" bindchange="handleGenderChange"><text>{{anonymousState__temp}}</text>
+                        </picker>
+                    </view>
+                </list-item>
+                <at-list-item compid="{{$compid__258}}"></at-list-item>
+            </at-list>
+            <at-list compid="{{$compid__259}}">
+                <list-item compid="{{$compid__260}}">
+                    <view slot="extra">
+                        <picker disabled="{{submitUserInfo.workStart ? true : false}}" mode="date" bindchange="handleDateChange"><text>{{userInfo.workStart || "必填项"}}</text>
+                        </picker>
+                    </view>
+                </list-item>
+                <at-list-item compid="{{$compid__261}}"></at-list-item>
+                <at-list-item compid="{{$compid__262}}"></at-list-item>
+                <at-list-item compid="{{$compid__263}}"></at-list-item>
+            </at-list>
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__264}}">提交至店总审核</at-button>
+            </view>
+        </view>
+    </view>
+</block>

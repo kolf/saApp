@@ -1,0 +1,5 @@
+<block wx:if="{{$taroCompReady}}">
+    <view style="width:100%;height:320px">
+        <f-2-canvas compid="{{$compid__460}}"></f-2-canvas>
+    </view>
+</block>

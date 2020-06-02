@@ -1,0 +1,20 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page bg-gray my-profile__root">
+        <view class="content">
+            <at-list compid="{{$compid__406}}">
+                <at-list-item compid="{{$compid__407}}"></at-list-item>
+                <at-list-item compid="{{$compid__408}}"></at-list-item>
+                <at-list-item compid="{{$compid__409}}"></at-list-item>
+                <at-list-item compid="{{$compid__410}}"></at-list-item>
+                <at-list-item compid="{{$compid__411}}"></at-list-item>
+                <at-list-item compid="{{$compid__412}}"></at-list-item>
+            </at-list>
+            <view class="submit-button-wrap">
+                <view class="submit-button">
+                    <at-button compid="{{$compid__413}}">退出登录</at-button>
+                </view>
+            </view>
+        </view>
+        <tab-bar compid="{{$compid__414}}"></tab-bar>
+    </view>
+</block>

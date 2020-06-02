@@ -1,0 +1,13 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page bg-gray adviser__root">
+        <at-search-bar compid="{{$compid__282}}"></at-search-bar>
+        <block wx:if="{{listData.length > 0}}">
+            <view class="gap-top adviser__list">
+                <x-radio compid="{{$compid__283}}"></x-radio>
+            </view>
+        </block>
+        <view class="submit-button-wrap">
+            <at-button compid="{{$compid__284}}">确定</at-button>
+        </view>
+    </view>
+</block>

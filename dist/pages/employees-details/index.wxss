@@ -1,0 +1,34 @@
+.owner-details__body {
+  padding: 230rpx 24rpx 0;
+}
+.owner-details__heading {
+  background: #fff;
+  text-align: center;
+}
+.owner-details__heading > .img {
+  margin-top: -240rpx;
+  border-radius: 8rpx;
+}
+.owner-details__car-list {
+  padding-bottom: 6rpx;
+}
+.owner-details__car-list-item {
+  background: #f7f7f7;
+  padding: 24rpx;
+  margin: 24rpx;
+  margin-top: 0;
+  font-size: 28rpx;
+  color: #777;
+}
+.owner-details__order-list {
+  margin-top: 24rpx;
+  padding-bottom: 6rpx;
+}
+.owner-details__order-list-item {
+  background: #f7f7f7;
+  padding: 24rpx;
+  font-size: 28rpx;
+  color: #777;
+  margin: 24rpx;
+  margin-top: 0;
+}

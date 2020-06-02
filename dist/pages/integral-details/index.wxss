@@ -1,0 +1,9 @@
+.integral-details__root .table-head {
+  font-weight: 700;
+}
+.integral-details__heading {
+  padding: 24rpx;
+}
+.text-underline {
+  text-decoration: underline;
+}

@@ -1,0 +1,72 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!dataSource}}">
+        <view></view>
+    </block>
+    <view class="at-card order-card__root" bindtap="funPrivateeezzz" wx:else>
+        <view class="at-card__header"><text class="taro-text at-card__header-title">{{dataSource.orderTypeName}}</text>
+            <view class="taro-text at-card__header-extra">
+                <block>
+                    <block wx:if="{{processStatus === 'FINISH'}}"><text class="text-success">订单已完成</text>
+                    </block>
+                    <block wx:elif="{{timeoutFlag === 1 && processStatus !== 'WAIT_XS_C_CARD'}}"><text class="text-warning">订单已超时</text>
+                    </block>
+                    <block wx:else><text>订单正常</text>
+                    </block>
+                </block>
+            </view>
+        </view>
+        <view class="at-card__content">
+            <view class="at-row">
+                <view class="at-col at-col-4">订单日期：</view>
+                <view class="at-col at-col-8">{{dataSource.createTime}}</view>
+            </view>
+            <view class="at-row">
+                <view class="at-col at-col-4">客户姓名：</view>
+                <view class="at-col at-col-8">{{dataSource.realName}}</view>
+            </view>
+            <view class="at-row">
+                <view class="at-col at-col-4">手机号码：</view>
+                <view class="at-col at-col-8">{{dataSource.phone}}</view>
+            </view>
+            <block wx:if="{{dataSource.orderType === 1}}">
+                <view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">评估车型：</view>
+                        <view class="at-col at-col-8">{{dataSource.carName || "无"}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">购车时间：</view>
+                        <view class="at-col at-col-8">{{dataSource.buyTime ? dataSource.buyTime + ' 年' : "无"}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">车架号VIN码：</view>
+                        <view class="at-col at-col-8 at-col--wrap">{{dataSource.vinCode || "无"}}</view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{dataSource.orderType === 4}}">
+                <view>
+                    <view class="at-row">
+                        <view class="at-col at-col-4">被介绍人姓名：</view>
+                        <view class="at-col at-col-8">{{dataSource.newRealName || "无"}}</view>
+                    </view>
+                    <view class="at-row">
+                        <view class="at-col at-col-5">被介绍人手机号：</view>
+                        <view class="at-col at-col-7">{{dataSource.newPhone || "无"}}</view>
+                    </view>
+                </view>
+            </block>
+            <view class="tag-list" catchtap="anonymousFunc0">
+                <block wx:if="{{dataSource.orderType !== 1 && dataSource.orderStatus === 3}}">
+                    <view class="at-tag at-tag--circle">{{anonymousState__temp}}</view>
+                </block>
+                <block wx:if="{{dataSource.orderStatus === 3}}">
+                    <view class="at-tag at-tag--circle">{{dataSource.evaluationStatus === 1 ? "已" : "未"}}评价</view>
+                </block>
+                <block wx:if="{{dataSource.orderStatus !== 3}}">
+                    <view class="at-tag at-tag--circle">{{dataSource.processStatusName}}</view>
+                </block>
+            </view>
+        </view>
+    </view>
+</block>

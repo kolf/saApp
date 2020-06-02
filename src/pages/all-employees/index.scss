@@ -1,0 +1,11 @@
+.all-employees {
+  &__root {
+    padding-bottom: 24px;
+  }
+  &__list {
+    &-item {
+      background: #fff;
+      margin-top: 24px;
+    }
+  }
+}

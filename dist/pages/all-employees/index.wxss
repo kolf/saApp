@@ -1,0 +1,7 @@
+.all-employees__root {
+  padding-bottom: 24rpx;
+}
+.all-employees__list-item {
+  background: #fff;
+  margin-top: 24rpx;
+}

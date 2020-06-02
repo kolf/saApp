@@ -1,0 +1,21 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page">
+        <view class="page-content">
+            <view class="login__title">
+                <image src="{{logoUrl}}" class="img" mode="widthFix" style="width:200px"></image>
+            </view>
+            <at-form>
+                <at-input compid="{{$compid__241}}">
+                    <count-down compid="{{$compid__242}}"></count-down>
+                </at-input>
+                <at-input compid="{{$compid__243}}"></at-input>
+            </at-form>
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__244}}">登录</at-button>
+            </view>
+        </view>
+        <view class="page-footer">
+            <at-button compid="{{$compid__245}}">我要开通帐号</at-button>
+        </view>
+    </view>
+</block>

@@ -1,0 +1,6 @@
+.all-order__root {
+  padding-bottom: 120rpx;
+}
+.all-order__list {
+  margin-top: 24rpx;
+}

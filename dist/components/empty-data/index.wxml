@@ -1,0 +1,15 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{loading}}">
+        <view class="empty-data__root">
+            <at-activity-indicator compid="{{$compid__455}}"></at-activity-indicator>
+        </view>
+    </block>
+    <view class="empty-data__root" style="{{anonymousState__temp}}" wx:else>
+        <view class="empty-data__title">
+            <image src="{{imgUrl}}" class="img" mode="widthFix" style="width:200px"></image>
+        </view>
+        <view class="empty-data__content">
+            <slot></slot>
+        </view>
+    </view>
+</block>

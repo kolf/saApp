@@ -1,0 +1,32 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{isFetching}}">
+        <view class="page eva__root bg-gray">
+            <at-activity-indicator compid="{{$compid__420}}"></at-activity-indicator>
+        </view>
+    </block>
+    <view class="page eva__root" wx:else>
+        <view class="eva__heading">{{distributor.name}}</view>
+        <view class="eva__panel">
+            <view class="eva__panel-title">经销商评价</view>
+            <at-rate compid="{{$compid__421}}"></at-rate>
+        </view>
+        <view class="eva__heading">
+            <user-avatar compid="{{$compid__422}}"></user-avatar>
+        </view>
+        <view class="eva__panel">
+            <view class="eva__panel-title">服务评价</view>
+            <reta-radio compid="{{$compid__423}}"></reta-radio>
+        </view>
+        <block wx:if="{{xsUser}}">
+            <view class="eva__heading">
+                <user-avatar compid="{{$compid__424}}"></user-avatar>
+            </view>
+        </block>
+        <block wx:if="{{xsUser}}">
+            <view class="eva__panel">
+                <view class="eva__panel-title">服务评价</view>
+                <reta-radio compid="{{$compid__425}}"></reta-radio>
+            </view>
+        </block>
+    </view>
+</block>

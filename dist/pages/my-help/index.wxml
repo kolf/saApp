@@ -1,0 +1,15 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{isFetching}}">
+        <view class="page bg-gray">
+            <at-activity-indicator compid="{{$compid__453}}"></at-activity-indicator>
+        </view>
+    </block>
+    <view class="page bg-gray" wx:else>
+        <block wx:if="{{!isError && imgUrl}}">
+            <image src="{{imgUrl}}" mode="widthFix" style="width:100%"></image>
+        </block>
+        <block wx:if="{{isError}}">
+            <netword-error compid="{{$compid__454}}"></netword-error>
+        </block>
+    </view>
+</block>

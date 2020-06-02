@@ -1,0 +1,9 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page all-employees__root bg-gray">
+        <view class="all-employees__list gap-top">
+            <at-list compid="{{$compid__389}}">
+                <at-list-item wx:key="key" wx:for="{{loopArray50}}" wx:for-item="item" wx:for-index="_anonIdx2" compid="{{item.$compid__388}}"></at-list-item>
+            </at-list>
+        </view>
+    </view>
+</block>

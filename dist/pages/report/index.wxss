@@ -1,0 +1,13 @@
+.report__root {
+  padding-bottom: 100rpx;
+}
+.report__list {
+  padding: 24rpx;
+}
+.report__list-item {
+  margin-bottom: 24rpx;
+  font-size: 0;
+}
+.report__list-item .img {
+  width: 100%;
+}

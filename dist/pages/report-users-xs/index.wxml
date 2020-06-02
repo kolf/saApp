@@ -1,0 +1,96 @@
+<template name="renderMain">
+    <block>
+        <block wx:if="{{isFetching}}">
+            <at-activity-indicator compid="{{$compid__390}}"></at-activity-indicator>
+        </block>
+        <block wx:elif="{{showType === 0}}">
+            <view class="report__main">
+                <tendency-chart compid="{{$compid__391}}"></tendency-chart>
+                <view class="at-list  text-center">
+                    <view class="at-row at-list__item table-head text-center bg-gray">
+                        <view class="at-col at-col-2">业务项</view>
+                        <view class="at-col at-col-3">再购新车</view>
+                        <view class="at-col at-col-3">置换新车</view>
+                        <view class="at-col at-col-2">转介绍</view>
+                        <view class="at-col at-col-2">总台数</view>
+                    </view>
+                    <view class="table-body">
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">接单台数</view>
+                            <view class="at-col at-col-3">{{data.Total.ZGXCTotal}}</view>
+                            <view class="at-col at-col-3">{{data.Total.ZHXCTotal}}</view>
+                            <view class="at-col at-col-2">{{data.Total.ZJSTotal}}</view>
+                            <view class="at-col at-col-2">{{data.Total.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">A卡台数</view>
+                            <view class="at-col at-col-3">{{data.ACNum.ZGXCTotal}}</view>
+                            <view class="at-col at-col-3">{{data.ACNum.ZHXCTotal}}</view>
+                            <view class="at-col at-col-2">{{data.ACNum.ZJSTotal}}</view>
+                            <view class="at-col at-col-2">{{data.ACNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">成交台数</view>
+                            <view class="at-col at-col-3">{{data.CJNum.ZGXCTotal}}</view>
+                            <view class="at-col at-col-3">{{data.CJNum.ZHXCTotal}}</view>
+                            <view class="at-col at-col-2">{{data.CJNum.ZJSTotal}}</view>
+                            <view class="at-col at-col-2">{{data.CJNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">成交率</view>
+                            <view class="at-col at-col-3">{{data.CJProportion.ZGXCTotal}}%</view>
+                            <view class="at-col at-col-3">{{data.CJProportion.ZHXCTotal}}%</view>
+                            <view class="at-col at-col-2">{{data.CJProportion.ZJSTotal}}%</view>
+                            <view class="at-col at-col-2">{{data.CJProportion.total}}%</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">超时台数</view>
+                            <view class="at-col at-col-3">{{data.CSNum.ZGXCTotal}}</view>
+                            <view class="at-col at-col-3">{{data.CSNum.ZHXCTotal}}</view>
+                            <view class="at-col at-col-2">{{data.CSNum.ZJSTotal}}</view>
+                            <view class="at-col at-col-2">{{data.CSNum.total}}</view>
+                        </view>
+                        <view class="at-row at-list__item">
+                            <view class="at-col at-col-2">超时率</view>
+                            <view class="at-col at-col-3">{{data.CSProportion.ZGXCTotal}}%</view>
+                            <view class="at-col at-col-3">{{data.CSProportion.ZHXCTotal}}%</view>
+                            <view class="at-col at-col-2">{{data.CSProportion.ZJSTotal}}%</view>
+                            <view class="at-col at-col-2">{{data.CSProportion.total}}%</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:elif="{{showType === 1}}">
+            <view class="report__main">
+                <statistical-chart compid="{{$compid__392}}"></statistical-chart>
+                <view class="at-list  text-center">
+                    <view class="at-row at-list__item table-head text-center bg-gray">
+                        <view class="at-col at-col-4">日期</view>
+                        <view class="at-col at-col-4">A卡台数</view>
+                        <view class="at-col at-col-4">成交台数</view>
+                    </view>
+                    <view class="table-body">
+                        <view class="at-row at-list__item" wx:for="{{data}}" wx:for-item="d" wx:for-index="_anonIdx2">
+                            <view class="at-col at-col-4">{{d.date}}</view>
+                            <view class="at-col at-col-4">{{d.ACTotal}}</view>
+                            <view class="at-col at-col-4">{{d.CJTotal}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </block>
+</template>
+<block wx:if="{{$taroCompReady}}">
+    <view class="page report__root">
+        <at-tabs compid="{{$compid__393}}"></at-tabs>
+        <view class="report__control-wrap">
+            <at-segmented-control compid="{{$compid__394}}"></at-segmented-control>
+        </view>
+        <view class="border-bottom report__pager">
+            <pager compid="{{$compid__395}}"></pager>
+        </view>
+        <template is="renderMain" data="{{...anonymousState__temp3}}"></template>
+    </view>
+</block>

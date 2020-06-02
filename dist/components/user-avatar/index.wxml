@@ -1,0 +1,9 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="user-avatar__root">
+        <at-avatar compid="{{$compid__463}}"></at-avatar>
+        <view class="user-avatar__content">
+            <view class="user-avatar__name">{{name}}</view>
+            <view class="user-avatar__desc">{{desc}}</view>
+        </view>
+    </view>
+</block>

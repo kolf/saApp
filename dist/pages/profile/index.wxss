@@ -1,0 +1,10 @@
+.login__title {
+  text-align: center;
+  padding: 120rpx 24rpx;
+}
+.login__register-button {
+  border: none;
+}
+.at-input__children::after {
+  border-left-width: 0;
+}

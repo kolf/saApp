@@ -1,0 +1,19 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page report__root bg-gray">
+        <view class="report__list">
+            <view class="report__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="report-success">
+                <image src="{{d1Url}}" class="img" mode="widthFix"></image>
+            </view>
+            <view class="report__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="report-error">
+                <image src="{{d4Url}}" class="img" mode="widthFix"></image>
+            </view>
+            <view class="report__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="report-top10">
+                <image src="{{d2Url}}" class="img" mode="widthFix"></image>
+            </view>
+            <view class="report__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="all-employees">
+                <image src="{{d3Url}}" class="img" mode="widthFix"></image>
+            </view>
+        </view>
+        <tab-bar compid="{{$compid__458}}"></tab-bar>
+    </view>
+</block>

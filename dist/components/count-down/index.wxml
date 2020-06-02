@@ -1,0 +1,2 @@
+<block wx:if="{{$taroCompReady}}"><text bindtap="handleClick">{{count <= 0 ? "获取验证码" : '验证码获取中(' + count + ')'}}</text>
+</block>

@@ -1,0 +1,14 @@
+.question-post {
+  &__root {
+    padding-bottom: 24px;
+    .at-modal__content {
+      font-size: 32px;
+    }
+  }
+}
+
+.at-textarea__box {
+  .at-textarea {
+    border: none;
+  }
+}

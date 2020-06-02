@@ -1,0 +1,17 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page">
+        <view class="content">
+            <at-form>
+                <at-input compid="{{$compid__248}}">
+                    <count-down compid="{{$compid__249}}"></count-down>
+                </at-input>
+                <at-input compid="{{$compid__250}}"></at-input>
+                <at-input compid="{{$compid__251}}"></at-input>
+                <at-input compid="{{$compid__252}}"></at-input>
+            </at-form>
+            <view class="submit-button-wrap">
+                <at-button compid="{{$compid__253}}">注册开通</at-button>
+            </view>
+        </view>
+    </view>
+</block>

@@ -1,0 +1,31 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page bg-gray question-post__root">
+        <at-list compid="{{$compid__447}}">
+            <list-item compid="{{$compid__448}}">
+                <view slot="extra">
+                    <picker mode="multiSelector" range="{{dataList}}" bindchange="handleSelect" bindcolumnchange="handleColumnChange">
+                        <view>{{selectedIndex.length === 0 ? "请选择" : resDataList[selectedIndex[0]].sub[selectedIndex[1]].paramName}}</view>
+                    </picker>
+                </view>
+            </list-item>
+            <view class="at-textarea__box">
+                <at-textarea compid="{{$compid__449}}"></at-textarea>
+            </view>
+        </at-list>
+        <view class="submit-button-wrap">
+            <view class="submit-button">
+                <at-button compid="{{$compid__450}}">提交</at-button>
+            </view>
+        </view>
+        <at-modal compid="{{$compid__451}}">
+            <at-modal-header>提示</at-modal-header>
+            <at-modal-content compid="{{$compid__452}}">
+                <view>稍后客服人员会在24小时内与您联系</view>
+                <view>请保持电话畅通</view>
+            </at-modal-content>
+            <at-modal-action>
+                <button bindtap="hideModal">确定</button>
+            </at-modal-action>
+        </at-modal>
+    </view>
+</block>

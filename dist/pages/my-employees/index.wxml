@@ -1,0 +1,22 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page my-employees__root">
+        <block wx:if="{{!isError}}">
+            <view class="my-employees__main">
+                <at-indexes compid="{{$compid__315}}">
+                    <at-search-bar compid="{{$compid__316}}"></at-search-bar>
+                    <at-list>
+                        <at-list-item compid="{{$compid__317}}"></at-list-item>
+                    </at-list>
+                    <block wx:if="{{listData.length === 0}}">
+                        <empty-data compid="{{$compid__318}}">系统还没有添加过员工 我们一起努力吧</empty-data>
+                    </block>
+                </at-indexes>
+                <view class="my-employees__list-total text-center">共{{total}}位员工</view>
+            </view>
+        </block>
+        <block wx:if="{{isError}}">
+            <network-error compid="{{$compid__319}}"></network-error>
+        </block>
+        <tab-bar compid="{{$compid__320}}"></tab-bar>
+    </view>
+</block>

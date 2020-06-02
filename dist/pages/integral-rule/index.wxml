@@ -1,0 +1,12 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{isFetching}}">
+        <view class="page bg-gray">
+            <at-activity-indicator compid="{{$compid__444}}"></at-activity-indicator>
+        </view>
+    </block>
+    <view class="page bg-gray" wx:else>
+        <block wx:if="{{imgUrl}}">
+            <image src="{{imgUrl}}" mode="widthFix" style="width:100%"></image>
+        </block>
+    </view>
+</block>

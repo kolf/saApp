@@ -1,0 +1,8 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!tabKeys}}">
+        <view></view>
+    </block>
+    <block wx:else>
+        <at-tab-bar compid="{{$compid__457}}"></at-tab-bar>
+    </block>
+</block>

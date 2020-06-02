@@ -1,0 +1,3 @@
+.report__root {
+  padding-bottom: 48rpx;
+}

@@ -1,0 +1,57 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page report__root">
+        <at-tabs compid="{{$compid__373}}"></at-tabs>
+        <view class="report__control-wrap">
+            <at-segmented-control compid="{{$compid__374}}"></at-segmented-control>
+        </view>
+        <view style="width:100%;height:320px">
+            <f-2-canvas compid="{{$compid__375}}"></f-2-canvas>
+        </view>
+        <view class="at-list  text-center">
+            <view class="at-row at-list__item table-head text-center">
+                <view class="at-col at-col-3">业务项</view>
+                <view class="at-col at-col-3">销售部</view>
+                <view class="at-col at-col-3">二手车部</view>
+                <view class="at-col at-col-3">总台数</view>
+            </view>
+            <view class="table-body">
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">接单台数</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">接单台数</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">超时台数</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">超时率</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">超时成交</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+                <view class="at-row at-list__item">
+                    <view class="at-col at-col-3">超时未成交</view>
+                    <view class="at-col at-col-3">15</view>
+                    <view class="at-col at-col-3">10</view>
+                    <view class="at-col at-col-3">45</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>

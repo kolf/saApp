@@ -1,0 +1,10 @@
+.report__root {
+  padding-bottom: 48rpx;
+}
+.report__control-wrap {
+  padding: 24rpx 48rpx;
+  background: #f5f5f5;
+}
+.report__pager::after {
+  right: 24rpx;
+}

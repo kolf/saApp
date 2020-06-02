@@ -1,0 +1,10 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page">
+        <at-form>
+            <at-input compid="{{$compid__246}}"></at-input>
+        </at-form>
+        <view class="submit-button-wrap">
+            <at-button compid="{{$compid__247}}">确定</at-button>
+        </view>
+    </view>
+</block>

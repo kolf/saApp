@@ -1,0 +1,5 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page rule-details__root">
+        <image src="{{indexUrl}}" mode="widthFix" style="width:100%"></image>
+    </view>
+</block>

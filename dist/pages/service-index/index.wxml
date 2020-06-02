@@ -1,0 +1,12 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page qa-index__root bg-gray">
+        <view class="qa-index__list">
+            <view class="qa-index__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="my-help">
+                <image src="{{qaUrl}}" class="img" mode="widthFix"></image>
+            </view>
+            <view class="qa-index__list-item" bindtap="handleClick" data-e-tap-so="this" data-e-tap-a-a="question-list">
+                <image src="{{postUrl}}" class="img" mode="widthFix"></image>
+            </view>
+        </view>
+    </view>
+</block>

@@ -1,0 +1,173 @@
+@import "./assets/css/theme.scss";
+@import "~taro-ui/dist/style/index.scss";
+
+view,
+textarea {
+  box-sizing: border-box;
+}
+
+.at-form {
+  padding-left: $spacing-v-lg;
+  padding-right: $spacing-v-lg;
+  &::after {
+    border-width: 0;
+  }
+}
+
+.at-input {
+  margin-left: 0;
+  &__input {
+    padding-right: 0;
+  }
+}
+
+.at-checkbox__extraText {
+  color: #666;
+}
+
+.at-list {
+  &__item {
+    &::after {
+      right: $spacing-v-lg;
+    }
+  }
+  &::after {
+    display: none;
+  }
+}
+
+.at-tab-bar {
+  padding-top: 8px;
+  &__item {
+    padding-bottom: 12px;
+  }
+}
+
+.at-fab-fixed {
+  position: fixed;
+  bottom: 64px;
+  right: 48px;
+}
+
+.item-content__isRequire {
+  color: #ff4949;
+}
+.gap {
+  &-top {
+    margin-top: 24px;
+  }
+}
+
+.border-bottom {
+  @include hairline-bottom-relative($left: $spacing-h-lg);
+}
+
+.border-top {
+  @include hairline-top-relative($left: $spacing-h-lg);
+}
+.text {
+  &-primary {
+    color: $color-brand;
+  }
+  &-error {
+    color: #ff4949;
+  }
+  &-success {
+    color: #52c41a;
+  }
+  &-warning {
+    color: #faad14;
+  }
+  &-small {
+    font-size: $font-size-sm;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-center {
+    text-align: center;
+  }
+}
+
+.input__placeholder {
+  color: #999;
+}
+
+.item-thumb {
+  margin-right: $at-list-item-horizontal-padding;
+  @include squareImg($at-list-thumb-size);
+}
+
+.bg {
+  &-gray {
+    background: #f5f5f5;
+  }
+}
+
+.badge {
+  background-color: #ff4949;
+  padding: 6px 12px;
+  border-radius: 24px;
+  line-height: 1;
+  font-size: 26px;
+  color: #fff;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.no-border {
+  border: none;
+  &::after {
+    content: initial;
+    border: none;
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  color: #333;
+  font-size: $font-size-lg;
+  &-content {
+    flex: 1;
+  }
+  &-footer {
+    text-align: center;
+  }
+}
+
+.textarea {
+  background: #f5f5f5;
+  border: none;
+  padding: 18px;
+}
+
+.list {
+  padding: $spacing-v-lg;
+}
+
+.submit-button-wrap {
+  padding: $spacing-v-lg * 3 $spacing-v-lg;
+  & > .submit-button {
+    margin-bottom: $spacing-v-lg;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.table {
+  &-head {
+    font-size: 26px;
+  }
+  &-body > .at-list__item {
+    font-size: 26px;
+  }
+}
+
+.sub-button {
+  display: inline-block;
+  margin-left: 24px;
+}

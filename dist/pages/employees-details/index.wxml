@@ -1,0 +1,29 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!data}}">
+        <view></view>
+    </block>
+    <view class="page bg-gray" wx:else>
+        <view class="owner-details__body">
+            <view class="owner-details__heading">
+                <image class="img" src="{{data.avatarUrl}}" mode="aspectFill" style="width:120px;height:120px" bindtap="openAvater" data-e-tap-so="this" data-e-tap-a-a="{{data.avatarUrl}}"></image>
+            </view>
+            <at-list>
+                <at-list-item compid="{{$compid__364}}"></at-list-item>
+                <at-list-item compid="{{$compid__365}}"></at-list-item>
+                <at-list-item compid="{{$compid__366}}"></at-list-item>
+                <at-list-item compid="{{$compid__367}}"></at-list-item>
+                <at-list-item compid="{{$compid__368}}"></at-list-item>
+                <at-list-item compid="{{$compid__369}}"></at-list-item>
+                <at-list-item compid="{{$compid__370}}"></at-list-item>
+            </at-list>
+        </view>
+        <view class="submit-button-wrap">
+            <block wx:if="{{isNew === '1'}}">
+                <at-button compid="{{$compid__371}}">系统授权通过添加到员工列表</at-button>
+            </block>
+            <block wx:if="{{isNew === '1'}}">
+                <at-button compid="{{$compid__372}}">退回重新填写</at-button>
+            </block>
+        </view>
+    </view>
+</block>

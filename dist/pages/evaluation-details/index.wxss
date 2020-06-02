@@ -1,0 +1,14 @@
+.eva__root {
+  padding: 0 24rpx 24rpx;
+}
+.eva__heading {
+  padding: 48rpx 0 24rpx;
+}
+.eva__panel {
+  text-align: center;
+  padding: 36rpx;
+  background: #f8f8f8;
+}
+.eva__panel-title {
+  padding-bottom: 12rpx;
+}

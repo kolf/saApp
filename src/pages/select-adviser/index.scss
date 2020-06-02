@@ -1,0 +1,15 @@
+.adviser {
+  &__root {
+  }
+  &__search-bar {
+    padding: 16px 24px;
+  }
+  &__list {
+    .at-checkbox__option-cnt {
+      align-items: center;
+    }
+    .at-checkbox__title {
+      flex: 1;
+    }
+  }
+}

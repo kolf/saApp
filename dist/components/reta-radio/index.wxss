@@ -1,0 +1,9 @@
+.reta-radio__item {
+  display: inline-block;
+  text-align: center;
+  width: 33%;
+  padding: 0 24rpx;
+}
+.reta-radio__item.active {
+  color: #569b48;
+}

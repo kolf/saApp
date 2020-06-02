@@ -1,0 +1,17 @@
+.order__list {
+  margin-top: 24rpx;
+}
+.order__list-item {
+  margin-bottom: 24rpx;
+}
+.order__list-item .at-row {
+  padding: 6rpx 0;
+}
+.order__list-item .tag-list {
+  text-align: right;
+  padding-top: 12rpx;
+  margin: 0 -6rpx;
+}
+.order__list-item .tag-list .at-tag {
+  margin: 0 6rpx;
+}

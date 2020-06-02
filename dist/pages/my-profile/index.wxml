@@ -1,0 +1,32 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page bg-gray my-profile__root">
+        <view class="content">
+            <at-list compid="{{$compid__288}}">
+                <at-list-item compid="{{$compid__289}}"></at-list-item>
+                <at-list-item compid="{{$compid__290}}"></at-list-item>
+                <at-list-item compid="{{$compid__291}}"></at-list-item>
+                <at-list-item compid="{{$compid__292}}"></at-list-item>
+            </at-list>
+            <at-list compid="{{$compid__293}}">
+                <at-list-item compid="{{$compid__294}}"></at-list-item>
+                <at-list-item compid="{{$compid__295}}"></at-list-item>
+                <at-list-item compid="{{$compid__296}}"></at-list-item>
+                <block wx:if="{{userInfo.type === 'FW'}}">
+                    <at-list-item compid="{{$compid__297}}"></at-list-item>
+                </block>
+                <at-list-item compid="{{$compid__298}}"></at-list-item>
+            </at-list>
+            <view class="submit-button-wrap">
+                <block wx:if="{{userInfo.type === 'FW'}}">
+                    <view class="submit-button">
+                        <at-button compid="{{$compid__299}}">预览名片</at-button>
+                    </view>
+                </block>
+                <view class="submit-button">
+                    <at-button compid="{{$compid__300}}">退出登录</at-button>
+                </view>
+            </view>
+        </view>
+        <tab-bar compid="{{$compid__301}}"></tab-bar>
+    </view>
+</block>

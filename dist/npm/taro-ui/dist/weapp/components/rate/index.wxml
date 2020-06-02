@@ -1,0 +1,8 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="{{anonymousState__temp}}" style="{{anonymousState__temp2}}">
+        <view class="{{cls.$original}}" wx:key="$loopState__temp4" style="{{cls.$loopState__temp6}}" bindtap="handleClick" wx:for="{{loopArray75}}" wx:for-item="cls" wx:for-index="i" data-e-tap-so="this" data-e-tap-a-a="{{i + 1}}"><text class="at-icon at-icon-star-2" style="{{cls.$loopState__temp8}}"></text>
+            <view class="at-rate__left"><text class="at-icon at-icon-star-2" style="{{cls.$loopState__temp10}}"></text>
+            </view>
+        </view>
+    </view>
+</block>

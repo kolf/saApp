@@ -1,0 +1,15 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page owner__root">
+        <at-search-bar compid="{{$compid__356}}"></at-search-bar>
+        <block>
+            <block wx:if="{{listData.length > 0}}">
+                <at-list>
+                    <at-list-item wx:key="key" wx:for="{{loopArray45}}" wx:for-item="item" wx:for-index="_anonIdx2" compid="{{item.$compid__355}}"></at-list-item>
+                </at-list>
+            </block>
+            <block wx:else>
+                <empty-data compid="{{$compid__357}}">暂时还没有新员工 我们一起努力吧</empty-data>
+            </block>
+        </block>
+    </view>
+</block>

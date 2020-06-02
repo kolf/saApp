@@ -1,0 +1,30 @@
+<block wx:if="{{$taroCompReady}}">
+    <block wx:if="{{!userInfo}}">
+        <view></view>
+    </block>
+    <view class="page bg-gray profile-card__root" wx:else>
+        <view class="profile-card__content">
+            <view class="profile-card__title">您好，我是您的{{userInfo.positionName}}</view>
+            <view class="profile-card__avatar">
+                <at-avatar compid="{{$compid__314}}"></at-avatar>
+            </view>
+            <view class="profile-card__name">{{userInfo.realName}}</view>
+            <view class="at-row profile-card__text">
+                <view class="at-col at-col-4">职 位：</view>
+                <view class="at-col">{{userInfo.positionName}}</view>
+            </view>
+            <view class="at-row profile-card__text">
+                <view class="at-col at-col-4">服务经验：</view>
+                <view class="at-col">{{userInfo.workYear || "0"}}年</view>
+            </view>
+            <view class="at-row profile-card__text">
+                <view class="at-col at-col-4">联系方式：</view>
+                <view class="at-col">{{userInfo.phone}}</view>
+            </view>
+            <view class="at-row profile-card__text">
+                <view class="at-col at-col-4">门店名称：</view>
+                <view class="at-col at-col--wrap">{{userInfo.disName}}</view>
+            </view>
+        </view>
+    </view>
+</block>

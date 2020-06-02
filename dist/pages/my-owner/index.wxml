@@ -1,0 +1,24 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="page owner__root">
+        <block wx:if="{{!isError}}">
+            <view class="owner__main">
+                <at-indexes compid="{{$compid__267}}">
+                    <at-search-bar compid="{{$compid__268}}"></at-search-bar>
+                    <block wx:if="{{type === 'FW'}}">
+                        <at-list compid="{{$compid__269}}">
+                            <at-list-item compid="{{$compid__270}}"></at-list-item>
+                        </at-list>
+                    </block>
+                    <block wx:if="{{listData.length === 0}}">
+                        <empty-data compid="{{$compid__271}}">你还没有添加过客户 我们一起努力吧</empty-data>
+                    </block>
+                </at-indexes>
+                <view class="owner__list-total text-center">共{{total}}位客户</view>
+            </view>
+        </block>
+        <block wx:if="{{isError}}">
+            <network-error compid="{{$compid__272}}"></network-error>
+        </block>
+        <tab-bar compid="{{$compid__273}}"></tab-bar>
+    </view>
+</block>

@@ -1,0 +1,17 @@
+.owner__root {
+  background: #f7f7f7;
+  padding-bottom: 160rpx;
+}
+.owner__search-bar {
+  padding: 16rpx 24rpx;
+}
+.owner__list-total {
+  padding: 36rpx 0;
+}
+.owner__item {
+  display: flex;
+  align-items: center;
+}
+.owner__item > .at-avatar {
+  margin-right: 12rpx;
+}

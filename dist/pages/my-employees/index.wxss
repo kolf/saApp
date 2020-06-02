@@ -1,0 +1,17 @@
+.my-employees__root {
+  background: #f7f7f7;
+  padding-bottom: 160rpx;
+}
+.my-employees__search-bar {
+  padding: 16rpx 24rpx;
+}
+.my-employees__list-total {
+  padding: 36rpx 0;
+}
+.my-employees__item {
+  display: flex;
+  align-items: center;
+}
+.my-employees__item > .at-avatar {
+  margin-right: 12rpx;
+}

@@ -1,0 +1,29 @@
+.question-list__root {
+  padding-bottom: 140rpx;
+}
+.question-list__item {
+  border: none;
+  margin-top: 24rpx;
+  border-radius: 0;
+}
+.question-list__item-extra {
+  max-width: 50%;
+}
+.question-list__item-title {
+  padding-bottom: 16rpx;
+}
+.question-list__item-desc {
+  color: #999;
+  font-size: 30rpx;
+}
+.question-list__item-date {
+  color: #999;
+}
+.footer-fixed__buttons {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 24rpx;
+  background-color: rgba(255, 255, 255, 0.4);
+}
