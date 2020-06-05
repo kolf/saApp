@@ -1,0 +1,22 @@
+.swiper-dot {
+  &__root {
+    text-align: center;
+    height: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 0;
+    overflow: hidden;
+  }
+  &__item {
+    display: inline-block;
+    height: 12px;
+    width: 24px;
+    border-radius: 6px;
+    background-color: #dae6fd;
+    margin: 0 6px;
+    &.active {
+      background-color: #436be8;
+      width: 48px;
+    }
+  }
+}

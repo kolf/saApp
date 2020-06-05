@@ -1,0 +1,19 @@
+@import "../../assets/css/theme.scss";
+
+.float-layout-heading__root {
+  background-color: #fff;
+  // @include hairline-bottom-relative($left: 0);
+  display: flex;
+  .btn {
+    flex: 1;
+    & > text {
+      display: inline-block;
+      padding: 32px;
+      font-size: 32px;
+    }
+  }
+  .ok-btn {
+    text-align: right;
+    color: $color-brand;
+  }
+}

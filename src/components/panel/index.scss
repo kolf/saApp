@@ -1,0 +1,44 @@
+@import "~taro-ui/dist/style/components/flex.scss";
+
+$unit: 12px;
+
+.panel {
+  &__root {
+    background-color: #fff;
+  }
+  &__heading {
+    padding: 36px 36px 12px;
+    display: flex;
+    &-title {
+      font-weight: 400;
+      flex: 1;
+      font-size: 34px;
+      color: #000;
+    }
+    &-extra {
+      max-width: 160px;
+    }
+  }
+  &__body {
+    padding: 36px 36px 0;
+    &-title {
+      padding-bottom: 24px !important;
+      font-weight: 400;
+      color: #000 !important;
+      font-size: 32px !important;
+    }
+    & > view {
+      padding: 8px 0;
+      color: #737373;
+      font-size: 30px;
+    }
+  }
+  &__footer {
+    padding: 12px 36px 36px;
+    text-align: right;
+  }
+}
+.btn.at-button--small {
+  display: inline-block;
+  border-radius: 2px;
+}

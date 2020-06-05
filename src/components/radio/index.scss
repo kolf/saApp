@@ -1,0 +1,25 @@
+@import "~taro-ui/dist/style/components/radio.scss";
+
+.radio {
+  &__root.at-radio {
+    .at-radio__option {
+      padding-left: 36px;
+    }
+    .at-radio__option-wrap {
+      padding: 32px 36px 32px 0;
+    }
+    .at-radio__title {
+      font-size: 30px;
+      color: #737373;
+    }
+  }
+  &__icon {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAMAAAANmfvwAAAAPFBMVEUAAABCb+pCbutCbulCbulCbeo7b+5CbulBbulCbupDbulCbupBb+tDb+lBce0+cOxFbOtJbf9BbuhCbum4OW5yAAAAE3RSTlMAo2P49bsP6+rMjXRxRSspGgdPcTC2fQAAAMVJREFUOMuNlI0KhCAQhNfV/DnLtHn/d72ygzPK1gER4WMcdVdqlFkFp7ULijM9aZlwSOs6TcsNWHfAKE6FqCRWZofWK8EGPtr/2kYPwy3xAVQFGkgBnwsx001zwzCw0YM2gH9JTetx9TFn5gmKOlKY6n3A2x5iPZZqEqmreNhkGNtHrEEmPpP003AdfVWHgPSGJARyKG9IgSOt6VVajyDyRiNx5UOPXJ38APIzDhWDXFJyYcrlLTeJ3Gpyw8ptP/55yF/QF2eFDKVpnfkJAAAAAElFTkSuQmCC")
+      96% 50% no-repeat;
+    background-size: 36px;
+    visibility: unset;
+    &.active {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAMAAAANmfvwAAAAWlBMVEUAAABCbupCbulCb+pCb+tCbupCb+pBbupCbulBbelDbupFcu5Db+pCb+lDbelCb+pCb+pFb+5DbutCb+pCcOo+bOhCb+lCbulCbepDb+tAbuhAYN9Af/9CbunhrIPFAAAAHXRSTlMA+/lgWbKf8uvLPBW0in6XkSBrVEshfPDNUSwIBFChgJgAAADlSURBVDjLldTbDoMgDAbgAoIgzM1Nd+77v+YyBIYiNvtvNOFTSKFAFiuU0Zxro4SFrXSSYQqTXQEGh6vIaSmaFou0TS563MyVErlpsJow19DWSTt44nAn0tcDd/Otj6yMsfQby7bF4T3O0oKoCAC4+TcBqirO6KPAEAIN6IoQcY0aeKjR/SdOuUAeCHvChRUiED0/XwANC8K/pui4XBU/Pa4EGlCYGS/ilHEglc4PnkuBItuAE/g8+EIwG7cxmZGXp6HLSlYK7FZHyh3XwtEHc6KPN9kkPdlIPd2wVNu76Y/Lg76CPtLYWDI0RCo/AAAAAElFTkSuQmCC");
+    }
+  }
+}

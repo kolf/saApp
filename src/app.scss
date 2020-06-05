@@ -1,0 +1,163 @@
+@import "./assets/css/theme.scss";
+@import "~taro-ui/dist/style/index.scss";
+
+
+view,
+textarea {
+  box-sizing: border-box;
+}
+
+.gap {
+  &-top {
+    margin-top: 24px;
+  }
+}
+
+.pad {
+  padding: 24px;
+}
+.border-bottom {
+  @include hairline-bottom-relative($left: 0);
+}
+
+.border-top {
+  @include hairline-top-relative($left: 0);
+}
+.text {
+  &-primary {
+    color: $color-brand;
+  }
+  &-error {
+    color: #ff4949;
+  }
+  &-success {
+    color: #52c41a;
+  }
+  &-warning {
+    color: #faad14;
+  }
+  &-small {
+    font-size: $font-size-sm;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-center {
+    text-align: center;
+  }
+  &-normal {
+    color: #333333;
+  }
+}
+
+.bg {
+  &-gray {
+    background: #f5f5f5;
+  }
+}
+
+.no-border {
+  border: none;
+  &::after {
+    content: initial;
+    border: none;
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  color: #333;
+  font-size: $font-size-lg;
+  overflow: hidden;
+  &-content {
+    flex: 1;
+  }
+  &-footer {
+    text-align: center;
+  }
+}
+
+.footer {
+  &-btn {
+    &-group {
+      padding: 5 * 12px 3 * 12px;
+      &__fixed {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 3 * 12px 2 * 12px;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}
+.form {
+  &-title {
+    padding: 36px;
+    font-weight: 400;
+    color: #000;
+  }
+}
+
+.box-shadow {
+  border-radius: 16px;
+  box-shadow: 0 0 48px rgba(100, 100, 100, 0.1);
+}
+
+.btn-primary {
+  background-image: linear-gradient(90deg, #4268e6 0%, #498efa 100%);
+  box-shadow: 0 12px 64px 0 rgba(51, 105, 231, 0.6);
+  border: none;
+  border-radius: 10px;
+  &.at-button--disabled {
+    background-image: linear-gradient(90deg, #333333 0%, #666666 100%);
+    box-shadow: 0 12px 64px 0 rgba(0, 0, 0, 0.4);
+  }
+}
+// taro
+.btn-lg.at-button {
+  line-height: 108px;
+  height: 110px;
+}
+
+.at-button.at-button--small.at-button--disabled.at-button--secondary {
+  border-color: #979797;
+  color: #999999;
+}
+
+.list-item__has-avatar.list__item {
+  padding: 24px 36px;
+}
+
+.input.at-input {
+  padding: 33px 36px;
+  margin-left: 0;
+}
+
+.at-float-layout.float-layout {
+  &.no-pad {
+    .layout-body {
+      padding: 0;
+    }
+  }
+
+  .layout-body {
+    padding: 24px;
+  }
+}
+
+.at-modal__content {
+  .img {
+    max-width: 100%;
+  }
+  &.modal__body__unpad {
+    padding: 36px 0 0;
+  }
+  &.modal__body {
+    padding: 36px;
+  }
+}

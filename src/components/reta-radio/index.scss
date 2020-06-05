@@ -1,0 +1,17 @@
+.reta-radio {
+  &__item {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+    padding: 0 24px;
+    font-size: 28px;
+    opacity: 0.4;
+    .img {
+      width: 72px;
+    }
+    &.active {
+      color: #436be8;
+      opacity: 1;
+    }
+  }
+}
