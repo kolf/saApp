@@ -46,6 +46,7 @@
     "nerv-devtools": "^1.5.5",
     "nervjs": "^1.5.5",
     "regenerator-runtime": "0.11.1",
+    "taro-f2": "^2.2.0",
     "taro-ui": "^2.3.4"
   },
   "devDependencies": {

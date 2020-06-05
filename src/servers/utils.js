@@ -16,7 +16,7 @@ export const pageToLogin = () => {
   let path = getCurrentPageUrl();
   if (!path.includes("login")) {
     Taro.redirectTo({
-      url: "/pages/login-index/index"
+      url: "/pages/login/index"
     });
   }
 };

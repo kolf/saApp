@@ -10311,6 +10311,13 @@ tar@^2.0.0:
     fstream "^1.0.12"
     inherits "2"
 
+taro-f2@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/taro-f2/download/taro-f2-2.2.0.tgz#87998163cfef63ae486cd5ff4ac296933454c350"
+  integrity sha1-h5mBY8/vY65IbNX/SsKWkzRUw1A=
+  dependencies:
+    wolfy87-eventemitter "^5.2.5"
+
 taro-ui@^2.3.4:
   version "2.3.4"
   resolved "https://registry.npm.taobao.org/taro-ui/download/taro-ui-2.3.4.tgz#a7a2cdd67b2b4a49d10c351d89def4d28b9bb192"
@@ -11184,6 +11191,11 @@ wide-align@^1.1.0:
   integrity sha1-rgdOa9wMFKQx6ATmJFScYzsABFc=
   dependencies:
     string-width "^1.0.2 || 2"
+
+wolfy87-eventemitter@^5.2.5:
+  version "5.2.9"
+  resolved "https://registry.npm.taobao.org/wolfy87-eventemitter/download/wolfy87-eventemitter-5.2.9.tgz#e879f770b30fbb6512a8afbb330c388591099c2a"
+  integrity sha1-6Hn3cLMPu2USqK+7Mww4hZEJnCo=
 
 word-wrap@~1.2.3:
   version "1.2.3"

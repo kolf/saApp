@@ -26,19 +26,14 @@ class httpRequest {
     return Taro.request(option);
   }
 
-  get(url, query = "") {
-    let options = { url, data: query };
+  get(url, data = "") {
+    let options = { url, data };
     return this.baseOptions(options);
   }
 
-  post(url, query, options) {
-    return this.baseOptions(
-      {
-        url: query ? `${url}?${stringifyUrl(query)}` : url,
-        ...options
-      },
-      "POST"
-    );
+  post(url, data) {
+    let options = { url: `${url}?${stringifyUrl(data)}` };
+    return this.baseOptions(options, "POST");
   }
 }
 
