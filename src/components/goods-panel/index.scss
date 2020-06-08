@@ -1,0 +1,25 @@
+@import "~taro-ui/dist/style/components/flex.scss";
+.goods-panel {
+  &__root {
+    .img {
+      height: 23vw;
+      width: 100%;
+      border-radius: 10px;
+      background-color: #f6f6f6;
+    }
+    .text-right {
+      text-align: right;
+    }
+  }
+  &__left {
+  }
+  &__right {
+    padding-left: 24px;
+  }
+  &__text {
+    color: #999;
+  }
+  &__name{
+    height: 12px*7;
+  }
+}

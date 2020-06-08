@@ -1,18 +1,7 @@
 import Taro from "@tarojs/taro";
 import { pageToLogin } from "./utils";
 import { HTTP_STATUS } from "./config";
-import message from "../utils/message";
-
-function showError(errorMessage, show = true) {
-  show &&
-    message({
-      title: errorMessage,
-      icon: "none",
-      status: "error"
-    });
-
-  return Promise.reject(errorMessage);
-}
+import modal from "../utils/modal";
 
 const customInterceptor = chain => {
   const requestParams = chain.requestParams;
@@ -35,7 +24,13 @@ const customInterceptor = chain => {
         pageToLogin();
         return Promise.reject("登录过期");
       } else if (res.data.code !== 200) {
-        showError(res.data.message, showToast);
+        const errorMessage = res.data.message || "服务器出错，请稍候再试";
+        if (showToast) {
+          modal({
+            content: errorMessage
+          });
+        }
+        return Promise.reject(errorMessage);
       }
       return res.data;
     }

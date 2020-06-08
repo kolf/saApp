@@ -1,0 +1,23 @@
+.rule-details {
+  &__root {
+  }
+  &__heading {
+    margin-top: 48px;
+    // font-weight: 700;
+  }
+
+  &__service {
+    padding: 48px;
+    text-align: center;
+  }
+  &__p {
+    margin-top: 0;
+  }
+}
+.contact-button {
+  border: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 12px;
+  color: #2254f5;
+}

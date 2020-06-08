@@ -1,0 +1,27 @@
+.gift-orders {
+  &__root {
+    .border-bottom::after{
+      left: 0;
+    }
+    .iconfont{
+      height: 12px;
+      line-height: 12px;
+      position: relative;
+      top:4px
+    }
+  }
+  &__list {
+  }
+  &__item {
+    padding: 36px;
+  }
+  &__tab {
+    &-list {
+      text-align: center;
+    }
+    &-item {
+      line-height: 1;
+      padding: 24px 0;
+    }
+  }
+}

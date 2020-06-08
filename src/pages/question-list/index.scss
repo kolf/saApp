@@ -1,0 +1,35 @@
+.question-list {
+  &__root {
+    padding-bottom: 140px;
+  }
+  &__item {
+    border: none;
+    margin-top: 24px;
+    border-radius: 0;
+    &-extra {
+      // font-weight: 700;
+      max-width: 50%;
+    }
+    &-title {
+      // font-weight: 700;
+      padding-bottom: 16px;
+    }
+    &-desc {
+      color: #999;
+      font-size: 30px;
+    }
+    &-date {
+      color: #999;
+    }
+  }
+}
+.footer-fixed {
+  &__buttons {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}

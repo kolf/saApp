@@ -1,0 +1,15 @@
+.gift-details {
+  &__root {
+    .border-top::before {
+      left: 0;
+    }
+    .pad {
+      padding: 36px;
+    }
+  }
+  &__input {
+    line-height: 32px;
+    min-height: 32px;
+    height: 32px;
+  }
+}

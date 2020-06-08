@@ -239,6 +239,28 @@ export const getMessageBoardList = params => {
 };
 // /api/v1/bg/iocr/getVinCodeByImg
 // /行驶证VIN码识别
-export const getVinCodeByImg = params => {
-  return http.post("/api/v1/bg/iocr/getVinCodeByImg", params);
+export const addGiftOrder = params => {
+  return http.post("/api/v1/front/fawCommodityOrder/add", params);
 };
+
+export const getGiftOrder = params => {
+  return http.get("/api/v1/front/fawCommodityOrder/detail", params);
+};
+
+export const getGiftOrderList = params => {
+  return http.get("/api/v1/front/fawCommodityOrder/list", params);
+};
+
+export const getGiftList = params => {
+  return http.get("/api/v1/front/fawCommodity/list", params);
+};
+export const getScore = params => {
+  return http.get("/api/v1/front/fawCommodityOrder/myScore", params);
+};
+
+export const getCreditStatus = params => {
+  return http.post("/api/v1/front/fawCommodity/creditStatus", params);
+};
+
+// api/v1/front/fawCommodityOrder/myScore
+// /api/v1/front/fawCommodity/list

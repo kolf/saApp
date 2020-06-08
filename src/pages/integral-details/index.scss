@@ -1,0 +1,15 @@
+.integral-details {
+  &__root {
+    .table-head {
+      font-weight: 700;
+    }
+    .table-body {
+    }
+  }
+  &__heading {
+    padding: 24px;
+  }
+}
+.text-underline {
+  text-decoration: underline;
+}

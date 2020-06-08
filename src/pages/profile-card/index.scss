@@ -1,0 +1,30 @@
+.profile-card {
+  &__root {
+  }
+  &__content {
+    color: #999;
+    background: #fff;
+    padding: 54px 48px 96px;
+    width: 90vw;
+    margin: auto;
+    box-shadow: 2px 0 90px rgba(0, 0, 0, 0.1);
+  }
+  &__name {
+    color: #333;
+    font-size: 48px;
+    padding-bottom: 12px;
+  }
+  &__avatar {
+    padding: 56px 0;
+    text-align: center;
+    .img {
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  }
+  &__text {
+    margin-bottom: 12px;
+  }
+}

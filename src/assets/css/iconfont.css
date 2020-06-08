@@ -10,8 +10,7 @@
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+.iconfont {
   /* use !important to prevent issues with browser extensions that change ../fonts */
   font-family: "icomoon" !important;
   speak: none;
@@ -26,105 +25,105 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-car:before {
+.iconfont-car:before {
   content: "\e900";
 }
-.icon-clock:before {
+.iconfont-clock:before {
   content: "\e901";
 }
-.icon-user-love:before {
+.iconfont-user-love:before {
   content: "\e902";
 }
-.icon-users:before {
+.iconfont-users:before {
   content: "\e903";
 }
-.icon-note-error:before {
+.iconfont-note-error:before {
   content: "\e904";
 }
-.icon-faver:before {
+.iconfont-faver:before {
   content: "\e905";
 }
-.icon-link:before {
+.iconfont-link:before {
   content: "\e906";
 }
-.icon-pin:before {
+.iconfont-pin:before {
   content: "\e907";
 }
-.icon-calendar:before {
+.iconfont-calendar:before {
   content: "\e908";
 }
-.icon-statistics-2:before {
+.iconfont-statistics-2:before {
   content: "\e909";
 }
-.icon-shops:before {
+.iconfont-shops:before {
   content: "\e90a";
 }
-.icon-search-text:before {
+.iconfont-search-text:before {
   content: "\e90b";
 }
-.icon-edit-cover .path1:before {
+.iconfont-edit-cover .path1:before {
   content: "\e90c";
   color: rgb(0, 0, 0);
 }
-.icon-edit-cover .path2:before {
+.iconfont-edit-cover .path2:before {
   content: "\e90d";
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
-.icon-users-large:before {
+.iconfont-users-large:before {
   content: "\e90e";
 }
-.icon-arrow:before {
+.iconfont-arrow:before {
   content: "\e90f";
 }
-.icon-password:before {
+.iconfont-password:before {
   content: "\e910";
 }
-.icon-service:before {
+.iconfont-service:before {
   content: "\e911";
 }
-.icon-steering:before {
+.iconfont-steering:before {
   content: "\e912";
 }
-.icon-help:before {
+.iconfont-help:before {
   content: "\e913";
 }
-.icon-note:before {
+.iconfont-note:before {
   content: "\e914";
 }
-.icon-fair:before {
+.iconfont-fair:before {
   content: "\e915";
 }
-.icon-error-large:before {
+.iconfont-error-large:before {
   content: "\e916";
 }
-.icon-user:before {
+.iconfont-user:before {
   content: "\e917";
 }
-.icon-statistics-more:before {
+.iconfont-statistics-more:before {
   content: "\e918";
 }
-.icon-phone:before {
+.iconfont-phone:before {
   content: "\e91c";
 }
-.icon-note-large:before {
+.iconfont-note-large:before {
   content: "\e91d";
 }
-.icon-statistics-3:before {
+.iconfont-statistics-3:before {
   content: "\e91e";
 }
-.icon-statistics-1:before {
+.iconfont-statistics-1:before {
   content: "\e91f";
 }
-.icon-user-call:before {
+.iconfont-user-call:before {
   content: "\e920";
 }
-.icon-user-large:before {
+.iconfont-user-large:before {
   content: "\e921";
 }
-.icon-more:before {
+.iconfont-more:before {
   content: "\e922";
 }
-.icon-search:before {
+.iconfont-search:before {
   content: "\e919";
 }

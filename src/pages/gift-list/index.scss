@@ -1,0 +1,54 @@
+.gift-list {
+  &__root {
+  }
+  &__header {
+    position: relative;
+    padding: 36px;
+    background-color: #2254f5;
+    color: #fff;
+    &-total{
+      font-size: 64px;
+      margin-top: 12px;
+    }
+    &-button{
+      position: absolute;
+      bottom: 12px*4;
+      right: 36px;
+      background-color: #fff;
+      padding: 12px 24px;
+      font-size: 28px;
+      border-radius: 28px;
+      line-height: 1;
+      color: #2254f5;
+    }
+  }
+}
+
+.goods {
+  &-list {
+    padding:26px 24px;
+    &__title {
+      font-size: 34px;
+      font-weight: 700;
+      padding: 12px;
+    }
+  }
+  &-item {
+    padding: 16px;
+    .img {
+      height: 32vw;
+      max-width: 100%;
+      background-color: #f6f6f6;
+      border-radius: 12px;
+    }
+    &__pirce{
+      font-size: 28px;
+      margin-top: 12px;
+      color: #2254f5;
+    }
+  }
+}
+
+.text-underline {
+  text-decoration: underline;
+}

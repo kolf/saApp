@@ -1,0 +1,39 @@
+.owner-details {
+  &__body {
+    padding: 230px 24px 0;
+    .at-list {
+      // padding-bottom: 24px;
+    }
+  }
+  &__heading {
+    background: #fff;
+    text-align: center;
+    & > .img {
+      margin-top: -240px;
+      border-radius: 8px;
+    }
+  }
+  &__car-list {
+    padding-bottom: 6px;
+    &-item {
+      background: #f7f7f7;
+      padding: 24px;
+      margin: 24px;
+      margin-top: 0;
+      font-size: 28px;
+      color: #777;
+    }
+  }
+  &__order-list {
+    margin-top: 24px;
+    padding-bottom: 6px;
+    &-item {
+      background: #f7f7f7;
+      padding: 24px;
+      font-size: 28px;
+      color: #777;
+      margin: 24px;
+      margin-top: 0;
+    }
+  }
+}
