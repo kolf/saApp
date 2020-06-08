@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtTabs, AtTabsPane } from "taro-ui";
+import { AtList, AtListItem, AtTabs } from "taro-ui";
 import "./index.scss";
 
 import { goTo } from "../../utils";
@@ -68,6 +68,7 @@ class Index extends Component {
   };
 
   render() {
+    const { listData } = this.state;
     return (
       <View className="page all-order__root bg-gray">
         <AtTabs
@@ -76,11 +77,12 @@ class Index extends Component {
           onClick={this.handleTabClick.bind(this)}
         />
         <AtList className="all-order__list">
-          {this.state.listData.map(item => (
+          {listData.map((item, index) => (
             <AtListItem
               title={item.orderTypeName}
               extraText={item.count}
               onClick={this.handleClick.bind(this, item)}
+              className={index === listData.length - 1 ? "no-border" : ""}
               arrow="right"
             />
           ))}

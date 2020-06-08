@@ -23,13 +23,17 @@ class App extends Component {
       "pages/index/index",
       "pages/login/index",
       "pages/register/index",
-      "pages/boss-index/index",
-      "pages/owner-index/index"
+      "pages/admin-index/index",
+      "pages/owner-index/index",
+      "pages/all-order/index",
+      "pages/my-employees/index",
+      "pages/admin-profile/index",
+      "pages/service-index/index"
     ],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
-      navigationBarTitleText: "App",
+      navigationBarTitleText: "与丰同行助理",
       navigationBarTextStyle: "black"
     }
   };

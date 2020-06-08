@@ -20,7 +20,7 @@ export default class Index extends Component {
         return;
       }
       if (userInfo.type === "DZ") {
-        goTo("boss-index", null, false);
+        goTo("admin-index", null, false);
       } else {
         goTo("owner-index", null, false);
       }

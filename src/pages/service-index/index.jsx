@@ -13,8 +13,8 @@ class Index extends Component {
 
   state = {};
 
-  handleClick = path => {
-    goTo(path);
+  handleClick = name => {
+    goTo(name);
   };
 
   render() {

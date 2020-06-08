@@ -4,10 +4,22 @@
     color: #333;
     border-radius: 22px;
   }
+  &__title{
+    line-height: 12px * 7;
+    color: #626472;
+    font-weight: 700;;
+  }
   &__header {
     padding: 12px 36px;
+    position: relative;
   }
   &__body{
     padding: 0 36px 36px;
+  }
+  &__more{
+    position: absolute;
+    color:#ccc;
+    right: 30px;
+    top: 36px;
   }
 }

@@ -43,7 +43,7 @@ class Index extends Component {
         storage.set("JSESSIONID", userInfo.sessionId);
 
         if (userInfo.type === "DZ") {
-          goTo("boss-index", null, false);
+          goTo("admin-index", null, false);
           return;
         }
 
