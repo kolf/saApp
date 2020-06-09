@@ -84,7 +84,7 @@ export default class Index extends Component {
             onChange={this.handleChange}
           ></AtInput>
         </AtForm>
-        <View className="submit-button-wrap">
+        <View className="next-button-wrap">
           <AtButton type="primary" onClick={this.handleSubmit}>
             确定
           </AtButton>

@@ -239,7 +239,7 @@ class Index extends Component {
               extraText={userInfo.positionName || "无"}
             />
           </AtList>
-          <View className="submit-button-wrap">
+          <View className="next-button-wrap">
             <AtButton
               type="primary"
               onClick={this.handleSubmit}

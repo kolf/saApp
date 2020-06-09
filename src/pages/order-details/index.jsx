@@ -1466,7 +1466,7 @@ class Index extends Component {
 
         {fawOrder.processStatus === "WAIT_SA" &&
           /^FW_[134]_1/.test(userOrderStatus) && (
-            <View className="submit-button-wrap">
+            <View className="next-button-wrap">
               <AtButton
                 type="primary"
                 disabled={!orderAdviserData || confirmLoading}
@@ -1478,7 +1478,7 @@ class Index extends Component {
             </View>
           )}
         {/^ESC_1_1/g.test(userOrderStatus) && (
-          <View className="submit-button-wrap">
+          <View className="next-button-wrap">
             <AtButton
               type="primary"
               loading={confirmLoading}
@@ -1490,7 +1490,7 @@ class Index extends Component {
         )}
         {/^XS_[234]_1/g.test(userOrderStatus) &&
           fawOrder.processStatus === "WAIT_XS_C_CARD" && (
-            <View className="submit-button-wrap">
+            <View className="next-button-wrap">
               <AtButton
                 type="primary"
                 loading={confirmLoading}
@@ -1502,7 +1502,7 @@ class Index extends Component {
           )}
         {/^XS_[234]_1/g.test(userOrderStatus) &&
           fawOrder.processStatus === "WAIT_XS_A_CARD" && (
-            <View className="submit-button-wrap">
+            <View className="next-button-wrap">
               <AtButton
                 type="primary"
                 loading={confirmLoading}

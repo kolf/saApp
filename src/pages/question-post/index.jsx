@@ -130,7 +130,7 @@ class Index extends Component {
           </View>
         </AtList>
 
-        <View className="submit-button-wrap">
+        <View className="next-button-wrap">
           <View className="submit-button">
             <AtButton
               loading={this.state.confirmLoading}

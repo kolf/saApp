@@ -1,6 +1,6 @@
 .owner-details {
   &__body {
-    padding: 230px 24px 0;
+    padding: 24px;
     .at-list {
       // padding-bottom: 24px;
     }
@@ -8,9 +8,10 @@
   &__heading {
     background: #fff;
     text-align: center;
+    margin-top: 100px;
     & > .img {
-      margin-top: -240px;
-      border-radius: 8px;
+      margin-top: -90px;
+      border-radius: 100%;
     }
   }
   &__car-list {

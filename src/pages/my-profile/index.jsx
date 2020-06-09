@@ -137,7 +137,7 @@ class Index extends Component {
               className="no-border"
             />
           </AtList>
-          <View className="submit-button-wrap">
+          <View className="next-button-wrap">
             {userInfo.type === "FW" && (
               <View className="submit-button">
                 <AtButton

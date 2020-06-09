@@ -1,6 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtIndexes, AtSearchBar } from "../../npm/taro-ui/dist";
+import {
+  AtList,
+  AtListItem,
+  AtIndexes,
+  AtSearchBar
+} from "../../npm/taro-ui/dist";
 import EmptyData from "../../components/empty-data";
 import NetworkError from "../../components/network-error";
 
@@ -120,7 +125,7 @@ export default class Index extends Component {
                   title="新的员工"
                   thumb={newFriendUrl}
                   extraBange={newCount}
-                  onClick={goTo.bind(this, "new-employees")}
+                  onClick={goTo.bind(this, "new-employees", null)}
                 />
               </AtList>
 

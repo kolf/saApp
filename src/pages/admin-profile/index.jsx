@@ -123,16 +123,14 @@ class Index extends Component {
               className="no-border"
             />
           </AtList>
-          <View className="submit-button-wrap">
-            <View className="submit-button">
-              <AtButton
-                type="secondary"
-                onClick={this.handleLogout}
-                loading={confirmLoading}
-              >
-                退出登录
-              </AtButton>
-            </View>
+          <View className="next-button-wrap">
+            <AtButton
+              type="secondary"
+              onClick={this.handleLogout}
+              loading={confirmLoading}
+            >
+              退出登录
+            </AtButton>
           </View>
         </View>
       </View>

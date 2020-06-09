@@ -32,9 +32,6 @@ export default class Index extends Component {
   handleChange = value => {
     this.setState({ keyword: value });
   };
-  handleSubmit = () => {
-    this.loadData();
-  };
 
   handleClear = () => {
     this.setState(
@@ -76,13 +73,13 @@ export default class Index extends Component {
     const { listData, isFetching } = this.state;
 
     return (
-      <View className='page owner__root'>
+      <View className="page owner__root">
         <AtSearchBar
           onClear={this.handleClear}
-          className='owner__search-bar'
+          className="owner__search-bar"
           value={this.state.keyword}
           onChange={this.handleChange.bind(this)}
-          onActionClick={this.handleSubmit.bind(this)}
+          onActionClick={this.loadData}
         />
         {listData.length > 0 ? (
           <AtList>
@@ -91,7 +88,7 @@ export default class Index extends Component {
                 key={item.key}
                 title={item.name}
                 thumb={item.avatar}
-                arrow='right'
+                arrow="right"
                 extraText={/^-1/g.test(item.saBing) ? "添加失败" : "未添加"}
                 onClick={this.handleClick.bind(this, item.key)}
               />

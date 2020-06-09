@@ -4,7 +4,6 @@ import { AtButton, AtList, AtListItem } from "../../npm/taro-ui/dist";
 import "./index.scss";
 
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";
-
 import { getStaff, examine } from "../../servers/apis";
 import { getOptionLabel } from "../../utils/options";
 
@@ -68,11 +67,11 @@ class Index extends Component {
               className='img'
               src={data.avatarUrl}
               mode='aspectFill'
-              style='width:120px;height:120px'
+              style='width:80px;height:80px'
               onClick={this.openAvater.bind(this, data.avatarUrl)}
             />
           </View>
-          <AtList>
+          <AtList className='no-border'>
             <AtListItem title='姓名' extraText={data.realName} />
             <AtListItem
               title='性别'
@@ -82,7 +81,7 @@ class Index extends Component {
             <AtListItem title='工作开始时间' extraText={data.workStart} />
             <AtListItem title='门店名称' extraText={data.disName} />
             <AtListItem title='所在部门' extraText={data.departName} />
-            <AtListItem title='职位' extraText={data.positionName} />
+            <AtListItem title='职位' extraText={data.positionName} className='no-border'/>
           </AtList>
         </View>
 
