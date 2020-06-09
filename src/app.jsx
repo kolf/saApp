@@ -31,7 +31,8 @@ class App extends Component {
       "pages/service-index/index",
       'pages/new-employees/index',
       'pages/employees-details/index',
-      'pages/order-list/index'
+      'pages/order-list/index',
+      'pages/order-details/index'
     ],
     window: {
       backgroundTextStyle: "light",
