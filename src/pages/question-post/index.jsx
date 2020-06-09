@@ -8,7 +8,7 @@ import {
   AtModalAction,
   AtTextarea,
   AtList
-} from "taro-ui";
+} from "../../npm/taro-ui/dist";
 import "./index.scss";
 import ListItem from "../../components/list-item";
 

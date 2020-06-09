@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Text, Button } from "@tarojs/components";
-import { AtIcon } from "taro-ui";
+import { AtIcon } from "../../npm/taro-ui/dist";
 
 import "./index.scss";
 

@@ -9,7 +9,7 @@ import {
   AtActivityIndicator,
   AtIcon,
   AtInput
-} from "taro-ui";
+} from "../../npm/taro-ui/dist";
 
 import "./index.scss";
 

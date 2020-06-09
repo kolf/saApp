@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtSearchBar } from "taro-ui";
+import { AtList, AtListItem, AtSearchBar } from "../../npm/taro-ui/dist";
 import EmptyData from "../../components/empty-data";
 import "./index.scss";
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";

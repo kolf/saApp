@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtSearchBar, AtButton } from "taro-ui";
+import { AtSearchBar, AtButton } from "../../npm/taro-ui/dist";
 import XRadio from "../../components/x-radio";
 import "./index.scss";
 import avatarUrl from "../../assets/images/default-avatar.png";

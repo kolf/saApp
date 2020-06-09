@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 import "./index.scss";
-import { AtIcon } from "taro-ui";
+import { AtIcon } from "../../npm/taro-ui/dist";
 
 export default function NavPanel({ title, children, onClick }) {
   return (

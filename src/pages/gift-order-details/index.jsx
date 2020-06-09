@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtButton, AtListItem, AtList } from "taro-ui";
+import { AtButton, AtListItem, AtList } from "../../npm/taro-ui/dist";
 import { View, Image } from "@tarojs/components";
 import "./index.scss";
 import "../../components/goods-panel/index.scss";

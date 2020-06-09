@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtTabs, AtNoticebar } from "taro-ui";
+import { AtTabs, AtNoticebar } from "../../npm/taro-ui/dist";
 import TabBar from "../../components/tabbar";
 import EmptyData from "../../components/empty-data";
 import "./index.scss";

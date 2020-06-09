@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
-import { AtTabs, AtSegmentedControl } from "taro-ui";
+import { AtTabs, AtSegmentedControl } from "../../npm/taro-ui/dist";
 import F2 from "@antv/f2";
 import "./index.scss";
 

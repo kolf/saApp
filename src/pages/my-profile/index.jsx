@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Picker } from "@tarojs/components";
-import { AtButton, AtList, AtListItem } from "taro-ui";
+import { AtButton, AtList, AtListItem } from "../../npm/taro-ui/dist";
 import TabBar from "../../components/tabbar";
 import ListItem from "../../components/list-item";
 import "./index.scss";

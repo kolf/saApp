@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtTabs, AtTabsPane, AtIcon} from "taro-ui";
+import { AtTabs, AtTabsPane, AtIcon} from "../../npm/taro-ui/dist";
 import "./index.scss";
 
 export default class Index extends Component {

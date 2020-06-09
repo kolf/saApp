@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtActivityIndicator } from "taro-ui";
+import { AtActivityIndicator } from "../../npm/taro-ui/dist";
 
 import imgUrl from "../../assets/images/logo_title.png";
 

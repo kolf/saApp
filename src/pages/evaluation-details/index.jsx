@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtRate, AtActivityIndicator } from "taro-ui";
+import { AtRate, AtActivityIndicator } from "../../npm/taro-ui/dist";
 import RetaRadio from "../../components/reta-radio";
 import UserAvatar from "../../components/user-avatar";
 import "./index.scss";

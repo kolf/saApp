@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtIcon, AtList, AtListItem } from "taro-ui";
+import { AtIcon, AtList, AtListItem } from "../../npm/taro-ui/dist";
 import { View } from "@tarojs/components";
 import GoodsPanel from "../../components/goods-panel";
 import EmptyData from "../../components/empty-data";

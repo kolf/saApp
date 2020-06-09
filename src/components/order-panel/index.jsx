@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
-import { AtButton } from "taro-ui";
+import { AtButton } from "../../npm/taro-ui/dist";
 import Panel from "../panel";
 
 export default class extends PureComponent {

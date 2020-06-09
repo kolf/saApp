@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
-import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "taro-ui";
+import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
 import TendencyChart from "../../components/charts/tendency-chart";
 import StatisticalChart from "../../components/charts/statistical-chart";
 import Pager from "../../components/pager";

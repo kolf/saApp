@@ -9,7 +9,7 @@ import {
   AtModalHeader,
   AtModalContent,
   AtModalAction
-} from "taro-ui";
+} from "../../npm/taro-ui/dist";
 import "./index.scss";
 
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";

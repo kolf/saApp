@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
-import { AtInputNumber, AtButton } from "taro-ui";
+import { AtInputNumber, AtButton } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import "../../components/goods-panel/index.scss";
 import { goTo } from "../../utils";

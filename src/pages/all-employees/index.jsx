@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtAccordion } from "taro-ui";
+import { AtList, AtListItem, AtAccordion } from "../../npm/taro-ui/dist";
 import "./index.scss";
 
 import { goTo } from "../../utils";

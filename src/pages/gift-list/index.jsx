@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtIcon } from "taro-ui";
+import { AtIcon } from "../../npm/taro-ui/dist";
 import { View, Image } from "@tarojs/components";
 import EmptyData from "../../components/empty-data";
 import "./index.scss";

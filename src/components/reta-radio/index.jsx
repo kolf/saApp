@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtIcon } from "taro-ui";
+import { AtIcon } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import imgUrl1 from "../../assets/images/emoji-01.png";
 import imgUrl2 from "../../assets/images/emoji-02.png";

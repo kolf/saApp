@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton, AtInput, AtForm } from "taro-ui";
+import { AtButton, AtInput, AtForm } from "../../npm/taro-ui/dist";
 import CountDown from "../../components/count-down";
 import { register, verificationCode } from "../../servers/apis";
 import { goTo } from "../../utils";

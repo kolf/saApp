@@ -1,8 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtTabs } from "taro-ui";
+import { AtList, AtListItem, AtTabs } from "../../npm/taro-ui/dist";
 import "./index.scss";
-
 import { goTo } from "../../utils";
 import { getOrderTypeList } from "../../servers/apis";
 

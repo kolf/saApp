@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton, AtIcon } from "taro-ui";
+import { AtButton, AtIcon } from "../../npm/taro-ui/dist";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
 import modal from "../../utils/modal";

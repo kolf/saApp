@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "taro-ui";
+import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
 import { F2Canvas } from "taro-f2";
 import moment from "moment";
 import Pager from "../../components/pager";
