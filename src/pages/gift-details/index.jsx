@@ -3,12 +3,11 @@ import { View, Image, Input } from "@tarojs/components";
 import { AtInputNumber, AtButton } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import "../../components/goods-panel/index.scss";
+
+import { addGiftOrder } from "../../servers/apis";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
-import { addGiftOrder } from "../../servers/apis";
-import message from "../../utils/message";
-
-const modal = Taro.showModal;
+import modal from "../../utils/modal";
 class Index extends Component {
   config = {
     navigationBarTitleText: "确认兑换"

@@ -3,21 +3,34 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import F2 from "@antv/f2";
 
-
 export default class Index extends Component {
   static defeultProps = {
-    saveRef() {}
+    dataSource: []
   };
 
   drawData = (canvas, width, height) => {
+    const { dataSource } = this.props;
     const chart = new F2.Chart({
       el: canvas,
       width,
       height
     });
-    chart.source([], {
+    chart.source(dataSource, {
       count: {
         tickCount: 0
+      }
+    });
+    chart.axis("date", {
+      labelOffset: 20,
+      tickLine: {
+        length: 4,
+        stroke: "#e8e8e8",
+        lineWidth: 1
+      },
+      label: {
+        textAlign: "center",
+        textBaseline: "middle",
+        rotate: 75
       }
     });
     chart.legend({
@@ -42,17 +55,15 @@ export default class Index extends Component {
       .line()
       .position("date*count")
       .color("#EC3333");
-    this.props.saveRef(chart);
+
     chart.render();
-    return chart;
   };
 
   render() {
     return (
-      <View style="width:100%;height:320px">
+      <View style={{ width: "100vw", height: "76vw" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );
   }
 }
-

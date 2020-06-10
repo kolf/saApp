@@ -17,6 +17,7 @@ export default class Index extends Component {
 
   drawData = (canvas, width, height) => {
     const { dataSource } = this.props;
+    console.log(dataSource, 'dataSource')
     const _F = F2;
     const Util = _F.Util;
     const G = _F.G;
@@ -121,9 +122,9 @@ export default class Index extends Component {
       .interval()
       .position("a*percent")
       .color("name", [
-        "l(0) 0:#A7F592 1:#4ADD4E",
-        "#F89C63",
-        "l(0) 0:#7DE3FF 1:#0056E0"
+        "l(0) 0:#FF9F3E 1:#FFCC3E",
+        "l(0) 0:#F1774A 1:#FC2B2B",
+        "l(0) 0:#34BFFF 1:#6384FF"
       ])
       .adjust("stack")
       .style({
@@ -134,16 +135,26 @@ export default class Index extends Component {
       })
       .shape("pie-with-text");
     chart.guide().text({
-      position: ["50%", "55%"],
+      position: ["50%", "60%"],
       content: this.props.title
     });
+
+    chart.guide().text({
+      position: ["50%", "45%"],
+      content: dataSource[0].total,
+      style: {
+        fill: "#333333", // 文本颜色
+        fontSize: "29", // 文本大小
+        fontWeight: "bold" // 文本粗细
+      }
+    });
     chart.render();
-    return chart;
+    // return chart;
   };
 
   render() {
     return (
-      <View style="width:100%;height:320px">
+      <View style={{ width: "100vw", height: "76vw" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

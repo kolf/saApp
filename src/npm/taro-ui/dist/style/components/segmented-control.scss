@@ -18,7 +18,7 @@ $at-segmented-control-min-width: 120px;
   &__item {
     flex: 1;
     box-sizing: border-box;
-    padding: $spacing-v-xs $spacing-h-sm;
+    padding: 12px * $hd $spacing-h-md;
     min-width: $at-segmented-control-min-width;
     color: $at-segmented-control-color;
     font-size: $at-segmented-control-font-size;

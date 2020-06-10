@@ -6,10 +6,10 @@ import {
   AtActivityIndicator
 } from "../../npm/taro-ui/dist";
 
-import moment from "moment";
 import Pager from "../../components/pager";
 import TendencyChart from "../../components/charts/TendencyChart";
-// import StatisticalChart from "../../components/charts/statistical-chart";
+import StatisticalChart from "../../components/charts/StatisticalChart";
+import moment from "moment";
 import { dealStatisticsReport, getStatisticsReport } from "../../servers/apis";
 import { toPercentage } from "../../utils";
 import "./index.scss";
@@ -25,18 +25,16 @@ const defaultDate = moment()
   .format(format);
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "成交率11"
+    navigationBarTitleText: "成交率"
   };
 
   state = {
     tabKey: 0,
     showType: 0,
     data: null,
-    isFetching: false,
+    isFetching: true,
     endDate: defaultDate //默认前一天
   };
-
-  tendencyRef = null;
 
   componentDidMount() {
     this.loadData();
@@ -85,23 +83,66 @@ export default class Index extends Component {
     };
   };
 
-  drawData = () => {
-    const { data, showType } = this.state;
-    const { TOTAL } = data;
-    if (showType === 0) {
-      this.tendencyRef.guide().text({
-        position: ["50%", "45%"],
-        content: TOTAL.orderDealTotal,
-        style: {
-          fill: "#333333", // 文本颜色
-          fontSize: "29", // 文本大小
-          fontWeight: "bold" // 文本粗细
+  // drawData = () => {
+  //   const { data, showType } = this.state;
+  //   const { TOTAL } = data;
+  //   if (showType === 0) {
+  //     this.tendencyRef.guide().text({
+  //       position: ["50%", "45%"],
+  //       content: TOTAL.orderDealTotal,
+  //       style: {
+  //         fill: "#333333", // 文本颜色
+  //         fontSize: "29", // 文本大小
+  //         fontWeight: "bold" // 文本粗细
+  //       }
+  //     });
+  //     this.tendencyRef.changeData(this.makeTendencyData(data));
+  //   } else if (showType === 1) {
+  //     this.statisticalRef.changeData(this.makeStatisticalData(data));
+  //   }
+  // };
+
+  makeTendencyData = data => {
+    console.log(data, "data");
+    const total = data.TOTAL.orderDealTotal;
+    if (total === 0) {
+      return [
+        {
+          name: "转介绍占比",
+          percent: 0.34,
+          total
+        },
+        {
+          name: "再购新车占比",
+          percent: 0.33,
+          total
+        },
+        {
+          name: "置换新车占比",
+          percent: 0.33,
+          total
         }
-      });
-      this.tendencyRef.changeData(this.makeTendencyData(data));
-    } else if (showType === 1) {
-      this.statisticalRef.changeData(this.makeStatisticalData(data));
+      ];
     }
+    return Object.values(data)
+      .filter((item, index) => index > 0)
+      .map(item => ({
+        total,
+        name: item.orderTypeName + "占比",
+        percent: (item.orderDealTotal / total).toFixed(2) * 1
+      }));
+  };
+
+  makeTendencyTableData = data => {
+    return Object.values(data).map(item => ({
+      name: item.orderTypeName,
+      total: item.orderTotal,
+      dealTotal: item.orderDealTotal,
+      scale:
+        (item.orderTotal === 0
+          ? ""
+          : parseInt((item.orderDealTotal / item.orderTotal) * 100)) + "%"
+    }));
   };
 
   makeStatisticalData = data => {
@@ -129,48 +170,6 @@ export default class Index extends Component {
     }, []);
   };
 
-  makeTendencyData = data => {
-    const total = data.TOTAL.orderDealTotal;
-    if (total === 0) {
-      return [
-        {
-          name: "再购新车",
-          percent: 0.33,
-          a: "1"
-        },
-        {
-          name: "置换新车",
-          percent: 0.33,
-          a: "1"
-        },
-        {
-          name: "转介绍",
-          percent: 0.34,
-          a: "1"
-        }
-      ];
-    }
-    return Object.values(data)
-      .filter((item, index) => index > 0)
-      .map(item => ({
-        name: item.orderTypeName,
-        percent: (item.orderDealTotal / total).toFixed(2) * 1,
-        a: "1"
-      }));
-  };
-
-  makeTendencyTableData = data => {
-    return Object.values(data).map(item => ({
-      name: item.orderTypeName,
-      total: item.orderTotal,
-      dealTotal: item.orderDealTotal,
-      scale:
-        (item.orderTotal === 0
-          ? ""
-          : parseInt((item.orderDealTotal / item.orderTotal) * 100)) + "%"
-    }));
-  };
-
   makeStatisticalTableData = data => {
     return Array.isArray(data) ? data : [];
   };
@@ -190,7 +189,8 @@ export default class Index extends Component {
     }
     this.setState(
       {
-        endDate: nextEndDate
+        endDate: nextEndDate,
+        data: null
       },
       this.loadData
     );
@@ -200,16 +200,18 @@ export default class Index extends Component {
     this.setState(
       {
         tabKey,
+        data: null,
         endDate: defaultDate
       },
       this.loadData
     );
   };
 
-  handleDateTypeChange = showType => {
+  onSegmentedControl = showType => {
     this.setState(
       {
         showType,
+        data: null,
         endDate: defaultDate
       },
       this.loadData
@@ -239,74 +241,9 @@ export default class Index extends Component {
     }
   };
 
-  renderMain = () => {
-    const { showType, data, isFetching } = this.state;
-    if (isFetching) {
-      return <AtActivityIndicator mode="center" content="加载中..." />;
-    }
-    if (showType === 0) {
-      return (
-        <View className="report__main">
-          <TendencyChart
-            title="总成交台数"
-            saveRef={r => (this.tendencyRef = r)}
-          />
-          <View className="at-list  text-center">
-            <View className="at-row at-list__item table-head text-center bg-gray">
-              <View className="at-col at-col-3">业务项</View>
-              <View className="at-col at-col-3">接单台数</View>
-              <View className="at-col at-col-3">成交台数</View>
-              <View className="at-col at-col-3">当前成交率</View>
-            </View>
-            <View className="table-body">
-              {this.makeTendencyTableData(data).map(item => (
-                <View className="at-row at-list__item" key={item.name}>
-                  <View className="at-col at-col-3">{item.name}</View>
-                  <View className="at-col at-col-3">{item.total}</View>
-                  <View className="at-col at-col-3">{item.dealTotal}</View>
-                  <View className="at-col at-col-3">{item.scale}</View>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
-      );
-    } else if (showType === 1) {
-      return (
-        <View className="report__main">
-          <StatisticalChart saveRef={r => (this.statisticalRef = r)} />
-          <View className="at-list  text-center">
-            <View className="at-row at-list__item table-head text-center bg-gray">
-              <View className="at-col at-col-3">日期</View>
-              <View className="at-col at-col-3">接单台数</View>
-              <View className="at-col at-col-3">成交台数</View>
-              <View className="at-col at-col-3">成交率</View>
-            </View>
-            <View className="table-body">
-              {this.makeStatisticalTableData(data).map(item => (
-                <View className="at-row at-list__item">
-                  <View className="at-col at-col-3">{item.orderDate}</View>
-                  <View className="at-col at-col-3">
-                    {item.orderTotal || 0}
-                  </View>
-                  <View className="at-col at-col-3">
-                    {item.orderDealTotal || 0}
-                  </View>
-                  <View className="at-col at-col-3">
-                    {toPercentage(item.transactionRate)}
-                  </View>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
-      );
-    }
-  };
-
   render() {
-    const { tabKey, showType, data } = this.state;
-    console.log(1);
+    const { tabKey, showType, data, isFetching } = this.state;
+
     return (
       <View className="page report__root">
         <AtTabs
@@ -318,7 +255,7 @@ export default class Index extends Component {
         <View className="report__control-wrap">
           <AtSegmentedControl
             current={showType}
-            onClick={this.handleDateTypeChange}
+            onClick={this.onSegmentedControl}
             values={["成交率报表", "成交率趋势"]}
           />
         </View>
@@ -329,7 +266,67 @@ export default class Index extends Component {
             onPrev={this.handleDateChange.bind(this, -1)}
           />
         </View>
-        {data && <TendencyChart dataSource={this.makeTendencyData(data)} />}
+
+        {isFetching && (
+          <AtActivityIndicator mode="center" content="加载中..." />
+        )}
+
+        {data && showType === 0 && (
+          <View className="report__main">
+            <TendencyChart
+              title="总成交台数"
+              dataSource={this.makeTendencyData(data)}
+            />
+            <View className="table">
+              <View className="at-row table-head bg-gray">
+                <View className="at-col at-col-3">业务项</View>
+                <View className="at-col at-col-3">接单台数</View>
+                <View className="at-col at-col-3">成交台数</View>
+                <View className="at-col at-col-3">当前成交率</View>
+              </View>
+              <View className="table-body">
+                {this.makeTendencyTableData(data).map(item => (
+                  <View className="at-row border-bottom" key={item.name}>
+                    <View className="at-col at-col-3">{item.name}</View>
+                    <View className="at-col at-col-3">{item.total}</View>
+                    <View className="at-col at-col-3">{item.dealTotal}</View>
+                    <View className="at-col at-col-3">{item.scale}</View>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
+        )}
+
+        {data && showType === 1 && (
+          <View className="report__main">
+            <StatisticalChart dataSource={this.makeStatisticalData(data)} />
+            <View className="table">
+              <View className="at-row table-head bg-gray">
+                <View className="at-col at-col-3">日期</View>
+                <View className="at-col at-col-3">接单台数</View>
+                <View className="at-col at-col-3">成交台数</View>
+                <View className="at-col at-col-3">成交率</View>
+              </View>
+              <View className="table-body">
+                {this.makeStatisticalTableData(data).map(item => (
+                  <View className="at-row border-bottom" key={item.orderDate}>
+                    <View className="at-col at-col-3">{item.orderDate}</View>
+                    <View className="at-col at-col-3">
+                      {item.orderTotal || 0}
+                    </View>
+                    <View className="at-col at-col-3">
+                      {item.orderDealTotal || 0}
+                    </View>
+                    <View className="at-col at-col-3">
+                      {toPercentage(item.transactionRate)}
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
+        )}
       </View>
     );
   }

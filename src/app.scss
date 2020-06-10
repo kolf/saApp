@@ -153,6 +153,17 @@ textarea {
   color: #999999;
 }
 
+.table{
+  text-align: center;
+  margin-top: 24px;
+  .at-row{
+    padding: 20px;
+  }
+  &-body{
+    font-size: 24px;
+  }
+}
+
 .list-item__has-avatar.list__item {
   padding: 24px 36px;
 }

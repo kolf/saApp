@@ -2,10 +2,10 @@ import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
 
-import moment from "moment";
 import Pager from "../../components/pager";
-import TendencyChart from "../../components/charts/tendency-chart";
-import StatisticalChart from "../../components/charts/statistical-chart";
+import TendencyChart from "../../components/charts/TendencyChart";
+import StatisticalChart from "../../components/charts/StatisticalChart";
+import moment from "moment";
 import {
   timeoutDayStatisticsReport,
   getTimeoutStatisticsReport
@@ -29,7 +29,7 @@ export default class Index extends Component {
   state = {
     activeKey: 0,
     showType: 0,
-    data: {},
+    data: null,
     isFetching: false,
     endDate: moment()
       .subtract(1, "days")
