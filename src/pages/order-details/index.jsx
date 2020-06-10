@@ -631,23 +631,10 @@ export default class Index extends Component {
             tabList={this.getTabList()}
             onClick={this.handleClick.bind(this)}
           >
-            <AtTabsPane
-              tabDirection="vertical"
-              current={this.state.current}
-              index={0}
-            >
+            <AtTabsPane tabDirection="vertical" current={0} index={0}>
               <View style="font-size:18px;text-align:center;height:200px;">
                 <AtIcon prefixClass="iconfont" value="user" />
-                标签页一的内容1
-              </View>
-            </AtTabsPane>
-            <AtTabsPane
-              tabDirection="vertical"
-              current={this.state.current}
-              index={1}
-            >
-              <View style="font-size:18px;text-align:center;height:200px;">
-                标签页二的内容
+                标签页一的内容
               </View>
             </AtTabsPane>
           </AtTabs>
