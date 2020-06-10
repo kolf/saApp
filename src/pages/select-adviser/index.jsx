@@ -74,7 +74,7 @@ export default class Index extends Component {
             <XRadio options={listData} onChange={this.handleChange} />
           </View>
         )}
-        <View className='submit-button-wrap'>
+        <View className='next-button-wrap'>
           <AtButton
             disabled={!adviserId}
             type='primary'

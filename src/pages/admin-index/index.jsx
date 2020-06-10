@@ -45,7 +45,7 @@ export default class Index extends Component {
         </View>
         <View style={{ margin: "16rpx -16rpx" }}>
           <View className="at-row at-row--wrap">
-            <View className="at-col at-col-12">
+            <View className="at-col at-col-12" onClick={this.handleClick.bind(this, 'report-index')}>
               <View className="admin-index__nav" style={{ fontSize: 0 }}>
                 <Image
                   src={leadUrl}

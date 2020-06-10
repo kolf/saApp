@@ -35,7 +35,20 @@ class App extends Component {
       "pages/order-details/index",
       "pages/my-help/index",
       "pages/question-list/index",
-      "pages/question-post/index"
+      "pages/question-post/index",
+      "pages/update-phone/index",
+      "pages/update-name/index",
+      "pages/report-index/index",
+      "pages/report-success/index",
+      // "pages/report-error/index",
+      // "pages/report-top10/index",
+      // "pages/report-top10-esc/index",
+      // "pages/report-top10-fw/index",
+      // "pages/report-top10-xs/index",
+      // "pages/report-users-esc/index",
+      // "pages/report-users-fw/index",
+      // "pages/report-users-xs/index",
+      // "pages/all-employees/index"
     ],
     window: {
       backgroundTextStyle: "light",

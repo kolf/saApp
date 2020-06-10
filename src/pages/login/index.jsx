@@ -21,7 +21,7 @@ export default class Index extends Component {
     formData: {}
   };
 
-  handleLogin = () => {
+  handleSubmit = () => {
     const { formData } = this.state;
 
     if (!isPhone(formData.phone)) {
@@ -139,7 +139,7 @@ export default class Index extends Component {
             <AtButton
               type="primary"
               className="btn-primary btn-lg"
-              onClick={this.handleLogin}
+              onClick={this.handleSubmit}
               loading={this.state.confirmLoading}
               disabled={!this.checkFormData()}
             >

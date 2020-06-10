@@ -2,6 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { AtButton, AtInput, AtForm } from "../../npm/taro-ui/dist";
 import storage from "../../utils/storage";
+import modal from "../../utils/modal";
 import "./index.scss";
 
 import { updateName } from "../../servers/apis";
@@ -12,6 +13,7 @@ export default class Index extends Component {
   };
 
   state = {
+    confirmLoading: false,
     formData: {}
   };
 
@@ -24,31 +26,29 @@ export default class Index extends Component {
         }
       });
     }
-
   }
 
   handleSubmit = () => {
     const {
       formData: { realName }
     } = this.state;
-    if (!realName) {
-      Taro.showToast({
-        title: "请输入您的姓名！",
-        icon: "none"
-      });
-      return;
-    }
 
-    Taro.showModal({
+    modal({
       title: "提示",
       content: "填写姓名后不可修改",
+      showCancel: true,
       success: res => {
         if (!res.confirm) {
           return;
         }
-
         const userInfo = storage.get("userInfo");
+        this.setState({
+          confirmLoading: true
+        });
         updateName({ realName }).then(() => {
+          this.setState({
+            confirmLoading: false
+          });
           storage.set("userInfo", {
             ...userInfo,
             realName
@@ -70,22 +70,34 @@ export default class Index extends Component {
     });
   };
 
+  checkFormData = () => {
+    const { formData } = this.state;
+    return formData.realName;
+  };
+
   render() {
     const { formData } = this.state;
     return (
       <View className="page">
         <AtForm>
           <AtInput
+            className="no-border"
             clear
             type="text"
             placeholder="请输入您姓名"
             maxLength="5"
             value={formData.realName}
             onChange={this.handleChange}
-          ></AtInput>
+          />
         </AtForm>
         <View className="next-button-wrap">
-          <AtButton type="primary" onClick={this.handleSubmit}>
+          <AtButton
+            type="primary"
+            className="btn-primary btn-lg"
+            onClick={this.handleSubmit}
+            loading={this.state.confirmLoading}
+            disabled={!this.checkFormData()}
+          >
             确定
           </AtButton>
         </View>

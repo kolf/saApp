@@ -6,7 +6,7 @@ textarea {
   box-sizing: border-box;
 }
 
-.img{
+.img {
   max-width: 100%;
 }
 
@@ -17,7 +17,7 @@ textarea {
 }
 
 .pad {
-  padding: 32px;
+  padding: 36px 32px;
 }
 .border-bottom {
   @include hairline-bottom-relative($left: 0);
@@ -108,7 +108,17 @@ textarea {
 
 .next-button {
   &-wrap {
-    padding: 12px * 12 12px * 3 12px * 3;
+    padding: 12px * 8 32px;
+  }
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.1);
+  padding-bottom: 16px;;
+  border-radius: 16px;
+  &__has-avatar{
+    margin-top: 100px;
   }
 }
 
@@ -134,7 +144,7 @@ textarea {
   height: 110px;
 }
 
-.btn-mini.at-button{
+.btn-mini.at-button {
   display: inline-block;
 }
 

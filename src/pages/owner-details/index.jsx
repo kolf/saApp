@@ -218,7 +218,7 @@ class Index extends Component {
           </AtList>
         </View>
 
-        <View className='submit-button-wrap'>
+        <View className='next-button-wrap'>
           {isNew === "1" && (
             <AtButton type='primary' onClick={this.handleSubmit}>
               确认绑定

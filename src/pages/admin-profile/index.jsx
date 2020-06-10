@@ -3,7 +3,7 @@ import { View } from "@tarojs/components";
 import { AtButton, AtList, AtListItem } from "../../npm/taro-ui/dist";
 import "./index.scss";
 
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
+import UserPanelAvatar from "../../components/user-panel-avatar";
 import storage from "../../utils/storage";
 import { goTo } from "../../utils";
 import { getOptionLabel, getOptions } from "../../utils/options";
@@ -48,7 +48,7 @@ export default class Index extends Component {
       success: res => {
         const tempFilePaths = res.tempFilePaths;
         Taro.uploadFile({
-          url: getBaseUrl("/api/v1/base/upload") + "/api/v1/base/upload",
+          url: getBaseUrl("/api/v1") + "/api/v1/base/upload",
           filePath: tempFilePaths[0],
           name: "file",
           header: {
@@ -88,36 +88,38 @@ export default class Index extends Component {
     return (
       <View className="page bg-gray my-profile__root">
         <View className="content">
-          <AtList className="no-border">
-            {/* <AtListItem
-              title="头像"
-              extraThumb={userInfo.avatarUrl || defaultAvatarUrl}
-              arrow="right"
-              onClick={this.handleUpdateAvatar}
-            /> */}
-            <AtListItem
-              title="姓名"
-              extraText={userInfo.realName || "未填写"}
-              arrow={userInfo.realName ? "" : "right"}
-              onClick={
-                userInfo.realName
-                  ? "javascript:;"
-                  : goTo.bind(this, "update-name")
-              }
-            />
-            <AtListItem
-              title="手机号"
-              extraText={userInfo.phone}
-              arrow="right"
-              onClick={goTo.bind(this, "update-phone")}
-            />
-            <AtListItem title="经销店名称" extraText={userInfo.disName} />
-            <AtListItem
-              className="no-border"
-              title="职位"
-              extraText={getOptionLabel("roles", userInfo.type)}
-            />
-          </AtList>
+          <View className="pad">
+            <View className="card card__has-avatar">
+              <UserPanelAvatar
+                imageUrl={userInfo.avatarUrl}
+                onClick={this.handleUpdateAvatar}
+              />
+              <AtList className="no-border">
+                <AtListItem
+                  title="姓名"
+                  extraText={userInfo.realName || "未填写"}
+                  arrow={userInfo.realName ? "" : "right"}
+                  onClick={
+                    userInfo.realName
+                      ? "javascript:;"
+                      : goTo.bind(this, "update-name")
+                  }
+                />
+                <AtListItem
+                  title="手机号"
+                  extraText={userInfo.phone}
+                  arrow="right"
+                  onClick={goTo.bind(this, "update-phone")}
+                />
+                <AtListItem title="经销店名称" extraText={userInfo.disName} />
+                <AtListItem
+                  className="no-border"
+                  title="职位"
+                  extraText={getOptionLabel("roles", userInfo.type)}
+                />
+              </AtList>
+            </View>
+          </View>
           <View className="next-button-wrap">
             <AtButton
               type="secondary"

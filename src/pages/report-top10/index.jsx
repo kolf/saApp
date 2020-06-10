@@ -32,7 +32,7 @@ class Index extends Component {
       goTo("report-top10-fw");
       return;
     } else if (key == "ESCB") {
-      goTo("report-top10-er");
+      goTo("report-top10-esc");
     } else {
       goTo("report-top10-xs");
     }

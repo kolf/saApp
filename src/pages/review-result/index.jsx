@@ -42,32 +42,32 @@ class Index extends Component {
   render() {
     const { checkStatus } = this.$router.params;
     return (
-      <View className='page'>
-        <View className='page-content'>
-          <View className='result__title'>
+      <View className="page">
+        <View className="page-content">
+          <View className="result__title">
             <Image
               src={logoUrl}
-              className='img'
-              mode='widthFix'
-              style='width:200px'
+              className="img"
+              mode="widthFix"
+              style="width:200px"
             />
           </View>
-          <View className='result__content'>{textMap[checkStatus]}</View>
+          <View className="result__content">{textMap[checkStatus]}</View>
         </View>
-        <View className='page-footer'>
-          <View className='submit-button-wrap'>
+        <View className="page-footer">
+          <View className="next-button-wrap">
             {checkStatus === "2" ? (
               <AtButton
-                className='result__logout-button'
-                type='primary'
+                className="btn-lg btn-primary"
+                type="primary"
                 onClick={this.goToProfile}
               >
                 重新填写信息
               </AtButton>
             ) : (
               <AtButton
-                className='result__logout-button'
-                type='primary'
+                className="btn-lg btn-primary"
+                type="primary"
                 loading={this.state.confirmLoading}
                 onClick={this.handleSubmit}
               >

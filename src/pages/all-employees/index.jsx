@@ -33,7 +33,7 @@ class Index extends Component {
     ]
   };
 
-  componentDidShow() {
+  componentDidMount() {
     this.loadData();
   }
 
@@ -51,22 +51,14 @@ class Index extends Component {
   };
 
   makeData = data => {
-    if (
-      this.state.listData[0].children.length === 0 &&
-      this.state.listData[1].children.length === 0 &&
-      this.state.listData[2].children.length === 0
-    ) {
-      return data.reduce((result, item) => {
-        let parentIndex = result.findIndex(r => item.type === r.key);
-        result[parentIndex].children.push({
-          id: item.id + "",
-          title: item.realName
-        });
-        return result;
-      }, this.state.listData);
-    } else {
-      return this.state.listData;
-    }
+    return data.reduce((result, item) => {
+      let parentIndex = result.findIndex(r => item.type === r.key);
+      result[parentIndex].children.push({
+        id: item.id + "",
+        title: item.realName
+      });
+      return result;
+    }, this.state.listData);
   };
 
   handleAccordionChange = index => {

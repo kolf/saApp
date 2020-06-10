@@ -3,18 +3,8 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import F2 from "@antv/f2";
 
-// let s = {
-//   dealTotal: 0
-// orderDate: "09月10日"
-// orderDealTotal: 19
-// orderTotal: 128
-// transactionRate: 0.15
-// zgxcTotal: 0
-// zhxcTotal: 0
-// zjsTotal: 0
-// }
 
-class Index extends Component {
+export default class Index extends Component {
   static defeultProps = {
     saveRef() {}
   };
@@ -66,4 +56,3 @@ class Index extends Component {
   }
 }
 
-export default Index;

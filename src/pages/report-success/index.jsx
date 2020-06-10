@@ -1,92 +1,87 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
+import {
+  AtTabs,
+  AtSegmentedControl,
+  AtActivityIndicator
+} from "../../npm/taro-ui/dist";
 
 import moment from "moment";
 import Pager from "../../components/pager";
-import TendencyChart from "../../components/charts/tendency-chart";
-import StatisticalChart from "../../components/charts/statistical-chart";
+import TendencyChart from "../../components/charts/TendencyChart";
+// import StatisticalChart from "../../components/charts/statistical-chart";
 import { dealStatisticsReport, getStatisticsReport } from "../../servers/apis";
 import { toPercentage } from "../../utils";
 import "./index.scss";
 
-const formatStr = "YYYY-MM-DD";
-
+const format = "YYYY-MM-DD";
 const tabList = [
   { title: `日`, value: "days" },
   { title: `周`, value: "weeks" },
   { title: `月`, value: "months" }
 ];
-
+const defaultDate = moment()
+  .subtract(1, "days")
+  .format(format);
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "成交率"
+    navigationBarTitleText: "成交率11"
   };
 
   state = {
-    activeKey: 0,
+    tabKey: 0,
     showType: 0,
-    data: {},
+    data: null,
     isFetching: false,
-    endDate: moment()
-      .subtract(1, "days")
-      .format(formatStr) //默认前一天
+    endDate: defaultDate //默认前一天
   };
 
   tendencyRef = null;
 
-  componentDidShow() {
+  componentDidMount() {
     this.loadData();
   }
 
-  loadData = () => {
+  loadData = async () => {
+    const { showType, tabKey } = this.state;
+
     this.setState({
       isFetching: true
     });
 
-    this.fetchAction().then(res => {
-      this.setState({
-        isFetching: false,
-        data: res.data
-      });
+    let res = null;
+    if (showType === 0) {
+      res = await dealStatisticsReport(this.makeParams());
+    } else if (showType === 1) {
+      res = await getStatisticsReport(
+        {
+          selectDate: this.makeParams().endDate
+        },
+        tabList[tabKey].value
+      );
+    }
 
-      this.timer = setTimeout(() => {
-        clearTimeout(this.timer);
-        this.drawData();
-      }, 300);
+    this.setState({
+      isFetching: false,
+      data: res.data
     });
   };
 
-  fetchAction = () => {
-    const { showType, activeKey } = this.state;
-    if (showType === 0) {
-      return dealStatisticsReport(this.makeParams());
-    } else if (showType === 1) {
-      return getStatisticsReport(
-        {
-          selectDate: this.state.endDate
-        },
-        tabList[activeKey].value
-      );
-    }
-  };
-
-  makeParams = (newParams = {}) => {
-    const { endDate, activeKey } = this.state;
+  makeParams = () => {
+    const { endDate, tabKey } = this.state;
     let startDate = endDate;
-    if (activeKey === 1) {
+    if (tabKey === 1) {
       startDate = moment(endDate)
         .subtract(1, "weeks")
-        .format(formatStr);
-    } else if (activeKey === 2) {
+        .format(format);
+    } else if (tabKey === 2) {
       startDate = moment(endDate)
         .subtract(1, "months")
-        .format(formatStr);
+        .format(format);
     }
     return {
       startDate,
-      endDate,
-      ...newParams
+      endDate
     };
   };
 
@@ -111,7 +106,7 @@ export default class Index extends Component {
 
   makeStatisticalData = data => {
     return data.reduce((result, item) => {
-      const { zgxcTotal, zhxcTotal, zjsTotal, total, orderDate } = item;
+      const { zgxcTotal, zhxcTotal, zjsTotal, orderDate } = item;
       const count = zgxcTotal + zhxcTotal + zjsTotal;
       result = [
         ...result,
@@ -187,11 +182,11 @@ export default class Index extends Component {
     if (n === -1) {
       nextEndDate = moment(endDate)
         .subtract(1, "days")
-        .format(formatStr);
+        .format(format);
     } else if (n === 1) {
       nextEndDate = moment(endDate)
         .add(1, "days")
-        .format(formatStr);
+        .format(format);
     }
     this.setState(
       {
@@ -201,41 +196,37 @@ export default class Index extends Component {
     );
   };
 
-  handleTabClick = e => {
+  handleTabClick = tabKey => {
     this.setState(
       {
-        activeKey: e,
-        endDate: moment()
-          .subtract(1, "days")
-          .format(formatStr)
+        tabKey,
+        endDate: defaultDate
       },
       this.loadData
     );
   };
 
-  handleDateTypeChange = e => {
+  handleDateTypeChange = showType => {
     this.setState(
       {
-        showType: e,
-        endDate: moment()
-          .subtract(1, "days")
-          .format(formatStr)
+        showType,
+        endDate: defaultDate
       },
       this.loadData
     );
   };
 
   getPagerTitle = () => {
-    const { endDate, activeKey } = this.state;
-    const unit = tabList[activeKey].value;
+    const { endDate, tabKey } = this.state;
+    const unit = tabList[tabKey].value;
     let endDateStr = moment(endDate).format("YYYY年MM月D日");
     let startDateStr = moment(endDate).format("YYYY年MM月D日");
 
-    if (activeKey === 1) {
+    if (tabKey === 1) {
       startDateStr = moment(endDate)
         .subtract(1, unit)
         .format("YYYY年MM月D日");
-    } else if (activeKey === 2) {
+    } else if (tabKey === 2) {
       startDateStr = moment(endDate)
         .subtract(1, unit)
         .format("YYYY年MM月D日");
@@ -314,11 +305,12 @@ export default class Index extends Component {
   };
 
   render() {
-    const { activeKey, showType } = this.state;
+    const { tabKey, showType, data } = this.state;
+    console.log(1);
     return (
       <View className="page report__root">
         <AtTabs
-          current={activeKey}
+          current={tabKey}
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}
           animated={false}
@@ -337,8 +329,7 @@ export default class Index extends Component {
             onPrev={this.handleDateChange.bind(this, -1)}
           />
         </View>
-
-        {this.renderMain()}
+        {data && <TendencyChart dataSource={this.makeTendencyData(data)} />}
       </View>
     );
   }

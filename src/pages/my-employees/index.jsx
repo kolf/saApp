@@ -9,7 +9,7 @@ import {
 import EmptyData from "../../components/empty-data";
 import NetworkError from "../../components/network-error";
 
-import newFriendUrl from "../../assets/images/add2x.png";
+import newFriendUrl from "../../assets/images/user-add.svg";
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";
 import { getStaffList } from "../../servers/apis";
 import { goTo } from "../../utils";

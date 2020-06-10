@@ -1,0 +1,13 @@
+.user-panel-avatar {
+  &__root {
+    text-align: center;
+    position: relative;
+    top: -100px;
+    height: 100px;
+  }
+  &__img {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+  }
+}
