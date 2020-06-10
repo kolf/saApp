@@ -41,13 +41,13 @@ class Index extends Component {
     const { listData, isFetching } = this.state;
     return (
       <View className="page bg-gray question-list__root">
-        <View className="content">
+        <View className="page-content">
           {listData.length > 0 ? (
             <View className="question-list__list">
               {listData.map(item => {
                 return (
                   <View className="at-card question-list__item">
-                    <View className="at-card__header">
+                    <View className="at-card__header question-card__header border-bottom">
                       <Text className="taro-text at-card__header-title question-list__item-date">
                         {item.feedbackTime}
                       </Text>
@@ -55,7 +55,7 @@ class Index extends Component {
                         {item.typeName} {item.subTypeName}
                       </View>
                     </View>
-                    <View className="at-card__content">
+                    <View className="at-card__content question-card__content">
                       <View className="question-list__item-title">
                         问题描述：
                       </View>
@@ -73,8 +73,8 @@ class Index extends Component {
             </EmptyData>
           )}
         </View>
-        <View className="footer-fixed__buttons">
-          <AtButton type="primary" onClick={goTo.bind(this, "question-post")}>
+        <View className="page-footer question-list__footer">
+          <AtButton className='btn-primary btn-lg' type="primary" onClick={goTo.bind(this, "question-post")}>
             问题反馈
           </AtButton>
         </View>

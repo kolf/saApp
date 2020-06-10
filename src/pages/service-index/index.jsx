@@ -1,17 +1,24 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
+import NavPanel from "../../components/nav-panel";
 import "./index.scss";
-import qaUrl from "../../assets/images/qaList.png";
-import postUrl from "../../assets/images/qaPost.png";
+import helpUrl from "../../assets/images/help.svg";
+import userCallUrl from "../../assets/images/user-call.svg";
 
 import { goTo } from "../../utils";
-
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "联系客服"
   };
 
   state = {};
+
+  componentWillMount() {
+    Taro.setNavigationBarColor({
+      frontColor: "#ffffff",
+      backgroundColor: "#4268e6"
+    });
+  }
 
   handleClick = name => {
     goTo(name);
@@ -19,8 +26,40 @@ class Index extends Component {
 
   render() {
     return (
-      <View className="page qa-index__root bg-gray">
-        <View className="qa-index__list">
+      <View className="page service-index__root bg-gray">
+        <View style={{ margin: "16rpx -16rpx" }}>
+          <View className="at-row at-row--wrap">
+            <View className="at-col at-col-6">
+              <View className="service-index__nav">
+                <NavPanel
+                  title="常用问题"
+                  onClick={this.handleClick.bind(this, "my-help")}
+                >
+                  <Image
+                    src={helpUrl}
+                    mode="widthFix"
+                    className="img nav-icon"
+                  />
+                </NavPanel>
+              </View>
+            </View>
+            <View className="at-col at-col-6">
+              <View className="service-index__nav">
+                <NavPanel
+                  title="人工客服"
+                  onClick={this.handleClick.bind(this, "question-list")}
+                >
+                  <Image
+                    src={userCallUrl}
+                    mode="widthFix"
+                    className="img nav-icon"
+                  />
+                </NavPanel>
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* <View className="qa-index__list">
           <View
             className="qa-index__list-item"
             onClick={this.handleClick.bind(this, "my-help")}
@@ -33,10 +72,8 @@ class Index extends Component {
           >
             <Image src={postUrl} className="img" mode="widthFix" />
           </View>
-        </View>
+        </View> */}
       </View>
     );
   }
 }
-
-export default Index;

@@ -1,11 +1,12 @@
 .question-list {
   &__root {
-    padding-bottom: 140px;
+    padding-bottom: 212px;
   }
   &__item {
     border: none;
-    margin-top: 24px;
-    border-radius: 0;
+    margin-top: 32px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
     &-extra {
       // font-weight: 700;
       max-width: 50%;
@@ -22,14 +23,23 @@
       color: #999;
     }
   }
-}
-.footer-fixed {
-  &__buttons {
+  &__footer{
     position: fixed;
     left: 0;
     bottom: 0;
     right: 0;
-    padding: 24px;
-    background-color: rgba(255, 255, 255, 0.4);
+    padding: 36px 32px;
+    height: 180px;
+    background-color: #fff;
+  }
+}
+
+.question-card{
+  &__header{
+    padding: 24px 32px;
+    border-bottom-width: 0;
+  }
+  &__content{
+    padding: 32px;
   }
 }

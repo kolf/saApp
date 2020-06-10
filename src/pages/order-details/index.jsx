@@ -1,6 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Picker } from "@tarojs/components";
 import {
+  AtTabs,
+  AtTabsPane,
   AtButton,
   AtList,
   AtListItem,
@@ -12,6 +14,7 @@ import {
 } from "../../npm/taro-ui/dist";
 import XRadio from "../../components/x-radio";
 import ListItem from "../../components/list-item";
+import OrderStatus from "./OrderStatus";
 import { goTo, getDownTime } from "../../utils";
 import storage from "../../utils/storage";
 import modal from "../../utils/modal";
@@ -30,14 +33,10 @@ import getBaseUrl from "../../servers/baseUrl";
 
 import "./index.scss";
 
-function OrderStatus() {
-  return <View>正常</View>;
-}
-
 let height = 960;
 try {
   const res = Taro.getSystemInfoSync();
-  height = res.windowHeight * (750 / res.windowWidth) - 400;
+  height = res.windowHeight * (750 / res.windowWidth) - 360;
 } catch (e) {
   // Do something when catch error
 }
@@ -613,12 +612,18 @@ export default class Index extends Component {
   };
 
   render() {
+    console.log(height, this.getTabList(), "re");
     return (
       <View className="page order-details__root">
         <View className="order-details__header border-bottom">
           <View className="order-details__header-name">二手车评估</View>
           <View className="order-details__header-desc">待SA受理</View>
-          <View className="order-details__header-desc">已等待 10 天</View>
+          <View
+            className="order-details__header-desc"
+            style={{ marginTop: "12rpx" }}
+          >
+            已等待 10 天
+          </View>
           <OrderStatus />
         </View>
         <View className="page-content" id="PAGE_CONTENT">
@@ -630,29 +635,9 @@ export default class Index extends Component {
             tabDirection="vertical"
             tabList={this.getTabList()}
             onClick={this.handleClick.bind(this)}
-          >
-            <AtTabsPane
-              tabDirection="vertical"
-              current={this.state.current}
-              index={0}
-            >
-              <View style="font-size:18px;text-align:center;height:200px;">
-                <AtIcon prefixClass="iconfont" value="user" />
-                标签页一的内容1
-              </View>
-            </AtTabsPane>
-            <AtTabsPane
-              tabDirection="vertical"
-              current={this.state.current}
-              index={1}
-            >
-              <View style="font-size:18px;text-align:center;height:200px;">
-                标签页二的内容
-              </View>
-            </AtTabsPane>
-          </AtTabs>
+          />
         </View>
-        <View className="page-footer order-details__footer">
+        <View className="page-footer order-details__footer border-top">
           <AtButton className="btn-lg btn-primary">确定</AtButton>
         </View>
       </View>
