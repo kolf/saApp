@@ -9,9 +9,10 @@ import {
   AtTextarea,
   AtList
 } from "../../npm/taro-ui/dist";
-import "./index.scss";
 import ListItem from "../../components/list-item";
+import "./index.scss";
 
+import modal from "../../utils/modal";
 import { getMessageTypeList, putMessageBoard } from "../../servers/apis";
 
 // const
@@ -54,8 +55,15 @@ class Index extends Component {
         .paramValue,
       feedbackContent: inputValue
     }).then(res => {
-      this.setState({
-        isOpened: true
+      modal({
+        content: `稍后客服人员会在24小时内与您联系，请保持电话畅通`,
+        success(r) {
+          if (r.confirm) {
+            Taro.navigateBack({
+              delta: 1
+            });
+          }
+        }
       });
     });
   };
@@ -80,9 +88,9 @@ class Index extends Component {
     }
   };
 
-  handleInputChange = e => {
+  handleInputChange = value => {
     this.setState({
-      inputValue: e.target.value
+      inputValue: value
     });
   };
 
@@ -96,8 +104,8 @@ class Index extends Component {
   render() {
     const { selectedIndex, inputValue } = this.state;
     return (
-      <View className="page bg-gray question-post__root">
-        <AtList className="gap-top no-border">
+      <View className="page question-post__root">
+        <AtList className="no-border">
           <ListItem
             title="问题类型"
             isRequire
@@ -118,29 +126,29 @@ class Index extends Component {
             }
             arrow="right"
           />
-          <View className="at-textarea__box">
+
+          <View className="pad">
             <AtTextarea
-              name="value1"
+              className="question-post__input no-border"
+              name="value"
               placeholder="请简要描述您要反馈的问题，限200字以内"
               maxLength={200}
               height={320}
-              value={inputValue}
               onChange={this.handleInputChange}
             />
           </View>
         </AtList>
 
         <View className="next-button-wrap">
-          <View className="submit-button">
-            <AtButton
-              loading={this.state.confirmLoading}
-              type="primary"
-              onClick={this.handleSubmit}
-              disabled={selectedIndex.length === 0 || !inputValue}
-            >
-              提交
-            </AtButton>
-          </View>
+          <AtButton
+            className="btn-lg btn-primary"
+            loading={this.state.confirmLoading}
+            type="primary"
+            onClick={this.handleSubmit}
+            disabled={selectedIndex.length === 0 || !inputValue}
+          >
+            提交
+          </AtButton>
         </View>
         <AtModal isOpened={this.state.isOpened}>
           <AtModalHeader>提示</AtModalHeader>

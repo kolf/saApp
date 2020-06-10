@@ -229,7 +229,7 @@ class Index extends Component {
               arrow={submitUserInfo.workStart ? "" : "right"}
             />
 
-            <AtListItem title="门店名称" extraText={userInfo.disName} />
+            <AtListItem title="经销店名称" extraText={userInfo.disName} />
             <AtListItem
               title="所在部门"
               extraText={userInfo.departName || "无"}

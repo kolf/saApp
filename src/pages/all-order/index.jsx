@@ -11,7 +11,7 @@ const tabList = [
 ];
 class Index extends Component {
   config = {
-    navigationBarTitleText: "订单"
+    navigationBarTitleText: "全部订单"
   };
 
   state = {

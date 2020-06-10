@@ -49,7 +49,7 @@ class Index extends Component {
             <View className="at-col">{userInfo.phone}</View>
           </View>
           <View className="at-row profile-card__text">
-            <View className="at-col at-col-4">门店名称：</View>
+            <View className="at-col at-col-4">经销店名称：</View>
             <View className="at-col at-col--wrap">{userInfo.disName}</View>
           </View>
         </View>

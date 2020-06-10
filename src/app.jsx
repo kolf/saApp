@@ -29,10 +29,13 @@ class App extends Component {
       "pages/my-employees/index",
       "pages/admin-profile/index",
       "pages/service-index/index",
-      'pages/new-employees/index',
-      'pages/employees-details/index',
-      'pages/order-list/index',
-      'pages/order-details/index'
+      "pages/new-employees/index",
+      "pages/employees-details/index",
+      "pages/order-list/index",
+      "pages/order-details/index",
+      "pages/my-help/index",
+      "pages/question-list/index",
+      "pages/question-post/index"
     ],
     window: {
       backgroundTextStyle: "light",

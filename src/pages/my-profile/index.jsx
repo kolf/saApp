@@ -118,7 +118,7 @@ class Index extends Component {
               title="开始工作时间"
               extraText={userInfo.workStart || "未填写"}
             />
-            <AtListItem title="门店名称" extraText={userInfo.disName} />
+            <AtListItem title="经销店名称" extraText={userInfo.disName} />
             <AtListItem
               title="职位"
               extraText={getOptionLabel("roles", userInfo.type)}

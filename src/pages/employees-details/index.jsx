@@ -79,7 +79,7 @@ class Index extends Component {
             />
             <AtListItem title='手机号' extraText={data.phone} />
             <AtListItem title='工作开始时间' extraText={data.workStart} />
-            <AtListItem title='门店名称' extraText={data.disName} />
+            <AtListItem title='经销店名称' extraText={data.disName} />
             <AtListItem title='所在部门' extraText={data.departName} />
             <AtListItem title='职位' extraText={data.positionName} className='no-border'/>
           </AtList>

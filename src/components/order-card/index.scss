@@ -4,34 +4,43 @@
 
 .order-card {
   &__root {
+    border-radius: 16px;
+    border-width: 0;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.08);
+    margin: 0 32px;
     .at-row {
       padding: 6px 0;
     }
   }
-}
-.tag-list {
-  text-align: right;
-  padding-top: 12px;
-  margin: 0 -12px;
-  .at-tag {
-    margin: 0 6px;
+  &__header {
+    padding: 24px 32px;
+    border-color: #f5f5f5;
+    &-title {
+      color: #000;
+      font-size: 34px;
+    }
+  }
+  &__content {
+    color: #737373;
+    padding: 32px;
+  }
+  &__footer {
+    text-align: right;
+    padding-top: 12px;
   }
 }
 
-.at-card {
-  border-width: 0;
-  border-radius: 4px;
-}
-
-.at-card__header {
-  margin-left: 24px;
-  margin-right: 24px;
-  padding-left: 0px;
-  padding-right: 0px;
-  border-color: #f5f5f5;
-}
-
-.at-card__footer {
-  text-align: right;
-  padding-top: 12px;
+.text {
+  &-primary {
+    color: $color-brand;
+  }
+  &-error {
+    color: #ff4949;
+  }
+  &-success {
+    color: #52c41a;
+  }
+  &-warning {
+    color: #faad14;
+  }
 }

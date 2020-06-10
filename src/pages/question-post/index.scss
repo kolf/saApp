@@ -5,10 +5,8 @@
       font-size: 32px;
     }
   }
-}
-
-.at-textarea__box {
-  .at-textarea {
-    border: none;
+  &__input{
+    background-color: #F7F7FB;
+    padding: 32px;
   }
 }

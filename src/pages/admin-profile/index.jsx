@@ -10,7 +10,7 @@ import { getOptionLabel, getOptions } from "../../utils/options";
 import { logout, updateBirthday, getUserInfo } from "../../servers/apis";
 import getBaseUrl from "../../servers/baseUrl";
 
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的"
   };
@@ -88,13 +88,13 @@ class Index extends Component {
     return (
       <View className="page bg-gray my-profile__root">
         <View className="content">
-          <AtList className="gap-top">
-            <AtListItem
+          <AtList className="no-border">
+            {/* <AtListItem
               title="头像"
               extraThumb={userInfo.avatarUrl || defaultAvatarUrl}
               arrow="right"
               onClick={this.handleUpdateAvatar}
-            />
+            /> */}
             <AtListItem
               title="姓名"
               extraText={userInfo.realName || "未填写"}
@@ -111,21 +111,17 @@ class Index extends Component {
               arrow="right"
               onClick={goTo.bind(this, "update-phone")}
             />
-            <AtListItem title="门店名称" extraText={userInfo.disName} />
+            <AtListItem title="经销店名称" extraText={userInfo.disName} />
             <AtListItem
+              className="no-border"
               title="职位"
               extraText={getOptionLabel("roles", userInfo.type)}
-            />
-            <AtListItem
-              title="联系客服"
-              arrow="right"
-              onClick={goTo.bind(this, "service-index")}
-              className="no-border"
             />
           </AtList>
           <View className="next-button-wrap">
             <AtButton
               type="secondary"
+              className="btn-lg"
               onClick={this.handleLogout}
               loading={confirmLoading}
             >
@@ -137,5 +133,3 @@ class Index extends Component {
     );
   }
 }
-
-export default Index;

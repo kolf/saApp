@@ -1,11 +1,22 @@
 .order-details {
   &__header {
-    height: 200px;
-    padding: 12px * 3 12px * 5;
+    height: 180px;
+    padding: 12px * 2 12px * 5;
+    position: relative;
+    box-shadow: 0px 1px 5px 0px rgba(67,107,232,0.07);;
+    &-name{
+      font-size: 34px;
+      font-weight: 700;
+    }
+    &-desc{
+      color: #999;
+      font-size: 28px;
+    }
   }
   &__footer {
-    height: 200px;
+    height: 180px;
     padding: 12px * 3;
+    box-shadow:0px -3px 11px 0px rgba(67,107,232,0.08);
   }
   &__tabs {
     .at-tabs__item {

@@ -12,12 +12,12 @@ textarea {
 
 .gap {
   &-top {
-    margin-top: 36px;
+    margin-top: 32px;
   }
 }
 
 .pad {
-  padding: 36px;
+  padding: 32px;
 }
 .border-bottom {
   @include hairline-bottom-relative($left: 0);
@@ -132,6 +132,10 @@ textarea {
 .btn-lg.at-button {
   line-height: 110px;
   height: 110px;
+}
+
+.btn-mini.at-button{
+  display: inline-block;
 }
 
 .at-button.at-button--small.at-button--disabled.at-button--secondary {
