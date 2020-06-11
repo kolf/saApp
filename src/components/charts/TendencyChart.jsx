@@ -3,6 +3,12 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import F2 from "@antv/f2";
 
+function getAllTotal(data) {
+  return data.reduce((result, item) => {
+    return (result += item.total || 0);
+  }, 0);
+}
+
 // 根据角度和圆心求坐标
 function _getEndPoint(center, angle, r) {
   return {
@@ -17,48 +23,47 @@ export default class Index extends Component {
 
   drawData = (canvas, width, height) => {
     const { dataSource } = this.props;
-    console.log(dataSource, 'dataSource')
     const _F = F2;
     const Util = _F.Util;
     const G = _F.G;
     const Vector2 = G.Vector2;
     F2.Shape.registerShape("interval", "pie-with-text", {
       draw: function draw(cfg, container) {
-        var points = this.parsePoints(cfg.points);
-        var style = Util.mix(
+        const points = this.parsePoints(cfg.points);
+        const style = Util.mix(
           {
             fill: cfg.color
           },
           cfg.style
         );
-        var coord = this._coord;
+        const coord = this._coord;
         if (cfg.isInCircle && coord.transposed) {
           // 只处理极坐标y
-          var newPoints = [points[0], points[3], points[2], points[1]];
-          var _cfg$center = cfg.center,
+          const newPoints = [points[0], points[3], points[2], points[1]];
+          const _cfg$center = cfg.center,
             x = _cfg$center.x,
             y = _cfg$center.y;
-          var v = [1, 0];
-          var v0 = [newPoints[0].x - x, newPoints[0].y - y];
-          var v1 = [newPoints[1].x - x, newPoints[1].y - y];
-          var v2 = [newPoints[2].x - x, newPoints[2].y - y];
-          var startAngle = Vector2.angleTo(v, v1);
-          var endAngle = Vector2.angleTo(v, v2);
-          var r0 = Vector2.length(v0);
-          var r = Vector2.length(v1);
+          const v = [1, 0];
+          const v0 = [newPoints[0].x - x, newPoints[0].y - y];
+          const v1 = [newPoints[1].x - x, newPoints[1].y - y];
+          const v2 = [newPoints[2].x - x, newPoints[2].y - y];
+          let startAngle = Vector2.angleTo(v, v1);
+          let endAngle = Vector2.angleTo(v, v2);
+          const r0 = Vector2.length(v0);
+          const r = Vector2.length(v1);
           if (startAngle >= 1.5 * Math.PI) {
             startAngle = startAngle - 2 * Math.PI;
           }
           if (endAngle >= 1.5 * Math.PI) {
             endAngle = endAngle - 2 * Math.PI;
           }
-          var middleAngle = (startAngle + endAngle) / 2;
-          var numbricCenter = _getEndPoint(
+          const middleAngle = (startAngle + endAngle) / 2;
+          const numbricCenter = _getEndPoint(
             cfg.center,
             middleAngle,
             (r + r0) / 2
           );
-          var sector = container.addShape("Sector", {
+          const sector = container.addShape("Sector", {
             className: "interval",
             attrs: Util.mix(
               {
@@ -72,7 +77,7 @@ export default class Index extends Component {
               style
             )
           });
-          var text = container.addShape("text", {
+          const text = container.addShape("text", {
             attrs: {
               x: numbricCenter.x,
               y: numbricCenter.y,
@@ -141,7 +146,7 @@ export default class Index extends Component {
 
     chart.guide().text({
       position: ["50%", "45%"],
-      content: dataSource[0].total,
+      content: getAllTotal(dataSource),
       style: {
         fill: "#333333", // 文本颜色
         fontSize: "29", // 文本大小

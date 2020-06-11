@@ -43,7 +43,7 @@ export default class Index extends Component {
     });
     chart
       .interval()
-      .position("date*num")
+      .position("date*value")
       .color("name", [
         "l(90) 0:#7DE3FF 1:#0056E0",
         "l(90) 0:#FFF686 1:#FF9538",
@@ -54,7 +54,7 @@ export default class Index extends Component {
     chart
       .line()
       .position("date*count")
-      .color("#EC3333");
+      .color("#EC3333")
 
     chart.render();
   };

@@ -41,7 +41,7 @@ class Index extends Component {
   render() {
     return (
       <View className="page all-employees__root bg-gray">
-        <View className="all-employees__list gap-top">
+        <View className="all-employees__list">
           <AtList hasBorder={false}>
             {this.state.listData.map(item => (
               <AtListItem

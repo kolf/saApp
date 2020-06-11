@@ -1,31 +1,21 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import {
-  AtTabs,
-  AtSegmentedControl,
-  AtActivityIndicator
-} from "../../npm/taro-ui/dist";
-
-import Pager from "../../components/pager";
-import BasicChart from "../../components/charts/BasicChart";
-import LineChart from "../../components/charts/LineChart";
-
+import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
+import { F2Canvas } from "taro-f2";
 import moment from "moment";
+import Pager from "../../components/pager";
 import { getsaStatistics, getsaTopTotal } from "../../servers/apis";
 import { toPercentage } from "../../utils";
+import F2 from "@antv/f2";
 import "./index.scss";
-import lineData from './series-line.json'
-const format = "YYYY-MM-DD";
+
+const formatStr = "YYYY-MM-DD";
 
 const tabList = [
-  { title: `日`, value: "days", paramValue: "DAY" },
-  { title: `周`, value: "weeks", paramValue: "WEEK" },
-  { title: `月`, value: "months", paramValue: "MONTH" }
+  { title: `日`, value: "days" },
+  { title: `周`, value: "weeks" },
+  { title: `月`, value: "months" }
 ];
-
-const DEFAULT_DATE = moment()
-  .subtract(1, "days")
-  .format(format);
 
 export default class Index extends Component {
   config = {
@@ -33,43 +23,93 @@ export default class Index extends Component {
   };
 
   state = {
-    dateType: 0,
+    activeKey: 0,
     showType: 0,
-    data: null,
-    isFetching: true,
-    selectedDate: DEFAULT_DATE //默认前一天
+    data: {},
+    zheData: [],
+    zhuData: [],
+    isFetching: false,
+    endDate: moment()
+      .subtract(1, "days")
+      .format(formatStr) //默认前一天
   };
 
-  componentDidMount() {
+  componentDidShow() {
     this.loadData();
   }
-
-  loadData = async () => {
-    const { showType } = this.state;
-
+  //请求数据
+  loadData = () => {
     this.setState({
       isFetching: true
     });
-
-    let res = null;
-    if (showType === 0) {
-      res = await getsaTopTotal(this.makeParams());
-    } else if (showType === 1) {
-      res = await getsaStatistics(this.makeParams());
+    const { showType, activeKey } = this.state;
+    if (showType == 0) {
+      this.fetchAction().then(res => {
+        console.log("服务部", res);
+        this.setState({
+          isFetching: false,
+          data: res.data
+        });
+      });
+    } else {
+      this.fetchAction().then(res => {
+        this.setState({
+          isFetching: false,
+          data: res.data
+        });
+      });
     }
-
-    this.setState({
-      isFetching: false,
-      data: res.data
-    });
+  };
+  //发起请求
+  fetchAction = () => {
+    const { showType } = this.state;
+    if (showType === 0) {
+      return getsaTopTotal(this.makeParams());
+    } else if (showType === 1) {
+      return getsaStatistics(this.makeParams());
+    }
   };
   //接口参数
-  makeParams = () => {
-    const { selectedDate, dateType } = this.state;
-    return {
-      dateType: tabList[dateType].paramValue,
-      selectDate: selectedDate
-    };
+  makeParams = (newParams = {}) => {
+    const { endDate, activeKey, showType } = this.state;
+    let startDate = endDate;
+    let dateType = null;
+    let selectDate = null;
+    let parms = {};
+    if (activeKey === 1) {
+      startDate = moment(endDate)
+        .subtract(1, "weeks")
+        .format(formatStr);
+      dateType = "WEEK";
+    } else if (activeKey === 2) {
+      startDate = moment(endDate)
+        .subtract(1, "months")
+        .format(formatStr);
+      dateType = "MONTH";
+    } else {
+      dateType = "DAY";
+    }
+    if (showType) {
+      parms.dateTime = endDate;
+      selectDate = endDate;
+    } else {
+      parms.startDateTime = startDate;
+      parms.endDateTime = endDate;
+      selectDate = endDate;
+    }
+    if (showType == 0) {
+      return {
+        dateType,
+        selectDate,
+        ...newParams
+      };
+    } else {
+      return {
+        dateType,
+        selectDate,
+        ...newParams
+      };
+    }
   };
   //柱状图
   drawDatass = (canvas, width, height) => {
@@ -247,58 +287,67 @@ export default class Index extends Component {
       total: item.total
     }));
   };
-
+  //时间切换数据变化
   handleDateChange = n => {
-    const { selectedDate } = this.state;
+    const { endDate, activeKey } = this.state;
+    const unit = tabList[activeKey].value;
 
-    let nextSelectedDate = null;
+    let nextEndDate = null;
     if (n === -1) {
-      nextSelectedDate = moment(selectedDate)
-        .subtract(1, "days")
-        .format(format);
+      nextEndDate = moment(endDate)
+        .subtract(1, unit)
+        .format(formatStr);
     } else if (n === 1) {
-      nextSelectedDate = moment(selectedDate)
-        .add(1, "days")
-        .format(format);
+      nextEndDate = moment(endDate)
+        .add(1, unit)
+        .format(formatStr);
     }
     this.setState(
       {
-        selectedDate: nextSelectedDate,
-        data: null
+        endDate: nextEndDate
       },
       this.loadData
     );
   };
   //切换趋势和总排行
-  handleTabClick = dateType => {
+  handleTabClick = e => {
     this.setState(
       {
-        dateType,
-        data: null,
-        selectedDate: DEFAULT_DATE
+        activeKey: e,
+        endDate: moment()
+          .subtract(1, "days")
+          .format(formatStr)
       },
       this.loadData
     );
   };
 
-  onSegmentedControl = showType => {
+  handleDateTypeChange = e => {
     this.setState(
       {
-        showType,
-        data: null,
-        selectedDate: DEFAULT_DATE
+        showType: e,
+        endDate: moment()
+          .subtract(1, "days")
+          .format(formatStr)
       },
       this.loadData
     );
   };
-
+  //切换年月日数据变化
   getPagerTitle = () => {
-    const { selectedDate, dateType } = this.state;
-    let endDateStr = moment(selectedDate).format("YYYY年MM月D日");
-    let startDateStr = moment(selectedDate)
-      .subtract(1, tabList[dateType].value)
-      .format("YYYY年MM月D日");
-
+    const { endDate, activeKey } = this.state;
+    const unit = tabList[activeKey].value;
+    let endDateStr = moment(endDate).format("YYYY年MM月D日");
+    let startDateStr = moment(endDate).format("YYYY年MM月D日");
+    if (activeKey === 1) {
+      startDateStr = moment(endDate)
+        .subtract(1, unit)
+        .format("YYYY年MM月D日");
+    } else if (activeKey === 2) {
+      startDateStr = moment(endDate)
+        .subtract(1, unit)
+        .format("YYYY年MM月D日");
+    }
     if (startDateStr === endDateStr) {
       return startDateStr;
     } else {
@@ -373,12 +422,11 @@ export default class Index extends Component {
   };
 
   render() {
-    const { dateType, showType, data, isFetching } = this.state;
-
+    const { activeKey, showType } = this.state;
     return (
       <View className="page report__root">
         <AtTabs
-          current={dateType}
+          current={activeKey}
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}
           animated={false}
@@ -386,7 +434,7 @@ export default class Index extends Component {
         <View className="report__control-wrap">
           <AtSegmentedControl
             current={showType}
-            onClick={this.onSegmentedControl}
+            onClick={this.handleDateTypeChange}
             values={["服务推荐客户", "服务推荐客户趋势"]}
           />
         </View>
@@ -398,58 +446,7 @@ export default class Index extends Component {
           />
         </View>
 
-        {isFetching && (
-          <AtActivityIndicator size={64} mode="center" content="加载中..." />
-        )}
-        {data && showType === 0 && (
-          <View className="report__main">
-            <BasicChart title="总成交台数" dataSource={[]} />
-            <View className="table">
-              <View className="at-row table-head bg-gray">
-                <View className="at-col at-col-3">业务项</View>
-                <View className="at-col at-col-3">接单台数</View>
-                <View className="at-col at-col-3">成交台数</View>
-                <View className="at-col at-col-3">当前成交率</View>
-              </View>
-              <View className="table-body">
-                {this.makeTendencyTableData(data).map(item => (
-                  <View className="at-row border-bottom" key={item.name}>
-                    <View className="at-col at-col-3">{item.name}</View>
-                    <View className="at-col at-col-3">{item.total}</View>
-                    <View className="at-col at-col-3">{item.dealTotal}</View>
-                    <View className="at-col at-col-3">{item.scale}</View>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
-        )}
-
-        {data && showType === 1 && (
-          <View className="report__main">
-            <LineChart dataSource={lineData} />
-            <View className="table">
-              <View className="at-row table-head bg-gray">
-                <View className="at-col at-col-3">日期</View>
-                {[].map(item => (
-                  <View className="at-col at-col-3">{item.realName}</View>
-                ))}
-              </View>
-              <View className="table-body">
-                {this.makeStatisticalTableData(data).map(item => (
-                  <View className="at-row" key={item.orderDate}>
-                    <View className="at-col at-col-3">{item.orderDate}</View>
-                    {[].map(val => (
-                      <View className="at-col at-col-3">
-                        {item[val.escUserId] || 0}
-                      </View>
-                    ))}
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
-        )}
+        {this.renderMain()}
       </View>
     );
   }

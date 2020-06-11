@@ -15,8 +15,8 @@ export default class Index extends Component {
   componentDidShow() {
     const userInfo = storage.get("userInfo");
     if (userInfo) {
-      // goTo('report-success');
-      // return
+      goTo('report-index');
+      return
       if (userInfo.checkStatus !== 1) {
         goTo("review-result", { checkStatus: userInfo.checkStatus }, false);
         return;

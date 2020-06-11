@@ -20,20 +20,21 @@ const tabList = [
   { title: `周`, value: "weeks" },
   { title: `月`, value: "months" }
 ];
-const defaultDate = moment()
+const DEFAULT_DATE = moment()
   .subtract(1, "days")
   .format(format);
+
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "成交率"
   };
 
   state = {
-    tabKey: 0,
+    dateType: 0,
     showType: 0,
     data: null,
     isFetching: true,
-    endDate: defaultDate //默认前一天
+    selectedDate: DEFAULT_DATE //默认前一天
   };
 
   componentDidMount() {
@@ -41,7 +42,7 @@ export default class Index extends Component {
   }
 
   loadData = async () => {
-    const { showType, tabKey } = this.state;
+    const { showType, dateType } = this.state;
 
     this.setState({
       isFetching: true
@@ -55,7 +56,7 @@ export default class Index extends Component {
         {
           selectDate: this.makeParams().endDate
         },
-        tabList[tabKey].value
+        tabList[dateType].value
       );
     }
 
@@ -66,61 +67,33 @@ export default class Index extends Component {
   };
 
   makeParams = () => {
-    const { endDate, tabKey } = this.state;
-    let startDate = endDate;
-    if (tabKey === 1) {
-      startDate = moment(endDate)
-        .subtract(1, "weeks")
-        .format(format);
-    } else if (tabKey === 2) {
-      startDate = moment(endDate)
-        .subtract(1, "months")
-        .format(format);
-    }
+    const { selectedDate, dateType } = this.state;
     return {
-      startDate,
-      endDate
+      startDate: moment(selectedDate)
+        .subtract(1, tabList[dateType].value)
+        .format(format),
+      endDate: selectedDate
     };
   };
 
-  // drawData = () => {
-  //   const { data, showType } = this.state;
-  //   const { TOTAL } = data;
-  //   if (showType === 0) {
-  //     this.tendencyRef.guide().text({
-  //       position: ["50%", "45%"],
-  //       content: TOTAL.orderDealTotal,
-  //       style: {
-  //         fill: "#333333", // 文本颜色
-  //         fontSize: "29", // 文本大小
-  //         fontWeight: "bold" // 文本粗细
-  //       }
-  //     });
-  //     this.tendencyRef.changeData(this.makeTendencyData(data));
-  //   } else if (showType === 1) {
-  //     this.statisticalRef.changeData(this.makeStatisticalData(data));
-  //   }
-  // };
-
   makeTendencyData = data => {
-    console.log(data, "data");
     const total = data.TOTAL.orderDealTotal;
     if (total === 0) {
       return [
         {
           name: "转介绍占比",
           percent: 0.34,
-          total
+          total: 0
         },
         {
           name: "再购新车占比",
           percent: 0.33,
-          total
+          total: 0
         },
         {
           name: "置换新车占比",
           percent: 0.33,
-          total
+          total: 0
         }
       ];
     }
@@ -154,16 +127,16 @@ export default class Index extends Component {
         {
           name: "再购新车",
           date: orderDate,
-          num: zgxcTotal,
+          value: zgxcTotal,
           count
         },
         {
           name: "置换新车",
           date: orderDate,
-          num: zhxcTotal,
+          value: zhxcTotal,
           count
         },
-        { name: "转介绍", date: orderDate, num: zjsTotal, count }
+        { name: "转介绍", date: orderDate, value: zjsTotal, count }
       ];
 
       return result;
@@ -175,33 +148,33 @@ export default class Index extends Component {
   };
 
   handleDateChange = n => {
-    const { endDate } = this.state;
+    const { selectedDate } = this.state;
 
-    let nextEndDate = null;
+    let nextSelectedDate = null;
     if (n === -1) {
-      nextEndDate = moment(endDate)
+      nextSelectedDate = moment(selectedDate)
         .subtract(1, "days")
         .format(format);
     } else if (n === 1) {
-      nextEndDate = moment(endDate)
+      nextSelectedDate = moment(selectedDate)
         .add(1, "days")
         .format(format);
     }
     this.setState(
       {
-        endDate: nextEndDate,
+        selectedDate: nextSelectedDate,
         data: null
       },
       this.loadData
     );
   };
 
-  handleTabClick = tabKey => {
+  handleTabClick = dateType => {
     this.setState(
       {
-        tabKey,
+        dateType,
         data: null,
-        endDate: defaultDate
+        selectedDate: DEFAULT_DATE
       },
       this.loadData
     );
@@ -212,27 +185,18 @@ export default class Index extends Component {
       {
         showType,
         data: null,
-        endDate: defaultDate
+        selectedDate: DEFAULT_DATE
       },
       this.loadData
     );
   };
 
   getPagerTitle = () => {
-    const { endDate, tabKey } = this.state;
-    const unit = tabList[tabKey].value;
-    let endDateStr = moment(endDate).format("YYYY年MM月D日");
-    let startDateStr = moment(endDate).format("YYYY年MM月D日");
-
-    if (tabKey === 1) {
-      startDateStr = moment(endDate)
-        .subtract(1, unit)
-        .format("YYYY年MM月D日");
-    } else if (tabKey === 2) {
-      startDateStr = moment(endDate)
-        .subtract(1, unit)
-        .format("YYYY年MM月D日");
-    }
+    const { selectedDate, dateType } = this.state;
+    let endDateStr = moment(selectedDate).format("YYYY年MM月D日");
+    let startDateStr = moment(selectedDate)
+      .subtract(1, tabList[dateType].value)
+      .format("YYYY年MM月D日");
 
     if (startDateStr === endDateStr) {
       return startDateStr;
@@ -242,12 +206,12 @@ export default class Index extends Component {
   };
 
   render() {
-    const { tabKey, showType, data, isFetching } = this.state;
+    const { dateType, showType, data, isFetching } = this.state;
 
     return (
       <View className="page report__root">
         <AtTabs
-          current={tabKey}
+          current={dateType}
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}
           animated={false}
@@ -268,7 +232,7 @@ export default class Index extends Component {
         </View>
 
         {isFetching && (
-          <AtActivityIndicator mode="center" content="加载中..." />
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
         )}
 
         {data && showType === 0 && (
