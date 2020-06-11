@@ -14,7 +14,7 @@ import moment from "moment";
 import { getsaStatistics, getsaTopTotal } from "../../servers/apis";
 import { toPercentage } from "../../utils";
 import "./index.scss";
-import lineData from './series-line.json'
+import lineData from "./series-line.json";
 const format = "YYYY-MM-DD";
 
 const tabList = [
@@ -248,6 +248,35 @@ export default class Index extends Component {
     }));
   };
 
+  makeBasicData = data => {
+    const list = data.escTopReports || [];
+    return list
+      .reduce((result, item) => {
+        return [
+          ...result,
+          {
+            type: item.realName,
+            value: item.total * 1
+          }
+        ];
+      }, [])
+      .sort((a, b) => a.value - b.value);
+  };
+
+  makeLineData = data => {
+    const list = data.resultList || [];
+    return list.reduce((result, item) => {
+      return [
+        ...result,
+        ...item.dataList.map(c => ({
+          date: item.orderDate,
+          type: c.realName,
+          value: c.total * 1
+        }))
+      ];
+    }, []);
+  };
+
   handleDateChange = n => {
     const { selectedDate } = this.state;
 
@@ -403,7 +432,7 @@ export default class Index extends Component {
         )}
         {data && showType === 0 && (
           <View className="report__main">
-            <BasicChart title="总成交台数" dataSource={[]} />
+            <BasicChart dataSource={this.makeBasicData(data)} />
             <View className="table">
               <View className="at-row table-head bg-gray">
                 <View className="at-col at-col-3">业务项</View>
@@ -427,7 +456,7 @@ export default class Index extends Component {
 
         {data && showType === 1 && (
           <View className="report__main">
-            <LineChart dataSource={lineData} />
+            <LineChart dataSource={this.makeLineData(data)} />
             <View className="table">
               <View className="at-row table-head bg-gray">
                 <View className="at-col at-col-3">日期</View>
@@ -437,7 +466,7 @@ export default class Index extends Component {
               </View>
               <View className="table-body">
                 {this.makeStatisticalTableData(data).map(item => (
-                  <View className="at-row" key={item.orderDate}>
+                  <View className="at-row border-bottom" key={item.orderDate}>
                     <View className="at-col at-col-3">{item.orderDate}</View>
                     {[].map(val => (
                       <View className="at-col at-col-3">

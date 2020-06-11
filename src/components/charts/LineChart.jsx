@@ -1,6 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
+import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
 export default class Index extends Component {
@@ -8,46 +9,42 @@ export default class Index extends Component {
     dataSource: []
   };
 
+  // chart = null;
+
+  shouldComponentUpdate() {
+    if (this.chart) {
+      return false;
+    }
+    return true;
+  }
+
   drawData = (canvas, width, height) => {
+    fixF2(F2);
     const chart = new F2.Chart({
       el: canvas,
       width,
       height
     });
 
-    chart.source(this.props.dataSource, {
-      date: {
-        tickCount: 7,
-        range: [0, 1]
-      },
-      value: {
-        tickCount: 5
-      }
-    });
-    // chart.axis("date", {
-    //   labelOffset: 20,
-    //   tickLine: {
-    //     length: 4,
-    //     stroke: "#e8e8e8",
-    //     lineWidth: 1
-    //   },
-    //   type: {
-    //     textAlign: "center",
-    //     textBaseline: "middle",
-    //     rotate: 75
-    //   }
-    // });
+    chart.source(this.props.dataSource);
+    chart.tooltip(false);
     chart
       .line()
       .position("date*value")
-      .color("type")
-      .shape("smooth");
+      .color("type");
     chart.render();
+    this.chart = chart;
+  };
+
+  getHeight = () => {
+    const { dataSource } = this.props;
+    return Math.ceil(dataSource.length / 2) * 12 + 320;
   };
 
   render() {
+    console.log("render chart");
     return (
-      <View style={{ width: "100vw", height: "320px" }}>
+      <View style={{ width: "100vw", height: this.getHeight() + "rpx" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

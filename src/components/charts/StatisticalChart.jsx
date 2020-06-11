@@ -1,6 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
+import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
 export default class Index extends Component {
@@ -9,6 +10,7 @@ export default class Index extends Component {
   };
 
   drawData = (canvas, width, height) => {
+    fixF2(F2);
     const { dataSource } = this.props;
     const chart = new F2.Chart({
       el: canvas,

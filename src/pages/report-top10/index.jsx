@@ -39,12 +39,14 @@ class Index extends Component {
   };
 
   render() {
+    const { listData } = this.state;
     return (
       <View className="page all-employees__root bg-gray">
         <View className="all-employees__list">
           <AtList hasBorder={false}>
-            {this.state.listData.map(item => (
+            {listData.map((item, index) => (
               <AtListItem
+                className={index === listData.length-1 ? "no-border" : ""}
                 key={item.key}
                 title={item.title}
                 onClick={this.handleClick.bind(this, item.key)}

@@ -1,6 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
+import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
 function getAllTotal(data) {
@@ -22,6 +23,7 @@ export default class Index extends Component {
   };
 
   drawData = (canvas, width, height) => {
+    fixF2(F2);
     const { dataSource } = this.props;
     const _F = F2;
     const Util = _F.Util;
@@ -154,7 +156,6 @@ export default class Index extends Component {
       }
     });
     chart.render();
-    // return chart;
   };
 
   render() {

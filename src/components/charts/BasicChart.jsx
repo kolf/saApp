@@ -1,49 +1,48 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
+import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
 const data = [
   {
-    name: "1951 年",
+    type: "1951 年",
     value: 38
   },
   {
-    name: "1952 年",
+    type: "1952 年",
     value: 52
   },
   {
-    name: "1956 年",
+    type: "1956 年",
     value: 61
   },
   {
-    name: "1957 年",
+    type: "1957 年",
     value: 145
   },
   {
-    name: "1958 年",
+    type: "1958 年",
     value: 48
   },
   {
-    name: "1959 年",
+    type: "1959 年",
     value: 38
   },
   {
-    name: "1960 年",
+    type: "1960 年",
     value: 38
   },
   {
-    name: "1962 年",
+    type: "1962 年",
     value: 38
   }
 ];
 
 export default class Index extends Component {
-  static defeultProps = {
-    dataSource: []
-  };
 
   drawData = (canvas, width, height) => {
+    fixF2(F2);
     const Global = F2.Global;
     const chart = new F2.Chart({
       el: canvas,
@@ -51,7 +50,7 @@ export default class Index extends Component {
       height
     });
 
-    chart.source(data, {
+    chart.source(this.props.dataSource, {
       value: {
         tickCount: 5
       }
@@ -60,25 +59,25 @@ export default class Index extends Component {
       transposed: true
     });
 
-    chart.axis("name", {
+    chart.axis("type", {
       line: Global._defaultAxis.line,
       grid: null
     });
-    chart.axis("value", {
-      line: null,
-      grid: Global._defaultAxis.grid,
-      label: function label(text, index, length) {
-        var textCfg = {};
-        if (index === 0) {
-          textCfg.textAlign = "left";
-        } else if (index === length - 1) {
-          textCfg.textAlign = "right";
-        }
-        return textCfg;
-      }
-    });
+    // chart.axis("value", {
+    //   line: null,
+    //   grid: Global._defaultAxis.grid,
+    //   label: function label(text, index, length) {
+    //     var textCfg = {};
+    //     if (index === 0) {
+    //       textCfg.textAlign = "left";
+    //     } else if (index === length - 1) {
+    //       textCfg.textAlign = "right";
+    //     }
+    //     return textCfg;
+    //   }
+    // });
 
-    chart.interval().position("name*value");
+    chart.interval().position("type*value");
 
     // 绘制柱状图文本
     data.map(function(item, index) {
@@ -95,9 +94,14 @@ export default class Index extends Component {
     chart.render();
   };
 
+  getHeight = () => {
+    const { dataSource } = this.props;
+    return Math.ceil(dataSource.length / 10) * 480;
+  };
+
   render() {
     return (
-      <View style={{ width: "100vw", height: "320px" }}>
+      <View style={{ width: "100vw", height: this.getHeight() + "rpx" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );
