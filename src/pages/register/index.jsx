@@ -8,8 +8,7 @@ import storage from "../../utils/storage";
 import modal from "../../utils/modal";
 import { isPhone } from "../../utils/validator";
 import "./index.scss";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "注册"
   };
@@ -143,4 +142,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

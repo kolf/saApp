@@ -128,7 +128,7 @@ export default class Index extends Component {
     chart
       .interval()
       .position("a*percent")
-      .color("name", [
+      .color("type", [
         "l(0) 0:#FF9F3E 1:#FFCC3E",
         "l(0) 0:#F1774A 1:#FC2B2B",
         "l(0) 0:#34BFFF 1:#6384FF"
@@ -137,6 +137,7 @@ export default class Index extends Component {
       .style({
         lineWidth: 1,
         stroke: "#fff",
+        fontSize: "20", // 文本大小
         lineJoin: "round",
         lineCap: "round"
       })
@@ -160,7 +161,7 @@ export default class Index extends Component {
 
   render() {
     return (
-      <View style={{ width: "100vw", height: "76vw" }}>
+      <View style={{ width: "100%", height: "76vw" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

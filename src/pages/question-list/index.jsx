@@ -6,8 +6,7 @@ import { goTo } from "../../utils";
 import EmptyData from "../../components/empty-data";
 import { getMessageBoardList } from "../../servers/apis";
 
-// const
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "人工解答"
   };
@@ -83,4 +82,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

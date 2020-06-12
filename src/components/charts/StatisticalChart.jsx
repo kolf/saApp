@@ -46,7 +46,7 @@ export default class Index extends Component {
     chart
       .interval()
       .position("date*value")
-      .color("name", [
+      .color("type", [
         "l(90) 0:#7DE3FF 1:#0056E0",
         "l(90) 0:#FFF686 1:#FF9538",
         "l(90) 0:#A7F592 1:#4ADD4E",
@@ -63,7 +63,7 @@ export default class Index extends Component {
 
   render() {
     return (
-      <View style={{ width: "100vw", height: "76vw" }}>
+      <View style={{ width: "100%", height: "76vw" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

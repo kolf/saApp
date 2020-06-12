@@ -5,8 +5,7 @@ import EmptyData from "../../components/empty-data";
 import "./index.scss";
 import { getScore, getGiftList } from "../../servers/apis";
 import { goTo } from "../../utils";
-const modal = Taro.showModal;
-class Index extends Component {
+const modal = Taro.showModal;export default  class Index extends Component {
   config = {
     navigationBarTitleText: "积分兑换"
   };
@@ -106,4 +105,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

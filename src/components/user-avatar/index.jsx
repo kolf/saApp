@@ -4,7 +4,7 @@ import { AtAvatar } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 
-class Index extends PureComponent {
+export default class Index extends PureComponent {
   render() {
     return (
       <View className="user-avatar__root">
@@ -17,4 +17,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index;
+

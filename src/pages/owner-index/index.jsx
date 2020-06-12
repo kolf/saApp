@@ -1,15 +1,124 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
+import { AtAvatar } from "../../npm/taro-ui/dist";
+import NavPanel from "../../components/nav-panel";
 import "./index.scss";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
+import leadUrl from "../../assets/images/lead.svg";
+import noteLargeUrl from "../../assets/images/note-large.svg";
+import usersLargeUrl from "../../assets/images/users-large.svg";
+import serviceUrl from "../../assets/images/service.svg";
+import userLargeUrl from "../../assets/images/user-large.svg";
 
 export default class Index extends Component {
   state = {
-    userInfo: storage.get("userInfo") || {}
+    userData: storage.get("userInfo") || {}
+  };
+
+  componentWillMount() {
+    Taro.setNavigationBarColor({
+      frontColor: "#ffffff",
+      backgroundColor: "#4268e6"
+    });
+  }
+
+  handleClick = name => {
+    goTo(name);
   };
 
   render() {
-    return <View className="page owner-index__root">震天二</View>;
+    const { userData } = this.state;
+
+    return (
+      <View className="page owner-index__root">
+        <View className="owner-index__header">
+          <View className="owner-index__header-title">
+            <View className="owner-index__header-name">
+              你好，{userData.positionName}
+            </View>
+            <View className="owner-index__header-desc">{userData.disName}</View>
+          </View>
+          <View className="owner-index__header-avatar">
+            <AtAvatar image={userData.avatarUrl} circle />
+          </View>
+        </View>
+        <View style={{ margin: "16rpx -16rpx" }}>
+          <View className="at-row at-row--wrap">
+            <View
+              className="at-col at-col-12"
+              onClick={this.handleClick.bind(this, "report-index")}
+            >
+              <View className="owner-index__nav" style={{ fontSize: 0 }}>
+                <Image
+                  src={leadUrl}
+                  className="img"
+                  style={{ width: "100%", fontSize: 0 }}
+                  mode="widthFix"
+                />
+              </View>
+            </View>
+            <View className="at-col at-col-6">
+              <View className="owner-index__nav">
+                <NavPanel
+                  title="我的业绩"
+                  onClick={this.handleClick.bind(this, "my-order")}
+                >
+                  <Image
+                    src={noteLargeUrl}
+                    mode="widthFix"
+                    className="img nav-icon"
+                  />
+                </NavPanel>
+              </View>
+            </View>
+            <View className="at-col at-col-6">
+              <View className="owner-index__nav">
+                <NavPanel
+                  title="客户列表"
+                  onClick={this.handleClick.bind(this, "my-owner")}
+                >
+                  <Image
+                    src={usersLargeUrl}
+                    mode="widthFix"
+                    className="img nav-icon"
+                  />
+                </NavPanel>
+              </View>
+            </View>
+            <View className="at-col at-col-6">
+              <View className="owner-index__nav">
+                <NavPanel
+                  title="联系客服"
+                  onClick={this.handleClick.bind(this, "service-index")}
+                >
+                  <View className="nav-icon">
+                    <Image
+                      src={serviceUrl}
+                      mode="widthFix"
+                      className="img nav-icon"
+                    />
+                  </View>
+                </NavPanel>
+              </View>
+            </View>
+            <View className="at-col at-col-6">
+              <View className="owner-index__nav">
+                <NavPanel
+                  title="信息展示墙"
+                  onClick={this.handleClick.bind(this, "my-profile")}
+                >
+                  <Image
+                    src={userLargeUrl}
+                    mode="widthFix"
+                    className="img nav-icon"
+                  />
+                </NavPanel>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   }
 }

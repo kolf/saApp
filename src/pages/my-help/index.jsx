@@ -5,8 +5,7 @@ import NetwordError from "../../components/network-error";
 import { getActivityList } from "../../servers/apis";
 
 import "./index.scss";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "常用问题"
   };
@@ -54,4 +53,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

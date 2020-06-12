@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Picker } from "@tarojs/components";
 
-class Index extends PureComponent {
+export default class Index extends PureComponent {
   state = {
     value: "" //YYYY-MM-DD
   };
@@ -21,4 +21,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index;
+

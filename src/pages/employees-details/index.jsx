@@ -6,7 +6,7 @@ import UserPanelAvatar from "../../components/user-panel-avatar";
 import { getStaff, examine } from "../../servers/apis";
 import { getOptionLabel } from "../../utils/options";
 
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "员工详情"
   };
@@ -105,4 +105,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

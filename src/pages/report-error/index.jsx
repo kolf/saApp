@@ -83,12 +83,12 @@ export default class Index extends Component {
     const { escTotal, xsTotal, total } = data.timeoutTotal;
     return [
       {
-        name: "二手车部占比",
+        type: "二手车部占比",
         percent: total === 0 ? 0.5 : (escTotal / total).toFixed(2) * 1,
         total: escTotal
       },
       {
-        name: "销售部占比",
+        type: "销售部占比",
         percent: total === 0 ? 0.5 : (xsTotal / total).toFixed(2) * 1,
         total: xsTotal
       }
@@ -109,24 +109,24 @@ export default class Index extends Component {
       result = [
         ...result,
         {
-          name: "二手车评估",
+          type: "二手车评估",
           date: orderDate,
-          num: escpgTotal,
+          value: escpgTotal,
           count
         },
         {
-          name: "置换新车",
+          type: "置换新车",
           date: orderDate,
-          num: zhxcTotal,
+          value: zhxcTotal,
           count
         },
         {
-          name: "再购新车",
+          type: "再购新车",
           date: orderDate,
-          num: zgxcTotal,
+          value: zgxcTotal,
           count
         },
-        { name: "转介绍", date: orderDate, num: zjsTotal, count }
+        { type: "转介绍", date: orderDate, value: zjsTotal, count }
       ];
 
       return result;

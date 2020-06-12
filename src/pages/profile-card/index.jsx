@@ -4,8 +4,7 @@ import { AtAvatar } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";
 import storage from "../../utils/storage";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "预览名片"
   };
@@ -58,4 +57,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

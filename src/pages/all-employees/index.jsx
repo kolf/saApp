@@ -6,7 +6,7 @@ import "./index.scss";
 import { goTo } from "../../utils";
 import { getStaffList } from "../../servers/apis";
 
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "选择员工"
   };
@@ -100,4 +100,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

@@ -2,7 +2,7 @@ import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
 
-class Index extends PureComponent {
+export default class Index extends PureComponent {
   render() {
     const { size } = this.props;
     if (!size) {
@@ -22,4 +22,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index;
+

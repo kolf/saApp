@@ -17,8 +17,7 @@ import getBaseUrl from "../../servers/baseUrl";
 function loop(e) {
   e.stopPropagation();
 }
-const genders = getOptions("genders");
-class Index extends Component {
+const genders = getOptions("genders");export default  class Index extends Component {
   config = {
     navigationBarTitleText: "完善个人信息"
   };
@@ -256,4 +255,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

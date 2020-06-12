@@ -4,7 +4,7 @@ import { View, Image } from "@tarojs/components";
 import "./index.scss";
 import defaultAvatarUrl from "../../assets/images/defaultAvatar.png";
 
-class Index extends Component {
+export default class Index extends Component {
   render() {
     const { dataSource, style } = this.props;
 
@@ -49,4 +49,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

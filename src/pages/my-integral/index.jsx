@@ -6,8 +6,7 @@ import "./index.scss";
 import { getMyJF, getCreditStatus } from "../../servers/apis";
 import { goTo } from "../../utils";
 const modal = Taro.showModal;
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "我的积分"
   };
@@ -69,4 +68,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

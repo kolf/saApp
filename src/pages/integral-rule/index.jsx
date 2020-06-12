@@ -4,8 +4,7 @@ import { AtActivityIndicator } from "../../npm/taro-ui/dist";
 import { getActivityList } from "../../servers/apis";
 
 import "./index.scss";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "积分规则说明"
   };
@@ -44,4 +43,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

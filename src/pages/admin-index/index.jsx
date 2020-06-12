@@ -2,6 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { AtAvatar } from "../../npm/taro-ui/dist";
 import NavPanel from "../../components/nav-panel";
+import HreoChart from "./HreoChart";
 import "./index.scss";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
@@ -45,14 +46,14 @@ export default class Index extends Component {
         </View>
         <View style={{ margin: "16rpx -16rpx" }}>
           <View className="at-row at-row--wrap">
-            <View className="at-col at-col-12" onClick={this.handleClick.bind(this, 'report-index')}>
-              <View className="admin-index__nav" style={{ fontSize: 0 }}>
-                <Image
-                  src={leadUrl}
-                  className="img"
-                  style={{ width: "100%", fontSize: 0 }}
-                  mode="widthFix"
-                />
+            <View className="at-col at-col-12">
+              <View className="admin-index__nav">
+                <NavPanel
+                  title="报表"
+                  onClick={this.handleClick.bind(this, "report-index")}
+                >
+                  <HreoChart />
+                </NavPanel>
               </View>
             </View>
             <View className="at-col at-col-6">

@@ -14,7 +14,6 @@ import moment from "moment";
 import { getsaStatistics, getsaTopTotal } from "../../servers/apis";
 import { toPercentage } from "../../utils";
 import "./index.scss";
-import lineData from "./series-line.json";
 const format = "YYYY-MM-DD";
 
 const tabList = [
@@ -435,18 +434,20 @@ export default class Index extends Component {
             <BasicChart dataSource={this.makeBasicData(data)} />
             <View className="table">
               <View className="at-row table-head bg-gray">
-                <View className="at-col at-col-3">业务项</View>
-                <View className="at-col at-col-3">接单台数</View>
-                <View className="at-col at-col-3">成交台数</View>
-                <View className="at-col at-col-3">当前成交率</View>
+                <View className="at-col at-col-2">顾问</View>
+                <View className="at-col at-col-3">二手车评估</View>
+                <View className="at-col at-col-2">再购新车</View>
+                <View className="at-col at-col-2">转介绍</View>
+                <View className="at-col at-col-3">推荐总量</View>
               </View>
               <View className="table-body">
                 {this.makeTendencyTableData(data).map(item => (
                   <View className="at-row border-bottom" key={item.name}>
-                    <View className="at-col at-col-3">{item.name}</View>
+                    <View className="at-col at-col-2">{item.name}</View>
+                    <View className="at-col at-col-3">{item.escpgCount}</View>
+                    <View className="at-col at-col-2">{item.zgxcCount}</View>
+                    <View className="at-col at-col-2">{item.zjsCount}</View>
                     <View className="at-col at-col-3">{item.total}</View>
-                    <View className="at-col at-col-3">{item.dealTotal}</View>
-                    <View className="at-col at-col-3">{item.scale}</View>
                   </View>
                 ))}
               </View>

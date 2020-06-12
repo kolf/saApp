@@ -5,8 +5,7 @@ import { View } from "@tarojs/components";
 import "./index.scss";
 import { getMyJF } from "../../servers/apis";
 import { goTo } from "../../utils";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "已获得的积分"
   };
@@ -72,4 +71,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

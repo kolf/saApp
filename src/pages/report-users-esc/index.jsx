@@ -1,40 +1,44 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { F2Canvas } from "taro-f2";
-import { AtTabs, AtSegmentedControl, AtActivityIndicator } from "../../npm/taro-ui/dist";
-import TendencyChart from "../../components/charts/tendency-chart";
-import StatisticalChart from "../../components/charts/statistical-chart";
+import {
+  AtTabs,
+  AtSegmentedControl,
+  AtActivityIndicator
+} from "../../npm/taro-ui/dist";
+
 import Pager from "../../components/pager";
+import TendencyChart from "../../components/charts/TendencyChart";
+import StatisticalChart from "../../components/charts/StatisticalChart";
 import moment from "moment";
 import {
   getAdvisoryReportYesterday,
   getAdvisoryReportLast7Days
 } from "../../servers/apis";
+import { toPercentage } from "../../utils";
 import "./index.scss";
 
-const formatStr = "YYYY-MM-DD";
-
+const format = "YYYY-MM-DD";
 const tabList = [
   { title: `日`, value: "days" },
   { title: `周`, value: "weeks" },
   { title: `月`, value: "months" }
 ];
+const DEFAULT_DATE = moment()
+  .subtract(1, "days")
+  .format(format);
+
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "二手车顾问"
   };
 
   state = {
-    activeKey: 0,
+    dateType: 0,
     showType: 0,
-    listData: [],
-    isFetching: false,
-    endDate: moment()
-      .subtract(1, "days")
-      .format(formatStr) //默认前一天
+    data: null,
+    isFetching: true,
+    selectedDate: DEFAULT_DATE //默认前一天
   };
-
-  tendencyRef = null;
 
   componentWillMount() {
     const { title } = this.$router.params;
@@ -43,150 +47,75 @@ export default class Index extends Component {
     });
   }
 
-  componentDidShow() {
+  componentDidMount() {
     this.loadData();
   }
 
-  loadData = () => {
+  loadData = async () => {
+    const { showType, dateType } = this.state;
+
     this.setState({
       isFetching: true
     });
-    const { showType, activeKey } = this.state;
-    //饼状图
-    if (showType == 0) {
-      getAdvisoryReportYesterday(this.makeParams()).then(res => {
-        this.setState({
-          isFetching: false,
-          data: res.data
-        });
-        this.timer = setTimeout(() => {
-          clearTimeout(this.timer);
-          this.drawData();
-        }, 300);
-      });
-    } else {
-      getAdvisoryReportLast7Days(
-        this.makeParams(),
-        tabList[activeKey].value
-      ).then(res => {
-        this.setState({
-          isFetching: false,
-          data: res.data
-        });
-        this.timer = setTimeout(() => {
-          clearTimeout(this.timer);
-          this.drawData();
-        }, 300);
-      });
+
+    let res = null;
+    if (showType === 0) {
+      res = await getAdvisoryReportYesterday(this.makeParams());
+    } else if (showType === 1) {
+      res = await getAdvisoryReportLast7Days(
+        {
+          dateTime: this.makeParams().endDateTime,
+          uId: this.makeParams().uId
+        },
+        tabList[dateType].value
+      );
     }
+
+    this.setState({
+      isFetching: false,
+      data: res.data
+    });
   };
 
-  drawData = () => {
-    if (this.state.showType === 0) {
-      const { data, showType } = this.state;
-      const { WCNum } = data;
-      this.tendencyRef.guide().text({
-        position: ["50%", "45%"],
-        content: WCNum.total,
-        style: {
-          fill: "#333333", // 文本颜色
-          fontSize: "29", // 文本大小
-          fontWeight: "bold" // 文本粗细
-        }
-      });
-      delete data.DateTime;
-      delete data.CSNum;
-      delete data.TPNum;
-      //    delete  data.WCNum
-      for (let d in data) {
-        data[d].transactionRate = data[d].proportion;
-      }
-      console.log(data + "21212121212121212121222");
-      this.tendencyRef.changeData(this.makeData(data));
-    } else if (this.state.showType === 1) {
-      let { data } = this.state;
-      let rebuildData = [];
-      data.map((obj, i) => {
-        for (let v in obj) {
-          if (v !== "date" && v !== "Total") {
-            let name;
-            let date;
-            let num;
-            let num10;
-            if (v === "ZHTotal") {
-              name = "推荐置换台数";
-              date = obj.date;
-              num = obj[v];
-              num10 = obj[v];
-            } else if (v === "PGTotal") {
-              name = "评估台数";
-              date = obj.date;
-              num = obj[v];
-              num10 = obj[v];
-            }
-            rebuildData.push({
-              name,
-              date,
-              num,
-              num10
-            });
-          }
-        }
-      });
-      data = rebuildData;
-      const _this = this;
-      var map = {},
-        dest = [];
-      for (var i = 0; i < data.length; i++) {
-        var ai = data[i];
-        if (!map[ai.date]) {
-          dest.push({
-            date: ai.date,
-            name: ai.name,
-            data: [ai]
-          });
-          map[ai.date] = ai;
-        } else {
-          for (var j = 0; j < dest.length; j++) {
-            var dj = dest[j];
-            if (dj.date == ai.date) {
-              dj.data.push(ai);
-              break;
-            }
-          }
-        }
-      }
-      dest.map((d, i) => {
-        let count = 0;
-        d.data.map((n, m) => {
-          count += n.num;
-        });
-        d.count = count;
-      });
-      let newData = [];
-      dest.map(function(obj, i) {
-        obj.data.map((o, i) => {
-          o.count = obj.count;
-          newData.push(o);
-          if (i === 0) {
-            _this.statisticalRef.guide().text({
-              position: [obj.date, obj.count],
-              content: obj.count,
-              style: {
-                textAlign: "center",
-                textBaseline: "bottom"
-              },
-              offsetY: -4
-            });
-          }
-        });
-      });
-
-      this.statisticalRef.changeData(newData);
-    }
+  makeParams = () => {
+    let { id } = this.$router.params;
+    const { selectedDate, dateType } = this.state;
+    return {
+      uId: id,
+      startDateTime: moment(selectedDate)
+        .subtract(1, tabList[dateType].value)
+        .format(format),
+      endDateTime: selectedDate
+    };
   };
 
-  makeTableData = data => {
+  makeTendencyData = data => {
+    const total = data ? data.WCNum.total : 0;
+    if (total === 0) {
+      return [
+        {
+          type: "评估台数占比",
+          percent: 0.5
+        },
+        {
+          type: "推荐置换台数占比",
+          percent: 0.5
+        }
+      ];
+    }
+    return Object.keys(data)
+      .filter(key => /(ZHNum|PGNum)/.test(key))
+      .map(key => {
+        const item = data[key];
+        return {
+          total,
+          type: item.orderTypeName + "占比",
+          percent: item.proportion / 100
+        };
+      });
+  };
+
+  makeTendencyTableData = data => {
     return Object.values(data).map(item => ({
       name: item.orderTypeName,
       total: item.orderTotal,
@@ -198,123 +127,84 @@ export default class Index extends Component {
     }));
   };
 
-  makeParams = (newParams = {}) => {
-    let { id } = this.$router.params;
-    const { endDate, activeKey, showType } = this.state;
-    let startDate = endDate;
-    let parms = {};
-    if (activeKey === 1) {
-      startDate = moment(endDate)
-        .subtract(1, "weeks")
-        .format(formatStr);
-    } else if (activeKey === 2) {
-      startDate = moment(endDate)
-        .subtract(1, "months")
-        .format(formatStr);
-    }
-    if (showType) {
-      parms.dateTime = endDate;
-    } else {
-      parms.startDateTime = startDate;
-      parms.endDateTime = endDate;
-    }
-    return {
-      uId: id,
-      ...parms,
-      ...newParams
-    };
-  };
-
-  handleTabClick = e => {
-    this.setState(
-      {
-        activeKey: e,
-        endDate: moment()
-          .subtract(1, "days")
-          .format(formatStr)
-      },
-      this.loadData
-    );
-  };
-
-  makeData = data => {
-    const total = data ? data.WCNum.total : 0;
-    if (total == 0) {
-      return [
+  makeStatisticalData = data => {
+    return data.reduce((result, item) => {
+      const { ZHTotal,PGTotal, date } = item;
+      const count = ZHTotal + PGTotal;
+      result = [
+        ...result,
         {
-          name: "评估占比",
-          percent: 0.5,
-          a: "1"
+          type: "推荐置换台数",
+          date,
+          value: ZHTotal,
+          count
         },
         {
-          name: "推荐置换占比",
-          percent: 0.5,
-          a: "1"
+          type: "评估台数",
+          date,
+          value: PGTotal,
+          count
         }
       ];
-    }
-    delete data.Total;
-    delete data.DateTime;
-    delete data.CSNum;
-    delete data.ToNum;
-    delete data.WCNum;
 
-    return Object.values(data).map(item => ({
-      name: item.orderTypeName,
-      percent: item.transactionRate / 100,
-      a: "1"
-    }));
+      return result;
+    }, []);
+  };
+
+  makeStatisticalTableData = data => {
+    return Array.isArray(data) ? data : [];
   };
 
   handleDateChange = n => {
-    const { endDate, activeKey } = this.state;
-    const unit = tabList[activeKey].value;
+    const { selectedDate } = this.state;
 
-    let nextEndDate = null;
+    let nextSelectedDate = null;
     if (n === -1) {
-      nextEndDate = moment(endDate)
-        .subtract(1, unit)
-        .format(formatStr);
+      nextSelectedDate = moment(selectedDate)
+        .subtract(1, "days")
+        .format(format);
     } else if (n === 1) {
-      nextEndDate = moment(endDate)
-        .add(1, unit)
-        .format(formatStr);
+      nextSelectedDate = moment(selectedDate)
+        .add(1, "days")
+        .format(format);
     }
     this.setState(
       {
-        endDate: nextEndDate
+        selectedDate: nextSelectedDate,
+        data: null
       },
       this.loadData
     );
   };
 
-  handleDateTypeChange = e => {
+  handleTabClick = dateType => {
     this.setState(
       {
-        showType: e,
-        endDate: moment()
-          .subtract(1, "days")
-          .format(formatStr)
+        dateType,
+        data: null,
+        selectedDate: DEFAULT_DATE
+      },
+      this.loadData
+    );
+  };
+
+  onSegmentedControl = showType => {
+    this.setState(
+      {
+        showType,
+        data: null,
+        selectedDate: DEFAULT_DATE
       },
       this.loadData
     );
   };
 
   getPagerTitle = () => {
-    const { endDate, activeKey } = this.state;
-    const unit = tabList[activeKey].value;
-    let endDateStr = moment(endDate).format("YYYY年MM月D日");
-    let startDateStr = moment(endDate).format("YYYY年MM月D日");
-
-    if (activeKey === 1) {
-      startDateStr = moment(endDate)
-        .subtract(1, unit)
-        .format("YYYY年MM月D日");
-    } else if (activeKey === 2) {
-      startDateStr = moment(endDate)
-        .subtract(1, unit)
-        .format("YYYY年MM月D日");
-    }
+    const { selectedDate, dateType } = this.state;
+    let endDateStr = moment(selectedDate).format("YYYY年MM月D日");
+    let startDateStr = moment(selectedDate)
+      .subtract(1, tabList[dateType].value)
+      .format("YYYY年MM月D日");
 
     if (startDateStr === endDateStr) {
       return startDateStr;
@@ -336,33 +226,33 @@ export default class Index extends Component {
             title="完成台数"
           />
           <View className="at-list  text-center">
-            <View className="at-row at-list__item table-head text-center bg-gray">
+            <View className="at-row table-head text-center bg-gray">
               <View className="at-col at-col-6">业务项</View>
 
               <View className="at-col at-col-6">总台数</View>
             </View>
             <View className="table-body">
-              <View className="at-row at-list__item">
+              <View className="at-row">
                 <View className="at-col at-col-6">接单台数</View>
 
                 <View className="at-col at-col-6">{data.Total.total}</View>
               </View>
-              <View className="at-row at-list__item">
+              <View className="at-row">
                 <View className="at-col at-col-6">完成台数</View>
 
                 <View className="at-col at-col-6">{data.WCNum.total}</View>
               </View>
-              <View className="at-row at-list__item">
+              <View className="at-row">
                 <View className="at-col at-col-6">超时台数</View>
 
                 <View className="at-col at-col-6">{data.CSNum.total}</View>
               </View>
-              <View className="at-row at-list__item">
+              <View className="at-row">
                 <View className="at-col at-col-6">仅评估台数</View>
 
                 <View className="at-col at-col-6">{data.PGNum.total}</View>
               </View>
-              <View className="at-row at-list__item">
+              <View className="at-row">
                 <View className="at-col at-col-6">推荐置换台数</View>
                 <View className="at-col at-col-6">{data.ZHNum.total}</View>
               </View>
@@ -375,7 +265,7 @@ export default class Index extends Component {
         <View className="report__main">
           <StatisticalChart saveRef={r => (this.statisticalRef = r)} />
           <View className="at-list  text-center">
-            <View className="at-row at-list__item table-head text-center bg-gray">
+            <View className="at-row table-head text-center bg-gray">
               <View className="at-col at-col-3">日期</View>
               <View className="at-col at-col-3">评估台数</View>
               <View className="at-col at-col-3">推荐置换台数</View>
@@ -384,7 +274,7 @@ export default class Index extends Component {
             </View>
             <View className="table-body">
               {data.map(d => (
-                <View className="at-row at-list__item">
+                <View className="at-row">
                   <View className="at-col at-col-3">{d.date}</View>
                   <View className="at-col at-col-3">{d.PGTotal}</View>
                   <View className="at-col at-col-3">{d.ZHTotal}</View>
@@ -400,11 +290,12 @@ export default class Index extends Component {
   };
 
   render() {
-    const { activeKey, endDate, showType } = this.state;
+    const { dateType, showType, data, isFetching } = this.state;
+
     return (
       <View className="page report__root">
         <AtTabs
-          current={activeKey}
+          current={dateType}
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}
           animated={false}
@@ -412,7 +303,7 @@ export default class Index extends Component {
         <View className="report__control-wrap">
           <AtSegmentedControl
             current={showType}
-            onClick={this.handleDateTypeChange}
+            onClick={this.onSegmentedControl}
             values={["完成报表", "完成趋势"]}
           />
         </View>
@@ -424,7 +315,70 @@ export default class Index extends Component {
           />
         </View>
 
-        {this.renderMain()}
+        {isFetching && (
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
+        )}
+
+        {data && showType === 0 && (
+          <View className="report__main">
+            <TendencyChart
+              title="总成交台数"
+              dataSource={this.makeTendencyData(data)}
+            />
+            <View className="table">
+              <View className="at-row table-head bg-gray">
+                <View className="at-col at-col-6">业务项</View>
+                <View className="at-col at-col-6">总台数</View>
+              </View>
+              <View className="table-body">
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-6">接单台数</View>
+                  <View className="at-col at-col-6">{data.Total.total}</View>
+                </View>
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-6">完成台数</View>
+                  <View className="at-col at-col-6">{data.WCNum.total}</View>
+                </View>
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-6">超时台数</View>
+                  <View className="at-col at-col-6">{data.CSNum.total}</View>
+                </View>
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-6">仅评估台数</View>
+                  <View className="at-col at-col-6">{data.PGNum.total}</View>
+                </View>
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-6">推荐置换台数</View>
+                  <View className="at-col at-col-6">{data.ZHNum.total}</View>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+
+        {data && showType === 1 && (
+          <View className="report__main">
+            <StatisticalChart dataSource={this.makeStatisticalData(data)} />
+            <View className="table">
+              <View className="at-row table-head bg-gray">
+                <View className="at-col at-col-3">日期</View>
+                <View className="at-col at-col-3">评估台数</View>
+                <View className="at-col at-col-3">推荐置换台数</View>
+                <View className="at-col at-col-3">完成台数</View>
+              </View>
+              <View className="table-body">
+                {data.map(d => (
+                  <View className="at-row border-bottom">
+                    <View className="at-col at-col-3">{d.date}</View>
+                    <View className="at-col at-col-3">{d.PGTotal}</View>
+                    <View className="at-col at-col-3">{d.ZHTotal}</View>
+                    <View className="at-col at-col-3">{d.Total}</View>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
+        )}
       </View>
     );
   }

@@ -1,21 +1,36 @@
-.owner {
+.owner-index {
   &__root {
-    background: #f7f7f7;
-    padding-bottom: 160px;
-  }
-  &__search-bar {
-    padding: 16px 24px;
-  }
-  &__list {
-    &-total {
-      padding: 36px 0;
+    min-height: 100vh;
+    padding: 12px 32px;
+    background-image: linear-gradient(180deg, #4268e6 0%, #498efa 100%);
+    .nav-icon {
+      margin: 24px auto 42px;
+      display: block;
+      width: 12px * 7;
     }
   }
-  &__item {
+  &__header {
     display: flex;
-    align-items: center;
-    & > .at-avatar {
-      margin-right: 12px;
+    &-title {
+      flex: 1;
+      color: #fff;
     }
+    &-name {
+      font-size: 36px;
+    }
+    &-desc {
+      font-size: 28px;
+      margin-top: 6px;
+    }
+    &-avatar {
+      width: 100px;
+      text-align: right;
+    }
+  }
+
+  &__nav {
+    padding: 16px;
+    border-radius: 22px;
+    overflow: hidden;
   }
 }

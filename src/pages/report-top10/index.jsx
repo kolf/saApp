@@ -4,8 +4,7 @@ import { AtList, AtListItem } from "../../npm/taro-ui/dist";
 import "./index.scss";
 
 import { goTo } from "../../utils";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "排行榜"
   };
@@ -60,4 +59,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

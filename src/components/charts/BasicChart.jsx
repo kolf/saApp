@@ -40,6 +40,9 @@ const data = [
 ];
 
 export default class Index extends Component {
+  static defaultProps = {
+    dataSource: []
+  };
 
   drawData = (canvas, width, height) => {
     fixF2(F2);
@@ -63,19 +66,6 @@ export default class Index extends Component {
       line: Global._defaultAxis.line,
       grid: null
     });
-    // chart.axis("value", {
-    //   line: null,
-    //   grid: Global._defaultAxis.grid,
-    //   label: function label(text, index, length) {
-    //     var textCfg = {};
-    //     if (index === 0) {
-    //       textCfg.textAlign = "left";
-    //     } else if (index === length - 1) {
-    //       textCfg.textAlign = "right";
-    //     }
-    //     return textCfg;
-    //   }
-    // });
 
     chart.interval().position("type*value");
 
@@ -96,12 +86,12 @@ export default class Index extends Component {
 
   getHeight = () => {
     const { dataSource } = this.props;
-    return Math.ceil(dataSource.length / 10) * 480;
+    return dataSource.length * 24 + 240;
   };
 
   render() {
     return (
-      <View style={{ width: "100vw", height: this.getHeight() + "rpx" }}>
+      <View style={{ width: "100%", height: this.getHeight() + "px" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

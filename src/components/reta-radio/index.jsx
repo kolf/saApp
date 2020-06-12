@@ -25,7 +25,7 @@ const options = [
   }
 ];
 
-class Index extends PureComponent {
+export default class Index extends PureComponent {
   static defaultProps = {
     onChange() {}
   };
@@ -55,4 +55,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index;
+

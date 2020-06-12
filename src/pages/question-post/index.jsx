@@ -15,8 +15,7 @@ import "./index.scss";
 import modal from "../../utils/modal";
 import { getMessageTypeList, putMessageBoard } from "../../servers/apis";
 
-// const
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "问题反馈"
   };
@@ -165,4 +164,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

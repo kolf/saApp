@@ -7,8 +7,7 @@ import "./index.scss";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
 import { getOrderList } from "../../servers/apis";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "订单列表"
   };
@@ -80,4 +79,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

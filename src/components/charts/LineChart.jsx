@@ -5,9 +5,10 @@ import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
 export default class Index extends Component {
-  static defeultProps = {
+  static defaultProps = {
     dataSource: []
   };
+
 
   // chart = null;
 
@@ -38,13 +39,19 @@ export default class Index extends Component {
 
   getHeight = () => {
     const { dataSource } = this.props;
-    return Math.ceil(dataSource.length / 2) * 12 + 320;
+    const typeList = dataSource.reduce((result, item) => {
+      if (!result.find(t => t.type === item.type)) {
+        result.push(item);
+      }
+      return result;
+    }, []);
+
+    return Math.ceil(typeList.length / 3) * 24 + 240;
   };
 
   render() {
-    console.log("render chart");
     return (
-      <View style={{ width: "100vw", height: this.getHeight() + "rpx" }}>
+      <View style={{ width: "100%", height: this.getHeight() + "px" }}>
         <F2Canvas onCanvasInit={this.drawData} />
       </View>
     );

@@ -1,7 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { AtTabs, AtNoticebar } from "../../npm/taro-ui/dist";
-import TabBar from "../../components/tabbar";
 import EmptyData from "../../components/empty-data";
 import "./index.scss";
 
@@ -11,7 +10,7 @@ import { getOrderList } from "../../servers/apis";
 import OrderCard from "../../components/order-card";
 
 // setNavigationBarTitle
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的业绩"
   };
@@ -105,13 +104,9 @@ class Index extends Component {
             我相信就在今天
           </EmptyData>
         )}
-        <TabBar
-          activeKey={1}
-          tabKeys={["my-owner", "my-order", "my-profile"]}
-        />
       </View>
     );
   }
 }
 
-export default Index;
+

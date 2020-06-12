@@ -8,7 +8,7 @@ import { addGiftOrder } from "../../servers/apis";
 import { goTo } from "../../utils";
 import storage from "../../utils/storage";
 import modal from "../../utils/modal";
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "确认兑换"
   };
@@ -159,4 +159,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

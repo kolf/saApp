@@ -9,7 +9,7 @@ const tabList = [
   { title: "处理中", value: "1" },
   { title: "处理完成", value: "3" }
 ];
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "全部订单"
   };
@@ -91,4 +91,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

@@ -1,18 +1,15 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Picker } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import { AtButton, AtList, AtListItem } from "../../npm/taro-ui/dist";
-import TabBar from "../../components/tabbar";
-import ListItem from "../../components/list-item";
 import "./index.scss";
 
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
+import UserPanelAvatar from "../../components/user-panel-avatar";
 import storage from "../../utils/storage";
 import { goTo } from "../../utils";
 import { getOptionLabel, getOptions } from "../../utils/options";
 import { logout, updateBirthday, getUserInfo } from "../../servers/apis";
 import getBaseUrl from "../../servers/baseUrl";
-// const
-class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "信息展示墙"
   };
@@ -90,57 +87,62 @@ class Index extends Component {
     return (
       <View className="page bg-gray my-profile__root">
         <View className="content">
-          <AtList className="gap-top">
-            <AtListItem
-              title="头像"
-              extraThumb={userInfo.avatarUrl || defaultAvatarUrl}
-              onClick={this.handleAvatarChange}
-              arrow="right"
-            />
-            <AtListItem
-              title="姓名"
-              extraText={userInfo.realName || "未填写"}
-            />
-            <AtListItem
-              title="性别"
-              extraText={getOptionLabel("genders", userInfo.gender) || "未填写"}
-            />
-            <AtListItem
-              title="手机号"
-              extraText={userInfo.phone}
-              arrow="right"
-              className="no-border"
-              onClick={goTo.bind(this, "update-phone")}
-            />
-          </AtList>
-          <AtList className="gap-top">
-            <AtListItem
-              title="开始工作时间"
-              extraText={userInfo.workStart || "未填写"}
-            />
-            <AtListItem title="经销店名称" extraText={userInfo.disName} />
-            <AtListItem
-              title="职位"
-              extraText={getOptionLabel("roles", userInfo.type)}
-            />
-            {userInfo.type === "FW" && (
-              <AtListItem
-                title="积分"
-                arrow="right"
-                onClick={goTo.bind(this, "my-integral")}
-              />
-            )}
-            <AtListItem
-              title="联系客服"
-              arrow="right"
-              onClick={goTo.bind(this, "service-index")}
-              className="no-border"
-            />
-          </AtList>
+          <UserPanelAvatar
+            imageUrl={userInfo.avatarUrl}
+            onClick={this.handleAvatarChange}
+          />
+          <View className="pad">
+            <View className="card card__has-avatar">
+              <AtList className="no-border">
+                <AtListItem
+                  title="姓名"
+                  extraText={userInfo.realName || "未填写"}
+                />
+                <AtListItem
+                  title="性别"
+                  extraText={
+                    getOptionLabel("genders", userInfo.gender) || "未填写"
+                  }
+                />
+                <AtListItem
+                  title="手机号"
+                  extraText={userInfo.phone}
+                  arrow="right"
+                  className="no-border"
+                  onClick={goTo.bind(this, "update-phone")}
+                />
+              </AtList>
+            </View>
+          </View>
+          <View className="pad">
+            <View className="card">
+              <AtList className="no-border">
+                <AtListItem
+                  title="开始工作时间"
+                  extraText={userInfo.workStart || "未填写"}
+                />
+                <AtListItem title="经销店名称" extraText={userInfo.disName} />
+                <AtListItem
+                  title="职位"
+                  className={userInfo.type !== "FW" ? '' : 'no-border'}
+                  extraText={getOptionLabel("roles", userInfo.type)}
+                />
+                {userInfo.type === "FW" && (
+                  <AtListItem
+                    title="积分"
+                    arrow="right"
+                    className="no-border"
+                    onClick={goTo.bind(this, "my-integral")}
+                  />
+                )}
+              </AtList>
+            </View>
+          </View>
           <View className="next-button-wrap">
             {userInfo.type === "FW" && (
               <View className="submit-button">
                 <AtButton
+                  className="btn-lg btn-primary"
                   style="marginButtom: 24px"
                   type="primary"
                   onClick={goTo.bind(this, "profile-card")}
@@ -151,6 +153,7 @@ class Index extends Component {
             )}
             <View className="submit-button">
               <AtButton
+                className="btn-lg"
                 loading={this.state.confirmLoading}
                 type="secondary"
                 onClick={this.handleLogout}
@@ -160,13 +163,7 @@ class Index extends Component {
             </View>
           </View>
         </View>
-        <TabBar
-          activeKey={2}
-          tabKeys={["my-owner", "my-order", "my-profile"]}
-        />
       </View>
     );
   }
 }
-
-export default Index;

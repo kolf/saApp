@@ -1,7 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { WebView } from "@tarojs/components";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "积分商城"
   };
@@ -13,4 +12,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

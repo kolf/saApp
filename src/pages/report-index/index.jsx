@@ -9,8 +9,7 @@ import img4Url from "../../assets/images/statistics-4.svg";
 import imgMoreUrl from "../../assets/images/statistics-more.svg";
 
 import { goTo } from "../../utils";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "报表"
   };
@@ -107,4 +106,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

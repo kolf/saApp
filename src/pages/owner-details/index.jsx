@@ -20,8 +20,7 @@ import { getCityName, goTo } from "../../utils";
 
 function loop(e) {
   e.stopPropagation();
-}
-class Index extends Component {
+}export default  class Index extends Component {
   config = {
     navigationBarTitleText: "车主详情"
   };
@@ -230,4 +229,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

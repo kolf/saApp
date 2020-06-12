@@ -6,8 +6,7 @@ import EmptyData from "../../components/empty-data";
 import "./index.scss";
 import { getGiftOrderList } from "../../servers/apis";
 import { goTo } from "../../utils";
-import storage from "../../utils/storage";
-class Index extends Component {
+import storage from "../../utils/storage";export default  class Index extends Component {
   config = {
     navigationBarTitleText: "我的兑换"
   };
@@ -123,4 +122,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+

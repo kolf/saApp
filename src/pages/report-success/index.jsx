@@ -81,27 +81,27 @@ export default class Index extends Component {
     if (total === 0) {
       return [
         {
-          name: "转介绍占比",
+          type: "转介绍占比",
           percent: 0.34,
           total: 0
         },
         {
-          name: "再购新车占比",
+          type: "再购新车占比",
           percent: 0.33,
           total: 0
         },
         {
-          name: "置换新车占比",
+          type: "置换新车占比",
           percent: 0.33,
           total: 0
         }
       ];
     }
     return Object.values(data)
-      .filter((item, index) => index > 0)
+      .filter((item) => item.orderType > 0)
       .map(item => ({
         total,
-        name: item.orderTypeName + "占比",
+        type: item.orderTypeName + "占比",
         percent: (item.orderDealTotal / total).toFixed(2) * 1
       }));
   };
@@ -125,18 +125,18 @@ export default class Index extends Component {
       result = [
         ...result,
         {
-          name: "再购新车",
+          type: "再购新车",
           date: orderDate,
           value: zgxcTotal,
           count
         },
         {
-          name: "置换新车",
+          type: "置换新车",
           date: orderDate,
           value: zhxcTotal,
           count
         },
-        { name: "转介绍", date: orderDate, value: zjsTotal, count }
+        { type: "转介绍", date: orderDate, value: zjsTotal, count }
       ];
 
       return result;

@@ -4,7 +4,7 @@ import { AtIcon } from "../../npm/taro-ui/dist";
 
 import "./index.scss";
 
-class Index extends PureComponent {
+export default class Index extends PureComponent {
   static defaultProps = {
     className: "",
     onPrev() {},
@@ -26,4 +26,3 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index;

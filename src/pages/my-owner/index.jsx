@@ -1,7 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtIndexes, AtSearchBar } from "../../npm/taro-ui/dist";
-import TabBar from "../../components/tabbar";
 import EmptyData from "../../components/empty-data";
 import NetworkError from "../../components/network-error";
 import "./index.scss";
@@ -151,10 +150,6 @@ export default class Index extends Component {
           </View>
         )}
         {isError && <NetworkError onClick={this.loadData} />}
-        <TabBar
-          activeKey={0}
-          tabKeys={["my-owner", "my-order", "my-profile"]}
-        />
       </View>
     );
   }

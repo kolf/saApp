@@ -5,8 +5,7 @@ import "./index.scss";
 import "../../components/goods-panel/index.scss";
 import { goTo } from "../../utils";
 import { getGiftOrder } from "../../servers/apis";
-
-class Index extends Component {
+export default  class Index extends Component {
   config = {
     navigationBarTitleText: "兑换详情"
   };
@@ -99,4 +98,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+
