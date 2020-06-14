@@ -1,11 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtSearchBar, AtButton } from "../../npm/taro-ui/dist";
+import { AtSearchBar } from "../../npm/taro-ui/dist";
 import XRadio from "../../components/x-radio";
 import "./index.scss";
 import avatarUrl from "../../assets/images/default-avatar.png";
 import { getadvisersList } from "../../servers/apis";
-import storage from "../../utils/storage";
 
 export default class Index extends Component {
   config = {
@@ -17,12 +16,12 @@ export default class Index extends Component {
     keyword: ""
   };
 
-  componentDidShow() {
+  componentDidMount() {
     this.loadData();
   }
 
   loadData = () => {
-    const { userType } = this.$router.params;
+    const { userType } = this.props;
     getadvisersList({
       positionName: userType,
       realName: this.state.keyword
@@ -48,41 +47,20 @@ export default class Index extends Component {
   };
 
   handleChange = adviserId => {
-    this.setState({
-      adviserId
-    });
-  };
-
-  handleSubmit = () => {
-    const { listData, adviserId } = this.state;
-
-    storage.set("orderAdviserData", listData.find(o => o.value === adviserId));
-
-    Taro.navigateBack({
-      delta: 1 // 返回上一级页面。
-    });
+    this.props.onChange(adviserId);
   };
 
   render() {
-    const { listData, adviserId } = this.state;
+    const { listData } = this.state;
 
     return (
-      <View className='page bg-gray adviser__root'>
-        <AtSearchBar className='adviser__search-bar' />
+      <View className="page bg-gray adviser__root">
+        <AtSearchBar className="adviser__search-bar" />
         {listData.length > 0 && (
-          <View className='gap-top adviser__list'>
+          <View className="adviser__list">
             <XRadio options={listData} onChange={this.handleChange} />
           </View>
         )}
-        <View className='next-button-wrap'>
-          <AtButton
-            disabled={!adviserId}
-            type='primary'
-            onClick={this.handleSubmit}
-          >
-            确定
-          </AtButton>
-        </View>
       </View>
     );
   }

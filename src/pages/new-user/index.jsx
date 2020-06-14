@@ -2,14 +2,24 @@ import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtSearchBar } from "../../npm/taro-ui/dist";
 import EmptyData from "../../components/empty-data";
+
 import "./index.scss";
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";
-import { getNewStaffList } from "../../servers/apis";
+import { getNewCUList } from "../../servers/apis";
 import { goTo } from "../../utils";
 
+function loop(e) {
+  e.stopPropagation();
+}
+
+const bindStatusMap = {
+  "-1": "添加失败",
+  0: "未添加",
+  1: "已添加"
+};
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "新的员工"
+    navigationBarTitleText: "新的客户"
   };
 
   state = {
@@ -23,7 +33,7 @@ export default class Index extends Component {
   }
 
   handleClick = key => {
-    goTo("employees-details", {
+    goTo("owner-details", {
       id: key,
       isNew: "1"
     });
@@ -31,6 +41,10 @@ export default class Index extends Component {
 
   handleChange = value => {
     this.setState({ keyword: value });
+  };
+
+  handleSubmit = () => {
+    this.loadData();
   };
 
   handleClear = () => {
@@ -48,12 +62,12 @@ export default class Index extends Component {
     this.setState({
       isFetching: true
     });
-    getNewStaffList({
+    getNewCUList({
       realName: this.state.keyword
     }).then(res => {
       this.setState({
         isFetching: false,
-        listData: this.makeData(res.data)
+        listData: this.makeData(res.data.newCUs)
       });
     });
   };
@@ -65,6 +79,7 @@ export default class Index extends Component {
     return data.map(item => ({
       key: item.id,
       name: item.realName,
+      status: item.saBind,
       avatar: item.avatarUrl || defaultAvatarUrl
     }));
   };
@@ -79,7 +94,7 @@ export default class Index extends Component {
           className="owner__search-bar"
           value={this.state.keyword}
           onChange={this.handleChange.bind(this)}
-          onActionClick={this.loadData}
+          onActionClick={this.handleSubmit.bind(this)}
         />
         {listData.length > 0 ? (
           <AtList>
@@ -87,16 +102,20 @@ export default class Index extends Component {
               <AtListItem
                 key={item.key}
                 title={item.name}
+                arrow={item.status !== 1 ? "right" : null}
+                extraText={bindStatusMap[item.status]}
                 thumb={item.avatar}
-                arrow="right"
-                extraText={/^-1/g.test(item.saBing) ? "添加失败" : "未添加"}
-                onClick={this.handleClick.bind(this, item.key)}
+                onClick={
+                  item.status !== 1
+                    ? this.handleClick.bind(this, item.key)
+                    : loop
+                }
               />
             ))}
           </AtList>
         ) : (
           <EmptyData loading={isFetching}>
-            暂时还没有新员工 我们一起努力吧
+            您暂时还没有新客户 我们一起努力吧
           </EmptyData>
         )}
       </View>

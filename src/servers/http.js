@@ -13,17 +13,18 @@ class httpRequest {
     const JSESSIONID = storage.get("JSESSIONID");
     let contentType = "application/json";
     contentType = params.contentType || contentType;
-    const option = {
+    const options = {
       url: BASE_URL + url,
       data: data,
       method: method,
       header: {
         "content-type": contentType,
         Cookie: JSESSIONID ? `SESSION=${JSESSIONID}` : null
-      }
+      },
+      showToast: true
     };
 
-    return Taro.request(option);
+    return Taro.request(options);
   }
 
   get(url, data = "") {

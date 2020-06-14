@@ -2,9 +2,9 @@
 @import '../mixins/index.scss';
 
 $at-search-bar-font-size: 14PX;
-$at-search-bar-input-height: 30PX;
+$at-search-bar-input-height: 34PX;
 $at-search-bar-input-padding: 25PX;
-$at-search-bar-btn-padding: 10PX;
+$at-search-bar-btn-padding: 16PX;
 $at-search-bar-placeholder-padding: 12PX;
 $at-search-bar-input-bg-color: $color-bg-grey;
 $at-search-bar-input-color: $color-black-0;
@@ -26,7 +26,7 @@ $at-search-bar-placholder-color: $color-grey-2;
     width: 100%;
     height: $at-search-bar-input-height;
     background-color: $at-search-bar-input-bg-color;
-    border-radius: $at-search-bar-input-height / 2;
+    border-radius: $spacing-h-md;
     overflow: hidden;
     display: flex;
   }

@@ -43,7 +43,7 @@ export default class Index extends Component {
     if (isFetching) {
       return (
         <View className='page eva__root bg-gray'>
-          <AtActivityIndicator mode='center' content='加载中...' />
+          <AtActivityIndicator size={64} mode="center" content='加载中...' />
         </View>
       );
     }

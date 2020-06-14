@@ -1,11 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtButton, AtListItem, AtList } from "../../npm/taro-ui/dist";
+import { AtButton, AtListItem, AtList,AtIcon } from "../../npm/taro-ui/dist";
 import { View, Image } from "@tarojs/components";
 import "./index.scss";
 import "../../components/goods-panel/index.scss";
 import { goTo } from "../../utils";
 import { getGiftOrder } from "../../servers/apis";
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "兑换详情"
   };
@@ -53,7 +53,10 @@ export default  class Index extends Component {
                     className="at-row goods-panel__text"
                     style={{ marginTop: "52rpx" }}
                   >
-                    <View className="at-col at-col-6">{data.score}积分</View>
+                    <View className="at-col at-col-6 text-primary">
+                      <AtIcon prefixClass="iconfont" value="jifen" size={16} />
+                      {data.score}积分
+                    </View>
                     <View className="at-col at-col-6 text-right">
                       x{data.number}
                     </View>

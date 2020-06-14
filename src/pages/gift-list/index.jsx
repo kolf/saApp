@@ -5,7 +5,9 @@ import EmptyData from "../../components/empty-data";
 import "./index.scss";
 import { getScore, getGiftList } from "../../servers/apis";
 import { goTo } from "../../utils";
-const modal = Taro.showModal;export default  class Index extends Component {
+import modal from "../../utils/modal";
+
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "积分兑换"
   };
@@ -96,13 +98,9 @@ const modal = Taro.showModal;export default  class Index extends Component {
             </View>
           </View>
         ) : (
-          <EmptyData loading={isFetching}>
-            系统还没有此类商品~
-          </EmptyData>
+          <EmptyData loading={isFetching}>系统还没有此类商品~</EmptyData>
         )}
       </View>
     );
   }
 }
-
-

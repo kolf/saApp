@@ -90,7 +90,7 @@ export default function OrderCard({ dataSource, onClick }) {
         )}
         <View className="order-card__footer" onClick={loop}>
           {dataSource.orderType !== 1 && dataSource.orderStatus === 3 && (
-            <AtButton type="secondary" size="small" className="btn-mini">
+            <AtButton type="secondary" size="small" className="btn">
               {/\d+/g.test(dataSource.orderResult + "")
                 ? orderResultMap[dataSource.orderResult]
                 : dataSource.orderResult}
@@ -98,12 +98,17 @@ export default function OrderCard({ dataSource, onClick }) {
           )}
 
           {dataSource.orderStatus === 3 && (
-            <AtButton type="secondary" size="small" className="btn-mini">
+            <AtButton
+              type="secondary"
+              size="small"
+              className="btn"
+              disabled={dataSource.evaluationStatus !== 1}
+            >
               {dataSource.evaluationStatus === 1 ? "已" : "未"}评价
             </AtButton>
           )}
           {dataSource.orderStatus !== 3 && (
-            <AtButton type="secondary" size="small" className="btn-mini">
+            <AtButton type="secondary" size="small" className="btn">
               {dataSource.processStatusName}
             </AtButton>
           )}

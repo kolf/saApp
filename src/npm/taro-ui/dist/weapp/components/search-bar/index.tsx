@@ -93,7 +93,7 @@ export default class AtSearchBar extends AtComponent<
       actionStyle.opacity = 0
       actionStyle.marginRight = `-${(actionName!.length + 1) * fontSize +
         fontSize / 2 +
-        10}px`
+        16}px`
     }
     if (showActionButton) {
       actionStyle.opacity = 1

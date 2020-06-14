@@ -69,13 +69,13 @@ export default class Index extends Component {
   render() {
     const { listData } = this.state;
     return (
-      <View className="page all-order__root bg-gray">
+      <View className="page order-category__root bg-gray">
         <AtTabs
           current={this.state.activeIndex}
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}
         />
-        <AtList className="all-order__list">
+        <AtList className="order-category__list no-border">
           {listData.map((item, index) => (
             <AtListItem
               title={item.orderTypeName}

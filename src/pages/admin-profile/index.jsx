@@ -87,49 +87,47 @@ export default class Index extends Component {
 
     return (
       <View className="page bg-gray my-profile__root">
-        <View className="content">
-          <View className="pad">
-            <View className="card card__has-avatar">
-              <UserPanelAvatar
-                imageUrl={userInfo.avatarUrl}
-                onClick={this.handleAvatarChange}
+        <View className="my-profile__content">
+          <View className="card card__has-avatar">
+            <UserPanelAvatar
+              imageUrl={userInfo.avatarUrl}
+              onClick={this.handleAvatarChange}
+            />
+            <AtList className="no-border">
+              <AtListItem
+                title="姓名"
+                extraText={userInfo.realName || "未填写"}
+                arrow={userInfo.realName ? "" : "right"}
+                onClick={
+                  userInfo.realName
+                    ? "javascript:;"
+                    : goTo.bind(this, "update-name")
+                }
               />
-              <AtList className="no-border">
-                <AtListItem
-                  title="姓名"
-                  extraText={userInfo.realName || "未填写"}
-                  arrow={userInfo.realName ? "" : "right"}
-                  onClick={
-                    userInfo.realName
-                      ? "javascript:;"
-                      : goTo.bind(this, "update-name")
-                  }
-                />
-                <AtListItem
-                  title="手机号"
-                  extraText={userInfo.phone}
-                  arrow="right"
-                  onClick={goTo.bind(this, "update-phone")}
-                />
-                <AtListItem title="经销店名称" extraText={userInfo.disName} />
-                <AtListItem
-                  className="no-border"
-                  title="职位"
-                  extraText={getOptionLabel("roles", userInfo.type)}
-                />
-              </AtList>
-            </View>
+              <AtListItem
+                title="手机号"
+                extraText={userInfo.phone}
+                arrow="right"
+                onClick={goTo.bind(this, "update-phone")}
+              />
+              <AtListItem title="经销店名称" extraText={userInfo.disName} />
+              <AtListItem
+                className="no-border"
+                title="职位"
+                extraText={getOptionLabel("roles", userInfo.type)}
+              />
+            </AtList>
           </View>
-          <View className="next-button-wrap">
-            <AtButton
-              type="secondary"
-              className="btn-lg"
-              onClick={this.handleLogout}
-              loading={confirmLoading}
-            >
-              退出登录
-            </AtButton>
-          </View>
+        </View>
+        <View style={{ padding: "0 32rpx" }}>
+          <AtButton
+            className="btn-lg btn-secondary box-shadow"
+            loading={this.state.confirmLoading}
+            type="secondary"
+            onClick={this.handleLogout}
+          >
+            退出登录
+          </AtButton>
         </View>
       </View>
     );

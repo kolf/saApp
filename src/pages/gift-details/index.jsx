@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
-import { AtInputNumber, AtButton } from "../../npm/taro-ui/dist";
+import { AtInputNumber, AtButton, AtIcon } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import "../../components/goods-panel/index.scss";
 
@@ -36,13 +36,14 @@ export default class Index extends Component {
   };
 
   handleRemarkChange = e => {
-    console.log(e);
+    this.setState({ remark: e.target.value });
   };
 
   handleSubmit = e => {
     const {
       data: { score, integralTotal, id },
-      number
+      number,
+      remark
     } = this.state;
     const _this = this;
     if (score * number > integralTotal) {
@@ -58,6 +59,7 @@ export default class Index extends Component {
       const res = await addGiftOrder({
         id,
         number,
+        remark,
         userId: _this.userId
       });
 
@@ -67,13 +69,12 @@ export default class Index extends Component {
 
       modal({
         title: "亲您的商品已经兑换成功了哦~",
-        content: `礼品将在一个月内派送至您所在经销店，请您耐心等待`,
+        content: `礼品将在一个月内派送至您的\r\n${res.data}\r\n请您耐心等待`,
         showCancel: false,
         success() {
           Taro.navigateBack({ delta: 1 });
         }
       });
-      console.log(res, "res");
     }
   };
 
@@ -97,7 +98,14 @@ export default class Index extends Component {
                       className="at-row goods-panel__text"
                       style={{ marginTop: "52rpx" }}
                     >
-                      <View className="at-col at-col-6">{data.score}积分</View>
+                      <View className="at-col at-col-6 text-primary">
+                        <AtIcon
+                          prefixClass="iconfont"
+                          value="jifen"
+                          size={16}
+                        />
+                        {data.score}积分
+                      </View>
                       <View className="at-col at-col-6 text-right">
                         <AtInputNumber
                           min={0}
@@ -120,7 +128,7 @@ export default class Index extends Component {
                 <Input
                   className="gift-details__input"
                   onChange={this.handleRemarkChange}
-                  value={this.state.remarkValue || "选填，给管理员留言"}
+                  placeholder="选填，给管理员留言"
                 />
               </View>
             </View>
@@ -158,5 +166,3 @@ export default class Index extends Component {
     );
   }
 }
-
-

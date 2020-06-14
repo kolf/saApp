@@ -17,7 +17,8 @@ import getBaseUrl from "../../servers/baseUrl";
 function loop(e) {
   e.stopPropagation();
 }
-const genders = getOptions("genders");export default  class Index extends Component {
+const genders = getOptions("genders");
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "完善个人信息"
   };
@@ -174,7 +175,7 @@ const genders = getOptions("genders");export default  class Index extends Compon
     return (
       <View className="page bg-gray">
         <View className="content">
-          <AtList className="gap-top">
+          <AtList>
             <AtListItem
               isRequire
               title="头像"
@@ -212,7 +213,7 @@ const genders = getOptions("genders");export default  class Index extends Compon
             />
             <AtListItem isRequire title="手机号" extraText={userInfo.phone} />
           </AtList>
-          <AtList className="gap-top">
+          <AtList style={{ marginTop: "20rpx" }}>
             <ListItem
               title="开始工作时间"
               isRequire
@@ -242,9 +243,8 @@ const genders = getOptions("genders");export default  class Index extends Compon
             <AtButton
               type="primary"
               onClick={this.handleSubmit}
-              disabled={
-                this.getSubmitDisabledStatus() || this.state.confirmLoading
-              }
+              loading={this.state.confirmLoading}
+              disabled={this.getSubmitDisabledStatus()}
             >
               提交至店总审核
             </AtButton>
@@ -254,5 +254,3 @@ const genders = getOptions("genders");export default  class Index extends Compon
     );
   }
 }
-
-

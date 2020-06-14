@@ -86,83 +86,79 @@ export default class Index extends Component {
 
     return (
       <View className="page bg-gray my-profile__root">
-        <View className="content">
-          <UserPanelAvatar
-            imageUrl={userInfo.avatarUrl}
-            onClick={this.handleAvatarChange}
-          />
-          <View className="pad">
-            <View className="card card__has-avatar">
-              <AtList className="no-border">
+        <View className="my-profile__content">
+          <View className="card card__has-avatar">
+            <UserPanelAvatar
+              imageUrl={userInfo.avatarUrl}
+              onClick={this.handleAvatarChange}
+            />
+
+            <AtList className="no-border">
+              <AtListItem
+                title="姓名"
+                extraText={userInfo.realName || "未填写"}
+              />
+              <AtListItem
+                title="性别"
+                extraText={
+                  getOptionLabel("genders", userInfo.gender) || "未填写"
+                }
+              />
+              <AtListItem
+                title="手机号"
+                extraText={userInfo.phone}
+                arrow="right"
+                className="no-border"
+                onClick={goTo.bind(this, "update-phone")}
+              />
+            </AtList>
+          </View>
+
+          <View className="card" style={{ marginTop: "32rpx" }}>
+            <AtList className="no-border">
+              <AtListItem
+                title="开始工作时间"
+                extraText={userInfo.workStart || "未填写"}
+              />
+              <AtListItem title="经销店名称" extraText={userInfo.disName} />
+              <AtListItem
+                title="职位"
+                className={userInfo.type === "FW" ? "" : "no-border"}
+                extraText={getOptionLabel("roles", userInfo.type)}
+              />
+              {userInfo.type === "FW" && (
                 <AtListItem
-                  title="姓名"
-                  extraText={userInfo.realName || "未填写"}
-                />
-                <AtListItem
-                  title="性别"
-                  extraText={
-                    getOptionLabel("genders", userInfo.gender) || "未填写"
-                  }
-                />
-                <AtListItem
-                  title="手机号"
-                  extraText={userInfo.phone}
+                  title="积分"
                   arrow="right"
                   className="no-border"
-                  onClick={goTo.bind(this, "update-phone")}
+                  onClick={goTo.bind(this, "my-integral")}
                 />
-              </AtList>
-            </View>
-          </View>
-          <View className="pad">
-            <View className="card">
-              <AtList className="no-border">
-                <AtListItem
-                  title="开始工作时间"
-                  extraText={userInfo.workStart || "未填写"}
-                />
-                <AtListItem title="经销店名称" extraText={userInfo.disName} />
-                <AtListItem
-                  title="职位"
-                  className={userInfo.type !== "FW" ? '' : 'no-border'}
-                  extraText={getOptionLabel("roles", userInfo.type)}
-                />
-                {userInfo.type === "FW" && (
-                  <AtListItem
-                    title="积分"
-                    arrow="right"
-                    className="no-border"
-                    onClick={goTo.bind(this, "my-integral")}
-                  />
-                )}
-              </AtList>
-            </View>
-          </View>
-          <View className="next-button-wrap">
-            {userInfo.type === "FW" && (
-              <View className="submit-button">
-                <AtButton
-                  className="btn-lg btn-primary"
-                  style="marginButtom: 24px"
-                  type="primary"
-                  onClick={goTo.bind(this, "profile-card")}
-                >
-                  预览名片
-                </AtButton>
-              </View>
-            )}
-            <View className="submit-button">
-              <AtButton
-                className="btn-lg"
-                loading={this.state.confirmLoading}
-                type="secondary"
-                onClick={this.handleLogout}
-              >
-                退出登录
-              </AtButton>
-            </View>
+              )}
+            </AtList>
           </View>
         </View>
+        <View style={{ padding: "0 32rpx" }}>
+          <AtButton
+            className="btn-lg btn-secondary box-shadow"
+            loading={this.state.confirmLoading}
+            type="secondary"
+            onClick={this.handleLogout}
+          >
+            退出登录
+          </AtButton>
+        </View>
+        {userInfo.type === "FW" && (
+          <View className="next-button-wrap">
+            <AtButton
+              className="btn-lg btn-primary"
+              style="marginButtom: 24px"
+              type="primary"
+              onClick={goTo.bind(this, "profile-card")}
+            >
+              预览名片
+            </AtButton>
+          </View>
+        )}
       </View>
     );
   }

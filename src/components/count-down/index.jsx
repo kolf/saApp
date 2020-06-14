@@ -16,7 +16,7 @@ export default class Index extends PureComponent {
       count: 60
     });
 
-    const tiemr = setInterval(() => {
+    const timer = setInterval(() => {
       const { count } = this.state;
       if (count === 0) {
         clearInterval(timer);

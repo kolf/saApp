@@ -5,8 +5,8 @@ import { AtList, AtListItem } from "../../npm/taro-ui/dist";
 import "./index.scss";
 import { getMyJF, getCreditStatus } from "../../servers/apis";
 import { goTo } from "../../utils";
-const modal = Taro.showModal;
-export default  class Index extends Component {
+import modal from "../../utils/modal";
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的积分"
   };
@@ -23,7 +23,6 @@ export default  class Index extends Component {
   loadData = async () => {
     const res1 = await getMyJF().then(res => res.data);
     const res2 = await getCreditStatus({}).then(res => res.data);
-
 
     this.setState({
       total: res1.zf,
@@ -67,5 +66,3 @@ export default  class Index extends Component {
     );
   }
 }
-
-

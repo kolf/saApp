@@ -40,8 +40,8 @@ export default  class Index extends Component {
   render() {
     const { listData } = this.state;
     return (
-      <View className="page all-employees__root bg-gray">
-        <View className="all-employees__list">
+      <View className="page owner-category__root bg-gray">
+        <View className="owner-category__list">
           <AtList hasBorder={false}>
             {listData.map((item, index) => (
               <AtListItem

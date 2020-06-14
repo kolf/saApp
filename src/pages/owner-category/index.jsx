@@ -73,19 +73,20 @@ export default class Index extends Component {
 
   render() {
     return (
-      <View className="page all-employees__root bg-gray">
-        <View className="all-employees__list">
+      <View className="page owner-category__root bg-gray">
+        <View className="owner-category__list">
           {this.state.listData.map((item, index) => (
             <AtAccordion
               key={item.id}
               title={item.title}
-              className="all-employees__list-item"
+              className="owner-category__list-item"
               open={this.state.activeKey === index}
               onClick={this.handleAccordionChange.bind(this, index)}
             >
               <AtList hasBorder={false}>
                 {item.children.map(c => (
                   <AtListItem
+                    key={c.id}
                     title={c.title}
                     onClick={this.handleClick.bind(this, c, item.key)}
                     arrow="right"
@@ -99,5 +100,3 @@ export default class Index extends Component {
     );
   }
 }
-
-

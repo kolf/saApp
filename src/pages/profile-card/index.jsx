@@ -1,10 +1,9 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image } from "@tarojs/components";
-import { AtAvatar } from "../../npm/taro-ui/dist";
+import { View } from "@tarojs/components";
+import ProfilePanel from "../../components/profile-panel";
 import "./index.scss";
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
 import storage from "../../utils/storage";
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "预览名片"
   };
@@ -21,40 +20,11 @@ export default  class Index extends Component {
     }
 
     return (
-      <View className="page bg-gray profile-card__root">
-        <View className="profile-card__content">
-          <View className="profile-card__title">
-            您好，我是您的{userInfo.positionName}
-          </View>
-          <View className="profile-card__avatar">
-            <AtAvatar
-              circle
-              className="img"
-              image={userInfo.avatarUrl || defaultAvatarUrl}
-            />
-          </View>
-          <View className="profile-card__name">{userInfo.realName}</View>
-
-          <View className="at-row profile-card__text">
-            <View className="at-col at-col-4">职 位：</View>
-            <View className="at-col">{userInfo.positionName}</View>
-          </View>
-          <View className="at-row profile-card__text">
-            <View className="at-col at-col-4">服务经验：</View>
-            <View className="at-col">{userInfo.workYear || "0"}年</View>
-          </View>
-          <View className="at-row profile-card__text">
-            <View className="at-col at-col-4">联系方式：</View>
-            <View className="at-col">{userInfo.phone}</View>
-          </View>
-          <View className="at-row profile-card__text">
-            <View className="at-col at-col-4">经销店名称：</View>
-            <View className="at-col at-col--wrap">{userInfo.disName}</View>
-          </View>
+      <View className="page profile-card__root">
+        <View style={{ margin: "auto", width: "100%" }}>
+          <ProfilePanel dataSource={userInfo} />
         </View>
       </View>
     );
   }
 }
-
-

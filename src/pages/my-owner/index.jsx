@@ -1,19 +1,23 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtList, AtListItem, AtIndexes, AtSearchBar } from "../../npm/taro-ui/dist";
+import {
+  AtList,
+  AtListItem,
+  AtIndexes,
+  AtSearchBar
+} from "../../npm/taro-ui/dist";
 import EmptyData from "../../components/empty-data";
 import NetworkError from "../../components/network-error";
-import "./index.scss";
 
 import newFriendUrl from "../../assets/images/user-add.svg";
 import defaultAvatarUrl from "../../assets/images/default-avatar.png";
-import { getCuList } from "../../servers/apis";
+import { getStaffList } from "../../servers/apis";
 import { goTo } from "../../utils";
-import storage from "../../utils/storage";
+import "./index.scss";
 
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "客户列表"
+    navigationBarTitleText: "员工列表"
   };
 
   state = {
@@ -21,8 +25,7 @@ export default class Index extends Component {
     total: 0,
     isFetching: false,
     isError: false,
-    keyword: "",
-    userInfo: storage.get("userInfo") || {}
+    keyword: ""
   };
 
   componentDidShow() {
@@ -57,17 +60,16 @@ export default class Index extends Component {
       isFetching: true,
       isError: false
     });
-    getCuList({
+    getStaffList({
       realName: this.state.keyword
     })
       .then(res => {
-        const { cus = [], newCUCount = 0 } = res.data;
-        const listData = this.makeData(cus);
+        const { staffList, newStaffCount } = res.data;
+        const listData = this.makeData(staffList);
         this.setState({
-          isFetching: false,
-          total: cus.length,
           listData,
-          newCUCount
+          total: staffList.length,
+          newCount: newStaffCount
         });
       })
       .catch(error => {
@@ -83,7 +85,8 @@ export default class Index extends Component {
       return [];
     }
     return data.reduce((result, item) => {
-      const index = result.findIndex(r => r.key === item.nameSZM);
+      const groupKey = /[A-Z]/.test(item.nameSZM) ? item.nameSZM : "#";
+      const index = result.findIndex(r => r.key === groupKey);
       const newItem = {
         key: item.id,
         name: item.realName,
@@ -93,8 +96,8 @@ export default class Index extends Component {
         result[index].items.push(newItem);
       } else {
         result.push({
-          title: item.nameSZM,
-          key: item.nameSZM,
+          title: groupKey,
+          key: groupKey,
           items: [newItem]
         });
       }
@@ -103,49 +106,40 @@ export default class Index extends Component {
   };
 
   render() {
-    const {
-      listData,
-      total,
-      isFetching,
-      isError,
-      newCUCount,
-      userInfo: { type }
-    } = this.state;
+    const { listData, total, isFetching, isError, newCount } = this.state;
     return (
-      <View className="page owner__root">
+      <View className="page my-owner__root">
         {!isError && (
-          <View className="owner__main">
+          <View className="my-owner__main">
             <AtIndexes list={listData} onClick={this.handleClick.bind(this)}>
               <AtSearchBar
-                className="owner__search-bar"
+                className="my-owner__search-bar"
                 onClear={this.handleClear}
                 value={this.state.keyword}
                 onChange={this.handleChange.bind(this)}
                 onActionClick={this.handleSubmit.bind(this)}
               />
-              {type === "FW" && (
-                <AtList className="gap-top">
-                  <AtListItem
-                    arrow="right"
-                    title="新的客户"
-                    thumb={newFriendUrl}
-                    extraBange={newCUCount}
-                    onClick={goTo.bind(this, "new-owner")}
-                  />
-                </AtList>
-              )}
+              <AtList>
+                <AtListItem
+                  arrow="right"
+                  title="新的员工"
+                  thumb={newFriendUrl}
+                  extraBange={newCount}
+                  onClick={goTo.bind(this, "new-owner", null)}
+                />
+              </AtList>
 
               {listData.length === 0 && (
                 <EmptyData
                   loading={isFetching}
                   style={{ padding: "20vh 60px" }}
                 >
-                  你还没有添加过客户 我们一起努力吧
+                  系统还没有添加过员工 我们一起努力吧
                 </EmptyData>
               )}
             </AtIndexes>
-            <View className="owner__list-total text-center">
-              共{total}位客户
+            <View className="my-owner__list-total text-center">
+              共{total}位员工
             </View>
           </View>
         )}

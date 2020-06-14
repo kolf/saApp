@@ -2,12 +2,20 @@
   &__root {
     .table-head {
       font-weight: 700;
+      font-size: 32px;
+      padding: 32px 16px;
     }
     .table-body {
+      padding: 16px;
     }
   }
   &__heading {
-    padding: 24px;
+    padding: 24px 32px;
+  }
+  &__content {
+    padding: 0 32px;
+  }
+  &__card {
   }
 }
 .text-underline {

@@ -5,7 +5,7 @@ import NetwordError from "../../components/network-error";
 import { getActivityList } from "../../servers/apis";
 
 import "./index.scss";
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "常用问题"
   };
@@ -37,7 +37,7 @@ export default  class Index extends Component {
     if (isFetching) {
       return (
         <View className="page bg-gray">
-          <AtActivityIndicator mode="center" content="加载中..." />
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
         </View>
       );
     }
@@ -52,5 +52,3 @@ export default  class Index extends Component {
     );
   }
 }
-
-

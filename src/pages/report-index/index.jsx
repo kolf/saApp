@@ -78,7 +78,7 @@ export default  class Index extends Component {
               <View className="report-index__nav">
                 <NavPanel
                   title="个人统计"
-                  onClick={this.handleClick.bind(this, "all-employees")}
+                  onClick={this.handleClick.bind(this, "owner-category")}
                 >
                   <Image
                     src={img4Url}

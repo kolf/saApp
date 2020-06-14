@@ -13,7 +13,7 @@ import userLargeUrl from "../../assets/images/user-large.svg";
 
 export default class Index extends Component {
   state = {
-    userData: storage.get("userInfo") || {}
+    userInfo: storage.get("userInfo") || {}
   };
 
   componentWillMount() {
@@ -28,26 +28,25 @@ export default class Index extends Component {
   };
 
   render() {
-    const { userData } = this.state;
+    const { userInfo } = this.state;
 
     return (
       <View className="page owner-index__root">
         <View className="owner-index__header">
           <View className="owner-index__header-title">
             <View className="owner-index__header-name">
-              你好，{userData.positionName}
+              你好，{userInfo.positionName}
             </View>
-            <View className="owner-index__header-desc">{userData.disName}</View>
+            <View className="owner-index__header-desc">{userInfo.disName}</View>
           </View>
           <View className="owner-index__header-avatar">
-            <AtAvatar image={userData.avatarUrl} circle />
+            <AtAvatar image={userInfo.avatarUrl} circle />
           </View>
         </View>
         <View style={{ margin: "16rpx -16rpx" }}>
           <View className="at-row at-row--wrap">
             <View
               className="at-col at-col-12"
-              onClick={this.handleClick.bind(this, "report-index")}
             >
               <View className="owner-index__nav" style={{ fontSize: 0 }}>
                 <Image
@@ -76,7 +75,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="客户列表"
-                  onClick={this.handleClick.bind(this, "my-owner")}
+                  onClick={this.handleClick.bind(this, "my-user")}
                 >
                   <Image
                     src={usersLargeUrl}

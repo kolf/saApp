@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image, Picker } from "@tarojs/components";
+import { View, Image, Picker, Text } from "@tarojs/components";
 import {
   AtTabs,
   AtTabsPane,
@@ -12,6 +12,7 @@ import {
   AtIcon,
   AtInput
 } from "../../npm/taro-ui/dist";
+import SelectAdviser from "../../components/select-adviser";
 import XRadio from "../../components/x-radio";
 import ListItem from "../../components/list-item";
 import OrderStatus from "./OrderStatus";
@@ -36,22 +37,37 @@ import "./index.scss";
 let height = 960;
 try {
   const res = Taro.getSystemInfoSync();
-  height = res.windowHeight * (750 / res.windowWidth) - 360;
+  height = res.windowHeight * (750 / res.windowWidth) - 180;
 } catch (e) {
   // Do something when catch error
 }
+
+const evaluationStatusMap = {
+  1: "用户已评价",
+  0: "用户未评价"
+};
+const hasReplacementOrderList = [
+  {
+    label: "车主没有置换需求",
+    value: "0"
+  },
+  {
+    label: "车主有置换需求",
+    value: "1"
+  }
+];
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "订单详情"
   };
 
   state = {
-    isFetching: false,
+    current: -1,
+    isFetching: true,
     confirmLoading: false,
     customer: {},
     fawDistributor: {},
-    fawOrder: {},
-    fawOrderForward: {},
+    fawOrder: null,
     fawOrderForwards: [{}, {}],
     fawOrderItem: {},
     intentionCar: {},
@@ -61,12 +77,11 @@ export default class Index extends Component {
     escFiles: [],
     aCardFiles: [],
     cCardFiles: [],
-    sa: {},
     cars: [],
     updateFiles: [],
     hasReplacementOrder: "0",
     carOptions: [],
-    selectCarIndex: "",
+    selectCarIndex: -1,
     timeoutReason: "",
     orderResult: "1",
     orderResultSeason: "",
@@ -585,13 +600,6 @@ export default class Index extends Component {
     }
   };
 
-  handleOrderClick = e => {
-    const { escFawOrderDTO } = this.state;
-    goTo("order-details", {
-      id: escFawOrderDTO.fawOrder.id
-    });
-  };
-
   handleClick(value) {
     this.setState({
       current: value
@@ -599,54 +607,974 @@ export default class Index extends Component {
   }
 
   getTabList = () => {
+    const {
+      userType,
+      fawOrder,
+      fawOrderItem,
+      fawOrderForwards,
+      escFawOrderDTO,
+      zhxcFawOrderDTO,
+      escFiles,
+      aCardFiles,
+      cCardFiles
+    } = this.state;
+    const userOrderStatus = `${userType}_${fawOrder.orderType}_${fawOrder.orderStatus}`;
+    const saUser = fawOrderForwards.find(f => f.positionName === "FW") || {};
+    const escUser = fawOrderForwards.find(f => f.positionName === "ESC") || {};
+    const xsUser = fawOrderForwards.find(f => f.positionName === "XS") || {};
+
     return [
+      {
+        title: "受理人选择",
+        icon: "user",
+        show:
+          fawOrder.processStatus === "WAIT_SA" &&
+          /^FW_[1234]_1/g.test(userOrderStatus)
+      },
+      {
+        title: "评估信息",
+        icon: "search-text",
+        show: /^ESC_1_1/g.test(userOrderStatus)
+      },
+      {
+        title: "A卡信息",
+        icon: "search-text",
+        show:
+          /^XS_[234]_1/g.test(userOrderStatus) &&
+          fawOrder.processStatus === "WAIT_XS_A_CARD"
+      },
       { title: "客户信息", icon: "user" },
-      { title: "意向车型", icon: "faver" },
+      {
+        title: "被介绍人信息",
+        icon: "users",
+        show: /^(4)$/.test(fawOrder.orderType)
+      },
+      {
+        title: "评估车辆信息",
+        icon: "users",
+        show: /^(1|2)$/.test(fawOrder.orderType)
+      },
+      {
+        title: "关联订单", // 置换订单
+        icon: "link",
+        show: !!(
+          escFawOrderDTO &&
+          escFawOrderDTO.fawOrder &&
+          /^(2)$/.test(fawOrder.orderType)
+        )
+      },
+      {
+        title: "关联订单", // 二手车订单
+        icon: "link",
+        show: !!(
+          zhxcFawOrderDTO &&
+          zhxcFawOrderDTO.fawOrder &&
+          /^(1)$/.test(fawOrder.orderType)
+        )
+      },
+      {
+        title: "意向车型",
+        icon: "faver",
+        show: /^(2|3|4)$/.test(fawOrder.orderType)
+      },
       { title: "经销店信息", icon: "shops" },
-      { title: "服务订单信息", icon: "user-love" },
-      { title: "A卡信息", icon: "pin" },
-      { title: "成交信息", icon: "note" },
-      { title: "预约试驾", icon: "steering" },
-      { title: "订单是否有效", icon: "note-error" }
-    ];
+      { title: "服务订单信息", icon: "users" },
+      {
+        title: "评估单照片",
+        icon: "calendar",
+        show: escFiles.length > 0
+      },
+      {
+        title: "A卡信息",
+        icon: "pin",
+        show: aCardFiles.length > 0
+      },
+      { title: "C卡信息", icon: "fair", show: cCardFiles.length > 0 },
+      {
+        title: "超时理由",
+        icon: "clock",
+        show:
+          /^(ESC|XS|DZ)_[1234]_[123]/g.test(userOrderStatus) &&
+          (escUser.timeoutReason || xsUser.timeoutReason) &&
+          fawOrder.timeoutFlag === 1
+      },
+      { title: "成交信息", icon: "note", show: fawOrderItem.checkPhone },
+      {
+        title: "预约试驾",
+        icon: "steering",
+        show:
+          /^(FW|XS|ESC|DZ)_[234]_[123]/g.test(userOrderStatus) &&
+          /(WAIT_XS_C_CARD|FINISH)/g.test(fawOrder.processStatus)
+      },
+      {
+        title: "订单是否有效",
+        icon: "note-error",
+        show: !!(
+          (/^(FW|XS|DZ)_[234]_3/g.test(userOrderStatus) ||
+            (zhxcFawOrderDTO && /^ESC_2_3/g.test(userOrderStatus))) &&
+          fawOrder.orderResult === 1
+        )
+      }
+    ].map((item, index) => ({ ...item, index }));
+  };
+
+  getAdviserUserType = () => {
+    const orderType = this.state.fawOrder.orderType;
+    if (orderType === 1) {
+      return "ESC";
+    }
+    if (/^(3|4)$/.test(orderType)) {
+      return "XS";
+    }
   };
 
   render() {
-    console.log(height, this.getTabList(), "re");
+    const {
+      current,
+      customer,
+      fawDistributor,
+      fawOrder,
+      assessmentCar,
+      aCardFiles,
+      cCardFiles,
+      cars,
+      fawOrderItem,
+      intentionCar,
+      orderAdviserData,
+      userType,
+      selectCarIndex,
+      orderResult,
+      escFiles,
+      orderTimeDTO,
+      escFawOrderDTO,
+      zhxcFawOrderDTO,
+      fawOrderForwards,
+      downTime,
+      isFetching,
+      confirmLoading
+    } = this.state;
+
+    if (isFetching) {
+      return (
+        <View className="page order-details__root bg-gray">
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
+        </View>
+      );
+    }
+
+    if (!fawOrder) {
+      return null;
+    }
+
+    const allTab = this.getTabList();
+    const tabList = allTab.filter(item => item.show !== false);
+    const defaultCurrent = tabList[0].index;
+    const userOrderStatus = `${userType}_${fawOrder.orderType}_${fawOrder.orderStatus}`;
+    const saUser = fawOrderForwards.find(f => f.positionName === "FW") || {};
+    const escUser = fawOrderForwards.find(f => f.positionName === "ESC") || {};
+    const xsUser = fawOrderForwards.find(f => f.positionName === "XS") || {};
+    const hasFooter =
+      (fawOrder.processStatus === "WAIT_SA" &&
+        /^FW_[134]_1/.test(userOrderStatus)) ||
+      /^ESC_1_1/g.test(userOrderStatus) ||
+      (/^XS_[234]_1/g.test(userOrderStatus) &&
+        /WAIT_XS_[AC]_CARD/.test(fawOrder.processStatus));
+
+    // console.log(tabList, "tabList");
+
     return (
       <View className="page order-details__root">
         <View className="order-details__header border-bottom">
-          <View className="order-details__header-name">二手车评估</View>
-          <View className="order-details__header-desc">待SA受理</View>
+          <View className="order-details__header-name">
+            {fawOrder.orderTypeName}
+          </View>
+          <View className="order-details__header-desc">
+            {fawOrder.processStatusName}
+          </View>
           <View
             className="order-details__header-desc"
             style={{ marginTop: "12rpx" }}
           >
-            已等待 10 天
+            {fawOrder.orderStatus != 3 ? (
+              <View>
+                已等待时间： {downTime[0]}天{downTime[1]}小时{downTime[2]}
+                分钟{downTime[3]}秒
+              </View>
+            ) : (
+              evaluationStatusMap[fawOrder.evaluationStatus]
+            )}
           </View>
           <OrderStatus />
         </View>
-        <View className="page-content" id="PAGE_CONTENT">
+        <View className="page-content">
           <AtTabs
-            current={this.state.current}
+            animated={false}
+            current={current === -1 ? defaultCurrent : current}
             className="order-details__tabs"
             scroll
-            height={height + "rpx"}
+            height={(hasFooter ? height - 180 : height) + "rpx"}
             tabDirection="vertical"
-            tabList={this.getTabList()}
+            tabList={tabList}
             onClick={this.handleClick.bind(this)}
           >
-            <AtTabsPane tabDirection="vertical" current={0} index={0}>
-              <View style="font-size:18px;text-align:center;height:200px;">
-                <AtIcon prefixClass="iconfont" value="user" />
-                标签页一的内容
+            <AtTabsPane tabDirection="vertical" current={current} index={0}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[0].icon}
+                    size={20}
+                  />
+                  二手车顾问
+                </View>
+                <View className="order-details__panel-content">
+                  <SelectAdviser userType={this.getAdviserUserType()} />
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={1}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[1].icon}
+                    size={20}
+                  />
+                  评估信息
+                </View>
+                <View className="order-details__panel-hr" />
+                <View className="order-details__panel-content">
+                  <View className="block">
+                    <View className="order-details__panel-h3">
+                      请上传评估单照片
+                      <Text className="text-error">
+                        *(至少一张，用户不可见)
+                      </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtImagePicker
+                        sizeType={["compressed"]}
+                        className="image-picker"
+                        files={this.state.updateFiles}
+                        onChange={this.handleFileChange}
+                        multiple
+                        showAddBtn={this.state.updateFiles.length < 2}
+                        length={4}
+                      />
+                    </View>
+                    <View className="order-details__panel-h3">
+                      请选择本次工作完成情况
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <XRadio
+                        className="radios no-border"
+                        options={hasReplacementOrderList}
+                        onChange={this.handleWorkChange}
+                      />
+                    </View>
+                    {fawOrder.timeoutFlag === 1 &&
+                      /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
+                      /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus) && (
+                        <View className="block">
+                          <View className="order-details__panel-h3">
+                            请填写超时理由
+                            <Text className="text-error">*(用户不可见）</Text>
+                          </View>
+                          <View className="order-details__panel-desc">
+                            <AtTextarea
+                              placeholder="请填写超时理由，限200字内"
+                              className="textarea no-border"
+                              maxLength={200}
+                              value={this.state.timeoutReason}
+                              onChange={this.handleTimeoutReasonChange}
+                            />
+                          </View>
+                        </View>
+                      )}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={2}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[2].icon}
+                    size={20}
+                  />
+                  A卡信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  {/^XS_[234]_1/g.test(userOrderStatus) &&
+                    fawOrder.processStatus === "WAIT_XS_A_CARD" && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          请上传A卡照片
+                          <Text className="text-error">
+                            *(至少一张，用户不可见)
+                          </Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <AtImagePicker
+                            sizeType={["compressed"]}
+                            className="image-picker"
+                            files={this.state.updateFiles}
+                            onChange={this.handleFileChange}
+                            showAddBtn={this.state.updateFiles.length < 2}
+                            length={4}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  {fawOrder.timeoutFlag === 1 &&
+                    /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
+                    /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus) && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          请填写超时理由
+                          <Text className="text-error">*(用户不可见）</Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <AtTextarea
+                            placeholder="超时理由..，限200字内"
+                            className="textarea no-border"
+                            maxLength={200}
+                            value={this.state.timeoutReason}
+                            onChange={this.handleTimeoutReasonChange}
+                          />
+                        </View>
+                      </View>
+                    )}
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={3}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[3].icon}
+                    size={20}
+                  />
+                  客户信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">姓名：</View>
+                  <View className="order-details__panel-desc">
+                    {customer.realName}
+                  </View>
+                  <View className="order-details__panel-h3">性别：</View>
+                  <View className="order-details__panel-desc">
+                    {customer.genderName}
+                  </View>
+                  <View className="order-details__panel-h3">手机号码：</View>
+                  <View className="order-details__panel-desc">
+                    {customer.phone}
+                  </View>
+                  <View className="order-details__panel-h3">所有车辆：</View>
+                  <View className="order-details__panel-desc">
+                    {cars.length > 0
+                      ? cars.map(c => c.carName).join(",")
+                      : "无"}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={4}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[4].icon}
+                    size={20}
+                  />
+                  被介绍人信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">
+                    被介绍人姓名：
+                  </View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.realName}
+                  </View>
+                  <View className="order-details__panel-h3">
+                    被介绍人手机号码：
+                  </View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.phone}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={5}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[5].icon}
+                    size={20}
+                  />
+                  评估车辆信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">车型：</View>
+                  <View className="order-details__panel-desc">
+                    {assessmentCar.carName}
+                  </View>
+                  <View className="order-details__panel-h3">购车时间：</View>
+                  <View className="order-details__panel-desc">
+                    {assessmentCar.buyTime} 年
+                  </View>
+                  <View className="order-details__panel-h3">车架号VIN码：</View>
+                  <View className="order-details__panel-desc">
+                    {assessmentCar.vinCode}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={6}>
+              {allTab[6].show !== false && (
+                <View className="order-details__panel">
+                  <View
+                    className="order-details__panel-heading"
+                    onClick={e =>
+                      goTo("order-details", {
+                        id: escFawOrderDTO.fawOrder.id
+                      })
+                    }
+                  >
+                    <AtIcon
+                      prefixClass="iconfont"
+                      value={allTab[6].icon}
+                      size={20}
+                    />
+                    关联的二手车订单信息
+                  </View>
+                  <View className="order-details__panel-hr"></View>
+                  <View className="order-details__panel-content">
+                    <View className="order-details__panel-h3">订单类别：</View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.fawOrder.orderTypeName}
+                    </View>
+                    <View className="order-details__panel-h3">订单号：</View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.fawOrder.orderNo}
+                    </View>
+                    <View className="order-details__panel-h3">
+                      服务申请提交时间：
+                    </View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.fawOrder.createTime}
+                    </View>
+                    <View className="order-details__panel-h3">
+                      服务顾问转发时间：
+                    </View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.orderTimeDTO.saTransferTime ||
+                        escFawOrderDTO.fawOrder.createTime}
+                    </View>
+                    <View className="order-details__panel-h3">服务顾问：</View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.fawOrderForwards[0].adviserRealName}
+                    </View>
+                    <View className="order-details__panel-h3">
+                      服务顾问手机号：
+                    </View>
+                    <View className="order-details__panel-desc">
+                      {escFawOrderDTO.fawOrderForwards[0].phone}
+                    </View>
+
+                    {escFawOrderDTO.fawOrderForwards[1] && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          评估服务完成时间：
+                        </View>
+                        <View className="order-details__panel-desc">
+                          {escFawOrderDTO.orderTimeDTO.escCompletionTime}
+                        </View>
+                        <View className="order-details__panel-h3">
+                          二手车顾问：
+                        </View>
+                        <View className="order-details__panel-desc">
+                          {escFawOrderDTO.fawOrderForwards[1].adviserRealName}
+                        </View>
+                        <View className="order-details__panel-h3">
+                          二手车顾问手机号：
+                        </View>
+                        <View className="order-details__panel-desc">
+                          {escFawOrderDTO.fawOrderForwards[1].phone}
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              )}
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={7}>
+              {allTab[7] !== false && (
+                <View className="order-details__panel">
+                  <View
+                    className="order-details__panel-heading"
+                    onClick={e =>
+                      goTo("order-details", {
+                        id: zhxcFawOrderDTO.fawOrder.id
+                      })
+                    }
+                  >
+                    <AtIcon
+                      prefixClass="iconfont"
+                      value={allTab[7].icon}
+                      size={20}
+                    />
+                    关联的置换订单
+                  </View>
+                  <View className="order-details__panel-hr"></View>
+                  <View className="order-details__panel-content">
+                    <View className="order-details__panel-h3">订单号：</View>
+                    <View className="order-details__panel-desc">
+                      zhxcFawOrderDTO.fawOrder.id
+                    </View>
+                  </View>
+                </View>
+              )}
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={8}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[8].icon}
+                    size={20}
+                  />
+                  意向车型
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">意向车型：</View>
+                  <View className="order-details__panel-desc">
+                    {intentionCar.carName}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={9}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[9].icon}
+                    size={20}
+                  />
+                  {fawDistributor.name}
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">地址：</View>
+                  <View className="order-details__panel-desc">
+                    {fawDistributor.address}
+                  </View>
+                  <View className="order-details__panel-h3">服务热线：</View>
+                  <View className="order-details__panel-desc">
+                    {fawDistributor.serviceHotline}
+                  </View>
+                  {!escFawOrderDTO && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        服务顾问：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {saUser.adviserRealName}
+                      </View>
+                      <View className="order-details__panel-h3">
+                        服务顾问手机号：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {saUser.phone}
+                      </View>
+                    </View>
+                  )}
+                  {escUser.phone && /^[12]/g.test(fawOrder.orderType) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        二手车顾问：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {escUser.adviserRealName}
+                      </View>
+                      <View className="order-details__panel-h3">
+                        二手车顾问手机号：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {escUser.phone}
+                      </View>
+                    </View>
+                  )}
+                  {xsUser.phone && /^[234]/g.test(fawOrder.orderType) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        销售顾问：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {xsUser.adviserRealName}
+                      </View>
+                      <View className="order-details__panel-h3">
+                        销售顾问手机号：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {xsUser.phone}
+                      </View>
+                    </View>
+                  )}
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={10}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[10].icon}
+                    size={20}
+                  />
+                  服务订单信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">订单类别：</View>
+                  <View className="order-details__panel-desc">
+                    {fawOrder.orderTypeName}
+                  </View>
+                  <View className="order-details__panel-h3">订单号：</View>
+                  <View className="order-details__panel-desc">
+                    {fawOrder.orderNo}
+                  </View>
+                  <View className="order-details__panel-h3">
+                    服务申请提交时间：
+                  </View>
+                  <View className="order-details__panel-desc">
+                    {orderTimeDTO.orderCreateTime}
+                  </View>
+                  {/^[134]/g.test(fawOrder.orderType) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        服务顾问转发时间：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {orderTimeDTO.saTransferTime || "---- -- -- --:--:--"}
+                      </View>
+                    </View>
+                  )}
+                  {/^[1]/g.test(fawOrder.orderType) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        二手车顾问完成时间：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {orderTimeDTO.escCompletionTime ||
+                          "---- -- -- --:--:--"}
+                      </View>
+                    </View>
+                  )}
+                  {(/^[234]/g.test(fawOrder.orderType) || escFawOrderDTO) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        销售顾问受理时间：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {orderTimeDTO.xsAcceptTime || "---- -- -- --:--:--"}
+                      </View>
+                    </View>
+                  )}
+
+                  {(/^[234]/g.test(fawOrder.orderType) || escFawOrderDTO) && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        销售顾问完成时间：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {orderTimeDTO.xsAcceptTime || "---- -- -- --:--:--"}
+                      </View>
+                    </View>
+                  )}
+
+                  {orderTimeDTO.orderCompletionTime && (
+                    <View className="block">
+                      <View className="order-details__panel-h3">
+                        订单完成时间：
+                      </View>
+                      <View className="order-details__panel-desc">
+                        {orderTimeDTO.orderCompletionTime}
+                      </View>
+                    </View>
+                  )}
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={11}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[11].icon}
+                    size={20}
+                  />
+                  评估单照片
+                  <Text className="text-error">*(用户不可见）</Text>
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">评估单照片</View>
+                  <View className="order-details__panel-desc">
+                    <View className="at-row image-list">
+                      {escFiles.map(f => (
+                        <View
+                          key={f.id}
+                          className="image-list-item"
+                          onClick={this.onPreviewImage.bind(this, escFiles, f)}
+                        >
+                          <Image
+                            className="img"
+                            src={f.fileUrl}
+                            mode="aspectFill"
+                          />
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={12}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[12].icon}
+                    size={20}
+                  />
+                  A卡照片
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">A卡照片</View>
+                  <View className="order-details__panel-desc">
+                    <View className="at-row image-list">
+                      {aCardFiles.map(f => (
+                        <View
+                          key={f.id}
+                          className="image-list-item"
+                          onClick={this.onPreviewImage.bind(
+                            this,
+                            aCardFiles,
+                            f
+                          )}
+                        >
+                          <Image
+                            className="img"
+                            src={f.fileUrl}
+                            mode="aspectFill"
+                          />
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={13}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[13].icon}
+                    size={20}
+                  />
+                  C卡照片
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">C卡照片</View>
+                  <View className="order-details__panel-desc">
+                    <View className="at-row image-list">
+                      {cCardFiles.map(f => (
+                        <View
+                          key={f.id}
+                          className="image-list-item"
+                          onClick={this.onPreviewImage.bind(
+                            this,
+                            cCardFiles,
+                            f
+                          )}
+                        >
+                          <Image
+                            className="img"
+                            src={f.fileUrl}
+                            mode="aspectFill"
+                          />
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={14}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[14].icon}
+                    size={20}
+                  />
+                  超时理由
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">
+                    {escUser.timeoutReason
+                      ? "评估工作是否超时："
+                      : "A卡上传工作是否超时："}
+                  </View>
+                  <View className="order-details__panel-desc">
+                    <AtTextarea
+                      disabled
+                      className="textarea no-border"
+                      value={escUser.timeoutReason || xsUser.timeoutReason}
+                    />
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={15}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[15].icon}
+                    size={20}
+                  />
+                  成交信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">购车人姓名：</View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.buyName}
+                  </View>
+                  <View className="order-details__panel-h3">
+                    购车人手机号：
+                  </View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.checkPhone}
+                  </View>
+                  <View className="order-details__panel-h3">车辆VIN码：</View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.vinCode}
+                  </View>
+                  <View className="order-details__panel-h3">上牌时间：</View>
+                  <View className="order-details__panel-desc">
+                    {fawOrderItem.releaseDate
+                      ? fawOrderItem.releaseDate.substr(0, 10)
+                      : "----:--:--"}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={16}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[16].icon}
+                    size={20}
+                  />
+                  试驾信息
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">预约试驾：</View>
+                  <View className="order-details__panel-desc">
+                    {this.state.testDriveFlag === 1 ? "已试驾" : "未试驾"}
+                  </View>
+                </View>
+              </View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection="vertical" current={current} index={17}>
+              <View className="order-details__panel">
+                <View className="order-details__panel-heading">
+                  <AtIcon
+                    prefixClass="iconfont"
+                    value={allTab[10].icon}
+                    size={20}
+                  />
+                  订单是否有效
+                </View>
+                <View className="order-details__panel-hr"></View>
+                <View className="order-details__panel-content">
+                  <View className="order-details__panel-h3">
+                    订单是否有效：
+                  </View>
+                  <View className="order-details__panel-desc">
+                    {fawOrder.orderEffectiveness === 1 ? "有效" : "无效"}
+                  </View>
+                </View>
               </View>
             </AtTabsPane>
           </AtTabs>
         </View>
-        <View className="page-footer order-details__footer border-top">
-          <AtButton className="btn-lg btn-primary">确定</AtButton>
-        </View>
+        {hasFooter && (
+          <View className="page-footer order-details__footer border-top">
+            {fawOrder.processStatus === "WAIT_SA" &&
+              /^FW_[134]_1/.test(userOrderStatus) && (
+                <AtButton
+                  type="primary"
+                  disabled={"#TODO !orderAdviserData"}
+                  className="btn-lg btn-primary"
+                  loading={confirmLoading}
+                  onClick={this.handleOrderTransfer}
+                >
+                  确认并转发
+                </AtButton>
+              )}
+            {/^ESC_1_1/g.test(userOrderStatus) && (
+              <AtButton
+                type="primary"
+                className="btn-lg btn-primary"
+                loading={confirmLoading}
+                onClick={this.handleEcOrderComplete}
+              >
+                确认完成
+              </AtButton>
+            )}
+            {/^XS_[234]_1/g.test(userOrderStatus) &&
+              fawOrder.processStatus === "WAIT_XS_C_CARD" && (
+                <AtButton
+                  type="primary"
+                  className="btn-lg btn-primary"
+                  loading={confirmLoading}
+                  onClick={this.handleUploadAcCard.bind(this, "C")}
+                >
+                  确认完成
+                </AtButton>
+              )}
+            {/^XS_[234]_1/g.test(userOrderStatus) &&
+              fawOrder.processStatus === "WAIT_XS_A_CARD" && (
+                <AtButton
+                  type="primary"
+                  className="btn-lg btn-primary"
+                  loading={confirmLoading}
+                  onClick={this.handleUploadAcCard.bind(this, "A")}
+                >
+                  确认并继续跟进
+                </AtButton>
+              )}
+          </View>
+        )}
       </View>
     );
   }

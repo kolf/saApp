@@ -337,7 +337,7 @@ export default class Index extends Component {
   renderMain = () => {
     const { showType, data, isFetching } = this.state;
     if (isFetching) {
-      return <AtActivityIndicator mode="center" content="加载中..." />;
+      return <AtActivityIndicator size={64} mode="center" content='加载中...' />;
     }
     if (showType === 0) {
       return (

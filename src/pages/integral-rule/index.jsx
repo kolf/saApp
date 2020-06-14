@@ -2,9 +2,8 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { AtActivityIndicator } from "../../npm/taro-ui/dist";
 import { getActivityList } from "../../servers/apis";
-
 import "./index.scss";
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "积分规则说明"
   };
@@ -30,7 +29,7 @@ export default  class Index extends Component {
     if (isFetching) {
       return (
         <View className="page bg-gray">
-          <AtActivityIndicator mode="center" content="加载中..." />
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
         </View>
       );
     }
@@ -42,5 +41,3 @@ export default  class Index extends Component {
     );
   }
 }
-
-
