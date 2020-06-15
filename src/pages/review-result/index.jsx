@@ -1,10 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtButton } from "../../npm/taro-ui/dist";
-import logoUrl from "../../assets/images/logo_title.png";
+import { AtButton } from "@/npm/taro-ui/dist";
+import logoUrl from "@/assets/images/logo_title.png";
 import "./index.scss";
-import storage from "../../utils/storage";
-import { logout } from "../../servers/apis";
+import storage from "@/utils/storage";
+import { logout } from "@/servers/apis";
 
 const textMap = {
   "-1": "您的信息正在审核中，请耐心等待， 我们非常期待您的加入。",

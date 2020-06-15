@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtCheckbox } from "../../npm/taro-ui/dist";
+import { AtCheckbox } from "@/npm/taro-ui/dist";
 import "./index.scss";
 
 export default class Index extends Component {

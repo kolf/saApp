@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import imgUrl from "../../assets/images/ClearcutGrimyLeafhopper-max-1mb.gif";
+import imgUrl from "@/assets/images/ClearcutGrimyLeafhopper-max-1mb.gif";
 import "./index.scss";
 export default class Index extends Component {
   render() {

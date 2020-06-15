@@ -1,11 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtRate, AtActivityIndicator } from "../../npm/taro-ui/dist";
-import RetaRadio from "../../components/reta-radio";
-import UserAvatar from "../../components/user-avatar";
+import { AtRate, AtActivityIndicator } from "@/npm/taro-ui/dist";
+import RetaRadio from "@/components/reta-radio";
+import UserAvatar from "@/components/user-avatar";
 import "./index.scss";
 
-import { getOrderEvaluationInfos } from "../../servers/apis";
+import { getOrderEvaluationInfos } from "@/servers/apis";
 
 export default class Index extends Component {
   config = {

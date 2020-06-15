@@ -1,10 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton, AtIcon } from "../../npm/taro-ui/dist";
-import { goTo } from "../../utils";
-import storage from "../../utils/storage";
-import modal from "../../utils/modal";
-import imgUrl from "../../assets/images/logo_title.png";
+import { AtButton, AtIcon } from "@/npm/taro-ui/dist";
+import { goTo } from "@/utils";
+import storage from "@/utils/storage";
+import modal from "@/utils/modal";
+import imgUrl from "@/assets/images/logo_title.png";
 import "./index.scss";
 
 export default class Index extends Component {
@@ -22,9 +22,9 @@ export default class Index extends Component {
         return;
       }
       if (userInfo.type === "DZ") {
-        goTo("admin-index", null, false);
+        goTo("admin/pages/index", null, false);
       } else {
-        goTo("owner-index", null, false);
+        goTo("owner/pages/index", null, false);
       }
     }
   }

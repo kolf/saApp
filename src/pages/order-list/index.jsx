@@ -1,12 +1,12 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import OrderCard from "../../components/order-card";
-import EmptyData from "../../components/empty-data";
+import OrderCard from "@/components/order-card";
+import EmptyData from "@/components/empty-data";
 import "./index.scss";
 
-import { goTo } from "../../utils";
-import storage from "../../utils/storage";
-import { getOrderList } from "../../servers/apis";
+import { goTo } from "@/utils";
+import storage from "@/utils/storage";
+import { getOrderList } from "@/servers/apis";
 export default  class Index extends Component {
   config = {
     navigationBarTitleText: "订单列表"

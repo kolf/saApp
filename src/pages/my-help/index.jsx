@@ -1,8 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtActivityIndicator } from "../../npm/taro-ui/dist";
-import NetwordError from "../../components/network-error";
-import { getActivityList } from "../../servers/apis";
+import { AtActivityIndicator } from "@/npm/taro-ui/dist";
+import NetwordError from "@/components/network-error";
+import { getActivityList } from "@/servers/apis";
 
 import "./index.scss";
 export default class Index extends Component {

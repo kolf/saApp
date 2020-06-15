@@ -1,8 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtButton } from "../../npm/taro-ui/dist";
+import { AtButton } from "@/npm/taro-ui/dist";
 import PropTypes from "prop-types";
-import imgUrl from "../../assets/images/network_error.png";
+import imgUrl from "@/assets/images/network_error.png";
 import "./index.scss";
 
 export default class Index extends Component {

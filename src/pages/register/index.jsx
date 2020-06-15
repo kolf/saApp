@@ -1,12 +1,12 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton, AtInput, AtForm } from "../../npm/taro-ui/dist";
-import CountDown from "../../components/count-down";
-import { register, verificationCode } from "../../servers/apis";
-import { goTo } from "../../utils";
-import storage from "../../utils/storage";
-import modal from "../../utils/modal";
-import { isPhone } from "../../utils/validator";
+import { AtButton, AtInput, AtForm } from "@/npm/taro-ui/dist";
+import CountDown from "@/components/count-down";
+import { register, verificationCode } from "@/servers/apis";
+import { goTo } from "@/utils";
+import storage from "@/utils/storage";
+import modal from "@/utils/modal";
+import { isPhone } from "@/utils/validator";
 import "./index.scss";
 export default class Index extends Component {
   config = {
@@ -42,7 +42,7 @@ export default class Index extends Component {
         storage.set("JSESSIONID", userInfo.sessionId);
 
         if (userInfo.type === "DZ") {
-          goTo("admin-index", null, false);
+          goTo("admin/pages/index", null, false);
           return;
         }
 

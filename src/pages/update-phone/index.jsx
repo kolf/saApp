@@ -1,13 +1,13 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton, AtInput, AtForm } from "../../npm/taro-ui/dist";
-import CountDown from "../../components/count-down";
+import { AtButton, AtInput, AtForm } from "@/npm/taro-ui/dist";
+import CountDown from "@/components/count-down";
 import "./index.scss";
-import { updatePhone, verificationCode } from "../../servers/apis";
-import storage from "../../utils/storage";
-import modal from "../../utils/modal";
-import { isPhone } from "../../utils/validator";
-import { goTo } from "../../utils";
+import { updatePhone, verificationCode } from "@/servers/apis";
+import storage from "@/utils/storage";
+import modal from "@/utils/modal";
+import { isPhone } from "@/utils/validator";
+import { goTo } from "@/utils";
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "修改手机号"

@@ -1,9 +1,9 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtSearchBar } from "../../npm/taro-ui/dist";
+import { AtSearchBar } from "@/npm/taro-ui/dist";
 import XRadio from "../../components/x-radio";
 import "./index.scss";
-import avatarUrl from "../../assets/images/default-avatar.png";
+import avatarUrl from "@/assets/images/default-avatar.png";
 import { getadvisersList } from "../../servers/apis";
 
 export default class Index extends Component {

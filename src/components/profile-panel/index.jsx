@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import "./index.scss";
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
+import defaultAvatarUrl from "@/assets/images/default-avatar.png";
 
 export default class Index extends Component {
   render() {

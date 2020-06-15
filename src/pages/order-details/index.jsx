@@ -11,15 +11,15 @@ import {
   AtActivityIndicator,
   AtIcon,
   AtInput
-} from "../../npm/taro-ui/dist";
-import SelectAdviser from "../../components/select-adviser";
-import XRadio from "../../components/x-radio";
-import ListItem from "../../components/list-item";
+} from "@/npm/taro-ui/dist";
+import SelectAdviser from "@/components/select-adviser";
+import XRadio from "@/components/x-radio";
+import ListItem from "@/components/list-item";
 import OrderStatus from "./OrderStatus";
-import { goTo, getDownTime } from "../../utils";
-import storage from "../../utils/storage";
-import modal from "../../utils/modal";
-import { isPhone } from "../../utils/validator";
+import { goTo, getDownTime } from "@/utils";
+import storage from "@/utils/storage";
+import modal from "@/utils/modal";
+import { isPhone } from "@/utils/validator";
 import {
   getOrder,
   setEcOrderComplete,
@@ -29,8 +29,8 @@ import {
   getCarTypeList,
   setTimeoutReason,
   getVinCodeByImg
-} from "../../servers/apis";
-import getBaseUrl from "../../servers/baseUrl";
+} from "@/servers/apis";
+import getBaseUrl from "@/servers/baseUrl";
 
 import "./index.scss";
 

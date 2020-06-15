@@ -1,19 +1,19 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Picker, Text } from "@tarojs/components";
-import { AtButton, AtList, AtListItem } from "../../npm/taro-ui/dist";
-import storage from "../../utils/storage";
-import ListItem from "../../components/list-item";
+import { AtButton, AtList, AtListItem } from "@/npm/taro-ui/dist";
+import storage from "@/utils/storage";
+import ListItem from "@/components/list-item";
 import "./index.scss";
-import defaultAvatarUrl from "../../assets/images/default-avatar.png";
+import defaultAvatarUrl from "@/assets/images/default-avatar.png";
 import {
   submitDZ,
   updateGender,
   updateWorkStart,
   getUserInfo
-} from "../../servers/apis";
-import { getOptions, getOptionLabel } from "../../utils/options";
-import { goTo } from "../../utils";
-import getBaseUrl from "../../servers/baseUrl";
+} from "@/servers/apis";
+import { getOptions, getOptionLabel } from "@/utils/options";
+import { goTo } from "@/utils";
+import getBaseUrl from "@/servers/baseUrl";
 function loop(e) {
   e.stopPropagation();
 }

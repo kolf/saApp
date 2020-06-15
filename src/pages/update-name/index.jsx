@@ -1,11 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtButton, AtInput, AtForm } from "../../npm/taro-ui/dist";
-import storage from "../../utils/storage";
-import modal from "../../utils/modal";
+import { AtButton, AtInput, AtForm } from "@/npm/taro-ui/dist";
+import storage from "@/utils/storage";
+import modal from "@/utils/modal";
 import "./index.scss";
 
-import { updateName } from "../../servers/apis";
+import { updateName } from "@/servers/apis";
 
 export default class Index extends Component {
   config = {

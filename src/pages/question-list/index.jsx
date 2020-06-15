@@ -1,10 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtButton } from "../../npm/taro-ui/dist";
+import { AtButton } from "@/npm/taro-ui/dist";
 import "./index.scss";
-import { goTo } from "../../utils";
-import EmptyData from "../../components/empty-data";
-import { getMessageBoardList } from "../../servers/apis";
+import { goTo } from "@/utils";
+import EmptyData from "@/components/empty-data";
+import { getMessageBoardList } from "@/servers/apis";
 
 export default  class Index extends Component {
   config = {

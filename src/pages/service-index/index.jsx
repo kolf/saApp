@@ -1,11 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import NavPanel from "../../components/nav-panel";
+import NavPanel from "@/components/nav-panel";
 import "./index.scss";
-import helpUrl from "../../assets/images/help.svg";
-import userCallUrl from "../../assets/images/user-call.svg";
+import helpUrl from "@/assets/images/help.svg";
+import userCallUrl from "@/assets/images/user-call.svg";
 
-import { goTo } from "../../utils";
+import { goTo } from "@/utils";
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "联系客服"

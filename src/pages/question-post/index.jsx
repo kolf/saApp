@@ -8,12 +8,12 @@ import {
   AtModalAction,
   AtTextarea,
   AtList
-} from "../../npm/taro-ui/dist";
-import ListItem from "../../components/list-item";
+} from "@/npm/taro-ui/dist";
+import ListItem from "@/components/list-item";
 import "./index.scss";
 
-import modal from "../../utils/modal";
-import { getMessageTypeList, putMessageBoard } from "../../servers/apis";
+import modal from "@/utils/modal";
+import { getMessageTypeList, putMessageBoard } from "@/servers/apis";
 
 export default class Index extends Component {
   config = {

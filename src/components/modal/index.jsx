@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtModal, AtModalContent,AtIcon } from "../../npm/taro-ui/dist";
+import { AtModal, AtModalContent,AtIcon } from "@/npm/taro-ui/dist";
 import "./index.scss";
 
 export default class Index extends PureComponent {

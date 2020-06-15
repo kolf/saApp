@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtButton } from "../../npm/taro-ui/dist";
+import { AtButton } from "@/npm/taro-ui/dist";
 import "./index.scss";
 
 function loop(e) {
