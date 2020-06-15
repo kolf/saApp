@@ -14,6 +14,7 @@ export default class Index extends Component {
 
   componentDidShow() {
     const userInfo = storage.get("userInfo");
+    console.log(userInfo, 'userInfo')
     if (userInfo) {
       // goTo('order-details',{id:1107});
       // return
@@ -22,9 +23,9 @@ export default class Index extends Component {
         return;
       }
       if (userInfo.type === "DZ") {
-        goTo("admin/pages/index", null, false);
+        goTo("/admin/pages/index", null, false);
       } else {
-        goTo("owner/pages/index", null, false);
+        goTo("/owner/pages/index", null, false);
       }
     }
   }

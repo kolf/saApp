@@ -36,7 +36,7 @@ class App extends Component {
     ],
     subpackages: [
       {
-        root: "pages/admin",
+        root: "admin",
         pages: [
           "pages/index/index",
           "pages/owner-category/index",
@@ -58,7 +58,7 @@ class App extends Component {
         ]
       },
       {
-        root: "pages/owner",
+        root: "owner",
         pages: [
           "pages/index/index",
           "pages/my-integral/index",

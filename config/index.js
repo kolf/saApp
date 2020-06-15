@@ -45,6 +45,17 @@ const config = {
   plugins: [],
   defineConstants: {},
   mini: {
+    webpackChain(chain, webpack) {
+      chain
+        .plugin("analyzer")
+        .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin, []);
+      chain
+        .plugin("contextReplace")
+        .use(
+          new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+          []
+        );
+    },
     postcss: {
       pxtransform: {
         enable: true,

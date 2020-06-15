@@ -3,7 +3,6 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
-
 export default class Index extends Component {
   static defaultProps = {
     dataSource: []

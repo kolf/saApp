@@ -11,7 +11,7 @@ export function spliceUrl(data) {
 
 export function goTo(pathName, data, isNew) {
   Taro[isNew === false ? "redirectTo" : "navigateTo"]({
-    url: `/pages/${pathName}/index${data ? spliceUrl(data) : ""}`
+    url: `${pathName}/index${data ? spliceUrl(data) : ""}`
   });
 }
 
