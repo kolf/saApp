@@ -28,12 +28,12 @@ export default  class Index extends Component {
 
   handleClick = key => {
     if (key === "FWB") {
-      goTo("report-top10-fw");
+      goTo("/admin/pages/report-top10-fw");
       return;
     } else if (key == "ESCB") {
-      goTo("report-top10-esc");
+      goTo("/admin/pages/report-top10-esc");
     } else {
-      goTo("report-top10-xs");
+      goTo("/admin/pages/report-top10-xs");
     }
   };
 

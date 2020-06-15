@@ -42,11 +42,11 @@ export default class Index extends Component {
         storage.set("JSESSIONID", userInfo.sessionId);
 
         if (userInfo.type === "DZ") {
-          goTo("admin/pages/index", null, false);
+          goTo("/admin/pages/index", null, false);
           return;
         }
 
-        goTo("profile", null, false);
+        goTo("/pages/profile", null, false);
       })
       .catch(error => {
         this.setState({

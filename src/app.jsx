@@ -26,7 +26,6 @@ class App extends Component {
       "pages/profile/index",
       "pages/review-result/index",
       "pages/service-index/index",
-      "pages/order-list/index",
       "pages/order-details/index",
       "pages/my-help/index",
       "pages/question-list/index",
@@ -45,6 +44,7 @@ class App extends Component {
           "pages/owner-details/index",
           "pages/profile/index",
           "pages/order-category/index",
+          "pages/order-list/index",
           "pages/report-index/index",
           "pages/report-success/index",
           "pages/report-error/index",
@@ -54,7 +54,8 @@ class App extends Component {
           "pages/report-top10-xs/index",
           "pages/report-users-esc/index",
           "pages/report-users-fw/index",
-          "pages/report-users-xs/index"
+          "pages/report-users-xs/index",
+          'pages/evaluation-details/index'
         ]
       },
       {

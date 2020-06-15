@@ -54,7 +54,7 @@ export default class Index extends Component {
       });
       return;
     }
-    goTo("owner/pages/gift-details", { ...item, integralTotal });
+    goTo("/owner/pages/gift-details", { ...item, integralTotal });
   };
 
   render() {
@@ -70,7 +70,7 @@ export default class Index extends Component {
           </View>
           <View
             className="gift-list__header-button"
-            onClick={e => goTo("owner/pages/gift-order-list")}
+            onClick={e => goTo("/owner/pages/gift-order-list")}
           >
             我的兑换
           </View>

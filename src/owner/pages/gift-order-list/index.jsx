@@ -59,7 +59,7 @@ export default  class Index extends Component {
 
   handleClick = index => {
     const { id } = this.state.listData[index];
-    goTo("owner/pages/gift-order-details", { id });
+    goTo("/owner/pages/gift-order-details", { id });
   };
 
   render() {

@@ -108,7 +108,7 @@ export default class Index extends Component {
                 extraText={userInfo.phone}
                 arrow="right"
                 className="no-border"
-                onClick={goTo.bind(this, "update-phone", null)}
+                onClick={goTo.bind(this, "/pages/update-phone", null)}
               />
             </AtList>
           </View>
@@ -130,7 +130,7 @@ export default class Index extends Component {
                   title="积分"
                   arrow="right"
                   className="no-border"
-                  onClick={goTo.bind(this, "owner/pages/my-integral")}
+                  onClick={goTo.bind(this, "/owner/pages/my-integral")}
                 />
               )}
             </AtList>
@@ -152,7 +152,7 @@ export default class Index extends Component {
               className="btn-lg btn-primary"
               style="marginButtom: 24px"
               type="primary"
-              onClick={goTo.bind(this, "owner/pages/profile-card")}
+              onClick={goTo.bind(this, "/owner/pages/profile-card")}
             >
               预览名片
             </AtButton>

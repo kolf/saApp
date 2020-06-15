@@ -73,7 +73,7 @@ export default  class Index extends Component {
           )}
         </View>
         <View className="page-footer question-list__footer">
-          <AtButton className='btn-primary btn-lg' type="primary" onClick={goTo.bind(this, "question-post")}>
+          <AtButton className='btn-primary btn-lg' type="primary" onClick={goTo.bind(this, "/pages/question-post")}>
             问题反馈
           </AtButton>
         </View>

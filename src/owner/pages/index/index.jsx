@@ -61,7 +61,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="我的业绩"
-                  onClick={goTo.bind(this, 'owner/pages/my-order', null)}
+                  onClick={goTo.bind(this, '/owner/pages/my-order', null)}
                 >
                   <Image
                     src={noteLargeUrl}
@@ -75,7 +75,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="客户列表"
-                  onClick={goTo.bind(this, 'owner/pages/my-user', null)}
+                  onClick={goTo.bind(this, '/owner/pages/my-user', null)}
                 >
                   <Image
                     src={usersLargeUrl}
@@ -89,7 +89,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="联系客服"
-                  onClick={goTo.bind(this, 'service-index')}
+                  onClick={goTo.bind(this, '/pages/service-index')}
                 >
                   <View className="nav-icon">
                     <Image
@@ -105,7 +105,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="信息展示墙"
-                  onClick={goTo.bind(this, 'owner/pages/profile', null)}
+                  onClick={goTo.bind(this, '/owner/pages/profile', null)}
                 >
                   <Image
                     src={userLargeUrl}

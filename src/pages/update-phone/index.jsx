@@ -50,7 +50,7 @@ export default class Index extends Component {
           confirmLoading: false
         });
         storage.clear();
-        goTo("login", null, false);
+        goTo("/pages/login", null, false);
       });
     });
   };

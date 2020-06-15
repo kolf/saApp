@@ -40,7 +40,7 @@ export default class Index extends Component {
       return;
     }
 
-    goTo("owner/pages/gift-list");
+    goTo("/owner/pages/gift-list");
   };
 
   render() {
@@ -53,7 +53,7 @@ export default class Index extends Component {
               title="您已获得的积分"
               arrow="right"
               extraBange={total}
-              onClick={goTo.bind(this, "owner/pages/integral-details")}
+              onClick={goTo.bind(this, "/owner/pages/integral-details")}
             />
             <AtListItem
               title="积分兑换"

@@ -58,7 +58,7 @@ export default class Index extends Component {
 
   handleClick = ({ orderType }) => {
     const orderStatus = tabList[this.state.activeIndex].value;
-    goTo("order-list", {
+    goTo("/admin/pages/order-list", {
       orderType,
       orderStatus
     });

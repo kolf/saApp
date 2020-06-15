@@ -33,7 +33,7 @@ export default class Index extends Component {
   }
 
   handleClick = key => {
-    goTo("owner/pages/user-details", {
+    goTo("/owner/pages/user-details", {
       id: key,
       isNew: "1"
     });

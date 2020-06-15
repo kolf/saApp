@@ -41,7 +41,7 @@ export default class Index extends Component {
               <View className="at-row table-head border-bottom">
                 <View
                   className="at-col at-col-4 text-underline"
-                  onClick={e => goTo("integral-rule")}
+                  onClick={goTo.bind(this,"/owner/pages/integral-rule", null)}
                 >
                   达成要求?
                 </View>

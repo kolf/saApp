@@ -19,7 +19,7 @@ export default class Index extends Component {
       // goTo('order-details',{id:1107});
       // return
       if (userInfo.checkStatus !== 1) {
-        goTo("review-result", { checkStatus: userInfo.checkStatus }, false);
+        goTo("/pages/review-result", { checkStatus: userInfo.checkStatus }, false);
         return;
       }
       if (userInfo.type === "DZ") {

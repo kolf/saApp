@@ -53,7 +53,7 @@ export default class Index extends Component {
   };
 
   handleOrderClick = id => {
-    goTo("order-details", {
+    goTo("/pages/order-details", {
       id
     });
   };

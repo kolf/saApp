@@ -189,7 +189,7 @@ export default class Index extends Component {
               extraText={userInfo.realName || "必填项"}
               arrow={submitUserInfo.realName ? "" : "right"}
               onClick={
-                submitUserInfo.realName ? loop : goTo.bind(this, "update-name")
+                submitUserInfo.realName ? loop : goTo.bind(this, "/pages/update-name")
               }
             />
             <ListItem

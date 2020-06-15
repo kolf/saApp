@@ -33,7 +33,7 @@ export default class Index extends Component {
   }
 
   handleClick = ({ key }) => {
-    goTo("admin/pages/owner-details", {
+    goTo("/admin/pages/owner-details", {
       id: key
     });
   };
@@ -125,7 +125,7 @@ export default class Index extends Component {
                   title="新的员工"
                   thumb={newFriendUrl}
                   extraBange={newCount}
-                  onClick={goTo.bind(this, "admin/pages/new-owner", null)}
+                  onClick={goTo.bind(this, "/admin/pages/new-owner", null)}
                 />
               </AtList>
 

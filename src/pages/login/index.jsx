@@ -57,9 +57,9 @@ export default class Index extends Component {
         }
 
         if (type === "DZ") {
-          goTo("admin/pages/index", null, false);
+          goTo("/admin/pages/index", null, false);
         } else {
-          goTo("owner/pages/index", null, false);
+          goTo("/owner/pages/index", null, false);
         }
       })
       .catch(error => {
@@ -146,7 +146,7 @@ export default class Index extends Component {
               登录
             </AtButton>
             <AtButton
-              onClick={goTo.bind(this, "register", null)}
+              onClick={goTo.bind(this, "/pages/register", null)}
               className="login__register-button btn-lg no-border"
             >
               我要开通帐号

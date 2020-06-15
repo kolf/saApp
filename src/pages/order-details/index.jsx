@@ -1043,7 +1043,7 @@ export default class Index extends Component {
                   <View
                     className="order-details__panel-heading"
                     onClick={e =>
-                      goTo("order-details", {
+                      goTo("/pages/order-details", {
                         id: escFawOrderDTO.fawOrder.id
                       })
                     }
@@ -1121,7 +1121,7 @@ export default class Index extends Component {
                   <View
                     className="order-details__panel-heading"
                     onClick={e =>
-                      goTo("order-details", {
+                      goTo("/pages/order-details", {
                         id: zhxcFawOrderDTO.fawOrder.id
                       })
                     }

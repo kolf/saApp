@@ -46,7 +46,7 @@ export default class Index extends Component {
               <View className="admin-index__nav">
                 <NavPanel
                   title="报表"
-                  onClick={goTo.bind(this, "admin/pages/report-index")}
+                  onClick={goTo.bind(this, "/admin/pages/report-index")}
                 >
                   <HreoChart />
                 </NavPanel>
@@ -56,7 +56,7 @@ export default class Index extends Component {
               <View className="admin-index__nav">
                 <NavPanel
                   title="员工订单"
-                  onClick={goTo.bind(this, "admin/pages/order-category")}
+                  onClick={goTo.bind(this, "/admin/pages/order-category")}
                 >
                   <Image
                     src={noteLargeUrl}
@@ -70,7 +70,7 @@ export default class Index extends Component {
               <View className="admin-index__nav">
                 <NavPanel
                   title="员工列表"
-                  onClick={goTo.bind(this, "admin/pages/my-owner")}
+                  onClick={goTo.bind(this, "/admin/pages/my-owner")}
                 >
                   <Image
                     src={usersLargeUrl}
@@ -84,7 +84,7 @@ export default class Index extends Component {
               <View className="admin-index__nav">
                 <NavPanel
                   title="联系客服"
-                  onClick={goTo.bind(this, "service-index")}
+                  onClick={goTo.bind(this, "/pages/service-index")}
                 >
                   <View className="nav-icon">
                     <Image
@@ -100,7 +100,7 @@ export default class Index extends Component {
               <View className="admin-index__nav">
                 <NavPanel
                   title="我的"
-                  onClick={goTo.bind(this, "admin/pages/profile")}
+                  onClick={goTo.bind(this, "/admin/pages/profile")}
                 >
                   <Image
                     src={userLargeUrl}

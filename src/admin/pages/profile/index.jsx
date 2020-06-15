@@ -101,14 +101,14 @@ export default class Index extends Component {
                 onClick={
                   userInfo.realName
                     ? "javascript:;"
-                    : goTo.bind(this, "update-name")
+                    : goTo.bind(this, "/pages/update-name")
                 }
               />
               <AtListItem
                 title="手机号"
                 extraText={userInfo.phone}
                 arrow="right"
-                onClick={goTo.bind(this, "update-phone")}
+                onClick={goTo.bind(this, "/pages/update-phone")}
               />
               <AtListItem title="经销店名称" extraText={userInfo.disName} />
               <AtListItem
