@@ -46,6 +46,20 @@ const config = {
   defineConstants: {},
   mini: {
     webpackChain(chain, webpack) {
+      // const config = chain.optimization.get("splitChunks");
+      // console.log(config, "config");
+      // chain.optimization.splitChunks({
+      //   ...config,
+      //   cacheGroups: {
+      //     ...config.cacheGroups,
+      //     antv: {
+      //       name: "npm/@antv/f2",
+      //       minChunks: 2,
+      //       test: module => /[\\/]node_modules[\\/]@antv[\\/]/.test(module.resource),
+      //       priority: 200
+      //     }
+      //   }
+      // });
       chain
         .plugin("analyzer")
         .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin, []);
@@ -55,6 +69,9 @@ const config = {
           new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
           []
         );
+    },
+    addChunkPages (pages) {
+      // pages.set('admin/components/charts/*.jsx', ['antv'])
     },
     postcss: {
       pxtransform: {

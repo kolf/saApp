@@ -2,9 +2,9 @@ import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { AtIcon } from "@/npm/taro-ui/dist";
 import "./index.scss";
-import imgUrl1 from "@/assets/images/emoji-01.png";
-import imgUrl2 from "@/assets/images/emoji-02.png";
-import imgUrl3 from "@/assets/images/emoji-03.png";
+import imgUrl1 from "@/assets/images/rating-1.svg";
+import imgUrl2 from "@/assets/images/rating-3.svg";
+import imgUrl3 from "@/assets/images/rating-5.svg";
 
 // const icons = ["biaoqing2", "wubiaoqing", "biaoqing"];
 const options = [
@@ -55,4 +55,3 @@ export default class Index extends PureComponent {
     );
   }
 }
-

@@ -4,8 +4,6 @@ import {
   AtTabs,
   AtTabsPane,
   AtButton,
-  AtList,
-  AtListItem,
   AtImagePicker,
   AtTextarea,
   AtActivityIndicator,
@@ -14,8 +12,7 @@ import {
 } from "@/npm/taro-ui/dist";
 import SelectAdviser from "@/components/select-adviser";
 import XRadio from "@/components/x-radio";
-import ListItem from "@/components/list-item";
-import OrderStatus from "./OrderStatus";
+import OrderArrow from "./OrderArrow";
 import { goTo, getDownTime } from "@/utils";
 import storage from "@/utils/storage";
 import modal from "@/utils/modal";
@@ -42,10 +39,7 @@ try {
   // Do something when catch error
 }
 
-const evaluationStatusMap = {
-  1: "用户已评价",
-  0: "用户未评价"
-};
+
 const hasReplacementOrderList = [
   {
     label: "车主没有置换需求",
@@ -757,7 +751,7 @@ export default class Index extends Component {
     if (isFetching) {
       return (
         <View className="page order-details__root bg-gray">
-          <AtActivityIndicator size={64} mode="center" content="加载中..." />
+          {/* <AtActivityIndicator size={64} mode="center" content="加载中..." /> */}
         </View>
       );
     }
@@ -780,8 +774,6 @@ export default class Index extends Component {
       (/^XS_[234]_1/g.test(userOrderStatus) &&
         /WAIT_XS_[AC]_CARD/.test(fawOrder.processStatus));
 
-    // console.log(tabList, "tabList");
-
     return (
       <View className="page order-details__root">
         <View className="order-details__header border-bottom">
@@ -791,20 +783,35 @@ export default class Index extends Component {
           <View className="order-details__header-desc">
             {fawOrder.processStatusName}
           </View>
-          <View
-            className="order-details__header-desc"
-            style={{ marginTop: "12rpx" }}
-          >
-            {fawOrder.orderStatus != 3 ? (
-              <View>
-                已等待时间： {downTime[0]}天{downTime[1]}小时{downTime[2]}
-                分钟{downTime[3]}秒
-              </View>
-            ) : (
-              evaluationStatusMap[fawOrder.evaluationStatus]
-            )}
-          </View>
-          <OrderStatus />
+          {fawOrder.orderStatus != 3 ? (
+            <View
+              className="order-details__header-desc"
+              style={{ marginTop: "12rpx" }}
+            >
+              已等待时间： {downTime[0]}天{downTime[1]}小时{downTime[2]}
+              分钟{downTime[3]}秒
+            </View>
+          ) : (
+            <View>
+              {fawOrder.evaluationStatus === 1 ? (
+                <AtButton
+                  onClick={goTo.bind(this, "/admin/pages/evaluation", {
+                    orderId: fawOrder.id
+                  })}
+                >
+                  已评价
+                </AtButton>
+              ) : (
+                <AtButton>未评价</AtButton>
+              )}
+            </View>
+          )}
+
+          <OrderArrow  orderType={fawOrder.orderType} 
+  orderStatus={fawOrder.orderStatus}
+  orderResult={fawOrder.orderResult}
+  timeoutFlag={fawOrder.timeoutFlag}
+  processStatus={fawOrder.processStatus} />
         </View>
         <View className="page-content">
           <AtTabs
@@ -817,7 +824,7 @@ export default class Index extends Component {
             tabList={tabList}
             onClick={this.handleClick.bind(this)}
           >
-            <AtTabsPane tabDirection="vertical" current={current} index={0}>
+            {allTab[0].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={0}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -831,8 +838,8 @@ export default class Index extends Component {
                   <SelectAdviser userType={this.getAdviserUserType()} />
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={1}>
+            </AtTabsPane>}
+            {allTab[1].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={1}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -894,8 +901,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={2}>
+            </AtTabsPane>}
+            {allTab[2].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={2}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -949,8 +956,8 @@ export default class Index extends Component {
                     )}
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={3}>
+            </AtTabsPane>}
+            {allTab[3].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={3}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -982,8 +989,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={4}>
+            </AtTabsPane>}
+            {allTab[4].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={4}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1009,8 +1016,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={5}>
+            </AtTabsPane>}
+            {allTab[5].show!==false && <AtTabsPane tabDirection="vertical" current={current} index={5}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1036,9 +1043,9 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={6}>
-              {allTab[6].show !== false && (
+            </AtTabsPane>}
+            {allTab[6].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={6}>
+              
                 <View className="order-details__panel">
                   <View
                     className="order-details__panel-heading"
@@ -1113,10 +1120,10 @@ export default class Index extends Component {
                     )}
                   </View>
                 </View>
-              )}
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={7}>
-              {allTab[7] !== false && (
+              
+            </AtTabsPane>}
+            {allTab[7].show !== false && (<AtTabsPane tabDirection="vertical" current={current} index={7}>
+              
                 <View className="order-details__panel">
                   <View
                     className="order-details__panel-heading"
@@ -1141,9 +1148,9 @@ export default class Index extends Component {
                     </View>
                   </View>
                 </View>
-              )}
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={8}>
+             
+            </AtTabsPane> )}
+            {allTab[8].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={8}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1161,8 +1168,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={9}>
+            </AtTabsPane>}
+            {allTab[9].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={9}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1232,8 +1239,8 @@ export default class Index extends Component {
                   )}
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={10}>
+            </AtTabsPane>}
+            {allTab[10].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={10}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1314,8 +1321,8 @@ export default class Index extends Component {
                   )}
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={11}>
+            </AtTabsPane>}
+            {allTab[11].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={11}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1348,8 +1355,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={12}>
+            </AtTabsPane>}
+            {allTab[12].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={12}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1361,7 +1368,7 @@ export default class Index extends Component {
                 </View>
                 <View className="order-details__panel-hr"></View>
                 <View className="order-details__panel-content">
-                  <View className="order-details__panel-h3">A卡照片</View>
+                  <View className="order-details__panel-h3">A卡照片1</View>
                   <View className="order-details__panel-desc">
                     <View className="at-row image-list">
                       {aCardFiles.map(f => (
@@ -1385,8 +1392,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={13}>
+            </AtTabsPane>}
+            {allTab[13].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={13}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1422,8 +1429,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={14}>
+            </AtTabsPane>}
+            {allTab[14].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={14}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1449,8 +1456,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={15}>
+            </AtTabsPane>}
+            {allTab[15].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={15}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1484,8 +1491,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={16}>
+            </AtTabsPane>}
+            {allTab[16].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={16}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1503,8 +1510,8 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection="vertical" current={current} index={17}>
+            </AtTabsPane>}
+            {allTab[17].show !== false && <AtTabsPane tabDirection="vertical" current={current} index={17}>
               <View className="order-details__panel">
                 <View className="order-details__panel-heading">
                   <AtIcon
@@ -1524,7 +1531,7 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </AtTabsPane>
+            </AtTabsPane>}
           </AtTabs>
         </View>
         {hasFooter && (

@@ -177,8 +177,8 @@ export default class AtTabs extends AtComponent<AtTabsProps, AtTabsState> {
       bodyStyle.transition = "unset";
     }
 
-    const tabItems = tabList.map((item, index) => {
-      const idx = item.index!==undefined ? item.index : index
+    const tabItems = tabList.map((item, idx) => {
+      // const idx = item.index!==undefined ? item.index : index
       const itemCls = classNames({
         "at-tabs__item": true,
         "at-tabs__item--active": current === idx

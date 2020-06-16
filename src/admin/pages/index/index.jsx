@@ -2,7 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { AtAvatar } from "@/npm/taro-ui/dist";
 import NavPanel from "@/components/nav-panel";
-import HreoChart from "./HreoChart";
+import HreoChart from "../../components/charts/HreoChart";
 import "./index.scss";
 import { goTo } from "@/utils";
 import storage from "@/utils/storage";
