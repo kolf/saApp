@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtTabs, AtNoticebar } from "@/npm/taro-ui/dist";
 import EmptyData from "@/components/empty-data";
+import Tabs from "@/components/tabs";
 import "./index.scss";
 
 import { goTo } from "@/utils";
@@ -16,7 +16,7 @@ export default class Index extends Component {
   };
 
   state = {
-    activeKey: 0,
+    tabIndex: 0,
     isFetching: false,
     listData: [],
     newCount: 0,
@@ -36,7 +36,7 @@ export default class Index extends Component {
 
   loadData = () => {
     this.setState({ isFetching: true });
-    const acceptStatus = this.tabList[this.state.activeKey].value;
+    const acceptStatus = this.tabList[this.state.tabIndex].value;
     getOrderList({
       acceptStatus
     }).then(res => {
@@ -53,7 +53,7 @@ export default class Index extends Component {
   handleTabClick = e => {
     this.setState(
       {
-        activeKey: e
+        tabIndex: e
       },
       () => {
         this.loadData();
@@ -67,21 +67,23 @@ export default class Index extends Component {
     });
   };
 
-  render() {
-    const { listData, activeKey, newCount, hisCount, isFetching } = this.state;
-
-    this.tabList = [
-      { title: `新任务`, value: "0", badge: newCount },
-      { title: `历史业绩（${hisCount}）`, value: "2" }
+  getTabList = () => {
+    const { newCount, hisCount } = this.state;
+    return [
+      { label: `新任务`, value: "0", badge: newCount },
+      { label: `历史业绩（${hisCount}）`, value: "2" }
     ];
+  };
+
+  render() {
+    const { listData, tabIndex, isFetching } = this.state;
 
     return (
       <View className="page order__root bg-gray">
-        <AtTabs
-          current={activeKey}
-          tabList={this.tabList}
-          onClick={this.handleTabClick.bind(this)}
-          animated={false}
+        <Tabs
+          current={tabIndex}
+          options={this.getTabList()}
+          onChange={this.handleTabClick.bind(this)}
         />
 
         {listData.length > 0 ? (
@@ -100,7 +102,7 @@ export default class Index extends Component {
           </View>
         ) : (
           <EmptyData loading={isFetching}>
-            您还没有{this.tabList[activeKey].title.replace(/（\d）/, "")}
+            您还没有{this.tabList[tabIndex].title.replace(/（\d）/, "")}
             我相信就在今天
           </EmptyData>
         )}
@@ -108,5 +110,3 @@ export default class Index extends Component {
     );
   }
 }
-
-

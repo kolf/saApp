@@ -1,13 +1,14 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtTabs } from "@/npm/taro-ui/dist";
+import Tabs from "@/components/tabs";
 import "./index.scss";
 import { goTo } from "@/utils";
 import { getOrderTypeList } from "@/servers/apis";
 
 const tabList = [
-  { title: "处理中", value: "1" },
-  { title: "处理完成", value: "3" }
+  { label: "处理中", value: "1" },
+  { label: "处理完成", value: "3" }
 ];
 export default class Index extends Component {
   config = {
@@ -15,7 +16,7 @@ export default class Index extends Component {
   };
 
   state = {
-    activeIndex: 0,
+    tabIndex: 0,
     listData: []
   };
 
@@ -24,7 +25,7 @@ export default class Index extends Component {
   }
 
   loadData = () => {
-    const orderStatus = tabList[this.state.activeIndex].value;
+    const orderStatus = tabList[this.state.tabIndex].value;
     getOrderTypeList(
       {
         orderStatus
@@ -47,7 +48,7 @@ export default class Index extends Component {
   handleTabClick = e => {
     this.setState(
       {
-        activeIndex: e
+        tabIndex: e
       },
       () => {
         this.loadData();
@@ -55,9 +56,8 @@ export default class Index extends Component {
     );
   };
 
-
   handleClick = ({ orderType }) => {
-    const orderStatus = tabList[this.state.activeIndex].value;
+    const orderStatus = tabList[this.state.tabIndex].value;
     goTo("/admin/pages/order-list", {
       orderType,
       orderStatus
@@ -68,10 +68,10 @@ export default class Index extends Component {
     const { listData } = this.state;
     return (
       <View className="page order-category__root bg-gray">
-        <AtTabs
-          current={this.state.activeIndex}
-          tabList={tabList}
-          onClick={this.handleTabClick.bind(this)}
+        <Tabs
+          current={this.state.tabIndex}
+          options={tabList}
+          onChange={this.handleTabClick.bind(this)}
         />
         <AtList className="order-category__list no-border">
           {listData.map((item, index) => (
@@ -88,5 +88,3 @@ export default class Index extends Component {
     );
   }
 }
-
-

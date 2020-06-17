@@ -5,7 +5,7 @@ import {
   AtSegmentedControl,
   AtActivityIndicator
 } from "@/npm/taro-ui/dist";
-
+import Tabs from "@/components/tabs";
 import Pager from "../../components/pager";
 import BasicChart from "../../components/charts/BasicChart";
 import LineChart from "../../components/charts/LineChart";
@@ -205,11 +205,11 @@ export default class Index extends Component {
 
     return (
       <View className="page report__root">
-        <AtTabs
+        <Tabs
           current={dateType}
-          tabList={tabList}
-          onClick={this.handleTabClick.bind(this)}
-          animated={false}
+          options={tabList}
+          onChange={this.handleTabClick.bind(this)}
+
         />
         <View className="report__control-wrap">
           <AtSegmentedControl

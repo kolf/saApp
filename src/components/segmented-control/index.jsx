@@ -24,11 +24,11 @@ class Index extends PureComponent {
     const { options } = this.props;
     const { current } = this.state;
     return (
-      <View className='tabs__root'>
+      <View className='segmented-control__root'>
         {options.map((o, index) => (
           <View
-            className={classNames("tabs__item", {
-              "tabs__item--active": index === current
+            className={classNames("segmented-control__item", {
+              "segmented-control__item--active": index === current
             })}
             onClick={this.handleClick.bind(this, index)}
           >

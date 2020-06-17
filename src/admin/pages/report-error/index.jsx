@@ -5,7 +5,7 @@ import {
   AtSegmentedControl,
   AtActivityIndicator
 } from "@/npm/taro-ui/dist";
-
+import Tabs from "@/components/tabs";
 import Pager from "../../components/pager";
 import TendencyChart from "../../components/charts/TendencyChart";
 import StatisticalChart from "../../components/charts/StatisticalChart";
@@ -19,9 +19,9 @@ import "./index.scss";
 
 const format = "YYYY-MM-DD";
 const tabList = [
-  { title: `日`, value: "days" },
-  { title: `周`, value: "weeks" },
-  { title: `月`, value: "months" }
+  { label: `日`, value: "days" },
+  { label: `周`, value: "weeks" },
+  { label: `月`, value: "months" }
 ];
 const DEFAULT_DATE = moment()
   .subtract(1, "days")
@@ -200,11 +200,11 @@ export default class Index extends Component {
 
     return (
       <View className="page report__root">
-        <AtTabs
+        <Tabs
           current={dateType}
-          tabList={tabList}
-          onClick={this.handleTabClick.bind(this)}
-          animated={false}
+          options={tabList}
+          onChange={this.handleTabClick.bind(this)}
+
         />
         <View className="report__control-wrap">
           <AtSegmentedControl
