@@ -156,7 +156,7 @@ export default class Index extends Component {
               </View>
             </View>
             <View className="at-col at-col-7">
-              <AtButton type="primary" onClick={this.handleSubmit}>
+              <AtButton className='btn-lg btn-primary' type="primary" onClick={this.handleSubmit}>
                 确认兑换
               </AtButton>
             </View>

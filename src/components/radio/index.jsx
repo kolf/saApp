@@ -7,20 +7,22 @@ import "./index.scss";
 export default class Index extends Component {
   static defaultProps = {
     options: [],
-    onClick() {},
-    value: ""
+    onChange() {},
+    current: -1
   };
 
   handleClick = (index, e) => {
-    const { options, onClick } = this.props;
-    onClick(options[index].value);
+    const { onChange } = this.props;
+    this.setState({ current: index });
+    onChange(index);
   };
 
   render() {
-    const { options, value } = this.props;
+    const { options } = this.props;
+    const { current } = this.state;
 
     return (
-      <View className="at-radio radio__root">
+      <View className="at-radio radio__root no-border">
         {options.map((o, index) => (
           <View
             key={o.value}
@@ -29,10 +31,20 @@ export default class Index extends Component {
           >
             <View className="at-radio__option-wrap">
               <View className="at-radio__option-container">
-                <View className="at-radio__title">{o.label}</View>
+                {o.thumb && (
+                  <View className="radio__thumb">
+                    <Image src={o.thumb} mode="aspectFill" className="img" />
+                  </View>
+                )}
+                <View className="radio__cont">
+                  <View className="at-radio__title radio__title">
+                    {o.label}
+                  </View>
+                  {o.desc && <View className="radio__desc">{o.desc}</View>}
+                </View>
                 <View
                   className={classNames("at-radio__icon radio__icon", {
-                    active: value === o.value
+                    active: current === index
                   })}
                 ></View>
               </View>

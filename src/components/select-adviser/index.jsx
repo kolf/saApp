@@ -1,12 +1,17 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtSearchBar } from "@/npm/taro-ui/dist";
-import XRadio from "../../components/x-radio";
+import KRadio from "../../components/radio";
+import SearchInput from "../../components/search-input";
 import "./index.scss";
 import avatarUrl from "@/assets/images/default-avatar.png";
 import { getadvisersList } from "../../servers/apis";
 
 export default class Index extends Component {
+  static defaultProps = {
+    onChange() {}
+  };
+
   config = {
     navigationBarTitleText: "选择顾问"
   };
@@ -41,13 +46,13 @@ export default class Index extends Component {
       .map(item => ({
         value: item.id + "",
         label: item.realName,
-        extraText: item.phone,
+        desc: item.phone,
         thumb: item.avatarUrl || avatarUrl
       }));
   };
 
-  handleChange = adviserId => {
-    this.props.onChange(adviserId);
+  handleChange = index => {
+    this.props.onChange(this.state.listData[index].value);
   };
 
   render() {
@@ -55,10 +60,12 @@ export default class Index extends Component {
 
     return (
       <View className="page bg-gray adviser__root">
-        <AtSearchBar className="adviser__search-bar" />
+        <View className="adviser__search-bar">
+          <SearchInput />
+        </View>
         {listData.length > 0 && (
           <View className="adviser__list">
-            <XRadio options={listData} onChange={this.handleChange} />
+            <KRadio options={listData} onChange={this.handleChange} />
           </View>
         )}
       </View>

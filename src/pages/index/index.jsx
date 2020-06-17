@@ -16,7 +16,7 @@ export default class Index extends Component {
     const userInfo = storage.get("userInfo");
     // console.log(userInfo, 'userInfo')
     if (userInfo) {
-      // goTo('/pages/order-details',{id:1107});
+      // goTo('/pages/order-details',{id:1060});
       // return
       if (userInfo.checkStatus !== 1) {
         goTo("/pages/review-result", { checkStatus: userInfo.checkStatus }, false);

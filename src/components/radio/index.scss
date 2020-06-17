@@ -3,14 +3,10 @@
 .radio {
   &__root.at-radio {
     .at-radio__option {
-      padding-left: 36px;
+      padding-left: 0;
     }
     .at-radio__option-wrap {
-      padding: 32px 36px 32px 0;
-    }
-    .at-radio__title {
-      font-size: 30px;
-      color: #737373;
+      padding: 32px 0;
     }
   }
   &__icon {
@@ -20,6 +16,27 @@
     visibility: unset;
     &.active {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAMAAAANmfvwAAAAWlBMVEUAAABCbupCbulCb+pCb+tCbupCb+pBbupCbulBbelDbupFcu5Db+pCb+lDbelCb+pCb+pFb+5DbutCb+pCcOo+bOhCb+lCbulCbepDb+tAbuhAYN9Af/9CbunhrIPFAAAAHXRSTlMA+/lgWbKf8uvLPBW0in6XkSBrVEshfPDNUSwIBFChgJgAAADlSURBVDjLldTbDoMgDAbgAoIgzM1Nd+77v+YyBIYiNvtvNOFTSKFAFiuU0Zxro4SFrXSSYQqTXQEGh6vIaSmaFou0TS563MyVErlpsJow19DWSTt44nAn0tcDd/Otj6yMsfQby7bF4T3O0oKoCAC4+TcBqirO6KPAEAIN6IoQcY0aeKjR/SdOuUAeCHvChRUiED0/XwANC8K/pui4XBU/Pa4EGlCYGS/ilHEglc4PnkuBItuAE/g8+EIwG7cxmZGXp6HLSlYK7FZHyh3XwtEHc6KPN9kkPdlIPd2wVNu76Y/Lg76CPtLYWDI0RCo/AAAAAElFTkSuQmCC");
+    }
+  }
+  &__title {
+    font-size: 30px;
+    color: #333333;
+  }
+  &__desc{
+    font-size: 26px;
+    color: #737373;
+  }
+  &__cont {
+    flex: 1;
+  }
+  &__thumb {
+    width: 80px;
+    margin-right: 12px;
+    .img {
+      width: 80px;
+      height: 80px;
+      border-radius: 100%;
+      overflow: hidden;
     }
   }
 }
