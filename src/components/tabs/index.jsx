@@ -1,17 +1,28 @@
 import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Text, Button } from "@tarojs/components";
+import classNames from "classnames";
 import "./index.scss";
 
 class Index extends PureComponent {
   static defaultProps = {
+    options: [],
     onChange() {}
   };
 
   state = {
-    current: -1
+    current: 0
   };
 
-  componentWillReceiveProps(nextProps, nextContext) {}
+  // componentWillReceiveProps(nextProps) {
+  //   if (
+  //     nextProps.current !== undefined &&
+  //     nextProps.current !== this.state.current
+  //   ) {
+  //     this.setState({
+  //       current: nextProps.current
+  //     });
+  //   }
+  // }
 
   handleClick = current => {
     this.setState({
@@ -24,7 +35,7 @@ class Index extends PureComponent {
     const { options } = this.props;
     const { current } = this.state;
     return (
-      <View className='tabs__root'>
+      <View className="tabs__root">
         {options.map((o, index) => (
           <View
             className={classNames("tabs__item", {

@@ -77,12 +77,12 @@ export default class Index extends Component {
 
   render() {
     const { listData, tabIndex, isFetching } = this.state;
+    this.tabList = this.getTabList();
 
     return (
       <View className="page order__root bg-gray">
         <Tabs
-          current={tabIndex}
-          options={this.getTabList()}
+          options={this.tabList}
           onChange={this.handleTabClick.bind(this)}
         />
 
@@ -102,7 +102,7 @@ export default class Index extends Component {
           </View>
         ) : (
           <EmptyData loading={isFetching}>
-            您还没有{this.tabList[tabIndex].title.replace(/（\d）/, "")}
+            您还没有{this.tabList[tabIndex].value.replace(/（\d）/, "")}
             我相信就在今天
           </EmptyData>
         )}

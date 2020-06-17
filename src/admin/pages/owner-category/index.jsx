@@ -68,7 +68,7 @@ export default class Index extends Component {
   };
 
   handleClick = (c, key) => {
-    goTo(`admin/pages/report-users-${key.toLowerCase()}`, c);
+    goTo(`/admin/pages/report-users-${key.toLowerCase()}`, c);
   };
 
   render() {

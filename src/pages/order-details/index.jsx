@@ -680,9 +680,9 @@ export default class Index extends Component {
         title: "超时理由",
         icon: "clock",
         show:
-          /^(ESC|XS|DZ)_[1234]_[123]/g.test(userOrderStatus) &&
-          (escUser.timeoutReason || xsUser.timeoutReason) &&
-          fawOrder.timeoutFlag === 1
+        fawOrder.timeoutFlag === 1 &&
+        /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
+        /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus)
       },
       {
         title: "成交信息",
@@ -793,7 +793,7 @@ export default class Index extends Component {
               分钟{downTime[3]}秒
             </View>
           ) : (
-            <View>
+            <View style={{ marginTop: "12rpx", marginLeft: "-20rpx" }}>
               {fawOrder.evaluationStatus === 1 ? (
                 <AtButton
                   type="secondary"
@@ -1176,7 +1176,7 @@ export default class Index extends Component {
                   <View className="order-details__panel-content">
                     <View className="order-details__panel-h3">订单号：</View>
                     <View className="order-details__panel-desc">
-                      zhxcFawOrderDTO.fawOrder.id
+                      {zhxcFawOrderDTO.fawOrder.orderNo}
                     </View>
                   </View>
                 </View>
@@ -1413,7 +1413,7 @@ export default class Index extends Component {
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
-                    <View className="order-details__panel-h3">A卡照片1</View>
+                    <View className="order-details__panel-h3">A卡照片</View>
                     <View className="order-details__panel-desc">
                       <View className="at-row image-list">
                         {aCardFiles.map(f => (

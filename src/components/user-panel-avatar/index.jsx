@@ -1,17 +1,37 @@
 import Taro from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import defaultImageUrl from "@/assets/images/default-avatar.png";
+import editUrl from "@/assets/images/edit-cover.svg";
 import "./index.scss";
 
-export default function UserPanelAvater({ imageUrl, onClick }) {
+function handleClick(imgUrl) {
+  if (!imgUrl) {
+    return;
+  }
+
+  Taro.previewImage({
+    current: imgUrl,
+    urls: [imgUrl]
+  });
+}
+
+export default function UserPanelAvater({ imageUrl, onChange }) {
   return (
     <View className="user-panel-avatar__root">
       <Image
         className="user-panel-avatar__img"
         src={imageUrl || defaultImageUrl}
         mode="aspectFill"
-        onClick={onClick || null}
+        onClick={handleClick.bind(this, imageUrl)}
       />
+      {onChange && (
+        <Image
+          src={editUrl}
+          className="user-panel-avatar__icon"
+          mode="aspectFill"
+          onClick={onChange}
+        />
+      )}
     </View>
   );
 }

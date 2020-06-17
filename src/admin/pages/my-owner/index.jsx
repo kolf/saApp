@@ -111,7 +111,7 @@ export default class Index extends Component {
       <View className="page my-owner__root">
         {!isError && (
           <View className="my-owner__main">
-            <AtIndexes list={listData} onClick={this.handleClick.bind(this)}>
+            <AtIndexes className='indexes__list' list={listData} onClick={this.handleClick.bind(this)}>
               <AtSearchBar
                 className="my-owner__search-bar"
                 onClear={this.handleClear}

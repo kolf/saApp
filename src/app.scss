@@ -154,6 +154,10 @@ textarea {
 .btn.at-button {
   display: inline-block;
   margin-left: 20px;
+  font-size: 24px;
+  height: 56px;
+  line-height: 54px;
+  padding: 0 24px
 }
 
 .at-button.at-button--small.at-button--disabled.at-button--secondary {
@@ -202,5 +206,12 @@ textarea {
   }
   &.modal__body {
     padding: 36px;
+  }
+}
+
+.indexes__list.at-indexes__list{
+  .at-list__item{
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 }

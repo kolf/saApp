@@ -142,7 +142,6 @@ export default class Index extends Component {
           <View className="card card__has-avatar">
             <UserPanelAvatar
               imageUrl={userInfo.avatarUrl}
-              onClick={this.handleAvatarChange}
             />
             <AtList className="no-border">
               <AtListItem

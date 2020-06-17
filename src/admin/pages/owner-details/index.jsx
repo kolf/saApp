@@ -44,12 +44,6 @@ export default class Index extends Component {
     });
   };
 
-  openAvater = url => {
-    Taro.previewImage({
-      current: url,
-      urls: [url]
-    });
-  };
 
   render() {
     const { isNew } = this.$router.params;
@@ -65,7 +59,6 @@ export default class Index extends Component {
           <View className="card card__has-avatar">
             <UserPanelAvatar
               imageUrl={data.avatarUrl}
-              onClick={this.openAvater.bind(this, data.avatarUrl)}
             />
             <AtList className="no-border">
               <AtListItem title="姓名" extraText={data.realName} />

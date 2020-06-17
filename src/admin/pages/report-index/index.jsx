@@ -24,7 +24,7 @@ export default  class Index extends Component {
   }
 
   handleClick = path => {
-    goTo(`admin/pages/${path}`);
+    goTo(`/admin/pages/${path}`);
   };
 
   render() {
