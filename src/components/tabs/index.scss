@@ -1,0 +1,14 @@
+.tabs{
+  &__root{
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+  }
+  &__item{
+    flex: 1;
+    padding: 16px;
+    &--active{
+      color: #2254f5;
+    }
+  }
+}

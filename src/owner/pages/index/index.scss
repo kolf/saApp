@@ -9,6 +9,17 @@
       width: 12px * 7;
     }
   }
+  &__hero{
+    position: relative;
+    &-text{
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 10vw;
+      font-size: 28px;
+      color: #22242A;
+    }
+  }
   &__header {
     display: flex;
     &-title {

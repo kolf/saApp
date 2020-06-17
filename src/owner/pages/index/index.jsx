@@ -48,13 +48,14 @@ export default class Index extends Component {
             <View
               className="at-col at-col-12"
             >
-              <View className="owner-index__nav" style={{ fontSize: 0 }}>
+              <View className="owner-index__nav owner-index__hero" style={{ fontSize: 0 }}>
                 <Image
                   src={leadUrl}
                   className="img"
                   style={{ width: "100%", fontSize: 0 }}
                   mode="widthFix"
                 />
+                <Text className='owner-index__hero-text'>功能即将上线，敬请期待</Text>
               </View>
             </View>
             <View className="at-col at-col-6">
