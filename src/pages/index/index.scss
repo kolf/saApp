@@ -8,15 +8,15 @@
   }
   &__feature {
     &-list {
-      view {
-        text-align: center;
-        padding: 24px 12px;
-        color: #3247cd;
-      }
     }
     &-item {
+      text-align: center;
+      padding: 32px 12px;
+      color: #3247cd;
       &-title {
         margin-left: 24px;
+        position: relative;
+        top: -4px
       }
     }
   }

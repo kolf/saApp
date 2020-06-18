@@ -17,9 +17,9 @@ import "./index.scss";
 const format = "YYYY-MM-DD";
 
 const tabList = [
-  { title: `日`, value: "days", paramValue: "DAY" },
-  { title: `周`, value: "weeks", paramValue: "WEEK" },
-  { title: `月`, value: "months", paramValue: "MONTH" }
+  { label: `日`, value: "days", paramValue: "DAY" },
+  { label: `周`, value: "weeks", paramValue: "WEEK" },
+  { label: `月`, value: "months", paramValue: "MONTH" }
 ];
 
 const DEFAULT_DATE = moment()
@@ -206,7 +206,6 @@ export default class Index extends Component {
     return (
       <View className="page report__root">
         <Tabs
-          current={dateType}
           options={tabList}
           onChange={this.handleTabClick.bind(this)}
 

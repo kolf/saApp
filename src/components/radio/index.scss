@@ -10,6 +10,8 @@
     }
   }
   &__icon {
+    width: 40px;
+    flex: none;
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAMAAAANmfvwAAAAPFBMVEUAAABCb+pCbutCbulCbulCbeo7b+5CbulBbulCbupDbulCbupBb+tDb+lBce0+cOxFbOtJbf9BbuhCbum4OW5yAAAAE3RSTlMAo2P49bsP6+rMjXRxRSspGgdPcTC2fQAAAMVJREFUOMuNlI0KhCAQhNfV/DnLtHn/d72ygzPK1gER4WMcdVdqlFkFp7ULijM9aZlwSOs6TcsNWHfAKE6FqCRWZofWK8EGPtr/2kYPwy3xAVQFGkgBnwsx001zwzCw0YM2gH9JTetx9TFn5gmKOlKY6n3A2x5iPZZqEqmreNhkGNtHrEEmPpP003AdfVWHgPSGJARyKG9IgSOt6VVajyDyRiNx5UOPXJ38APIzDhWDXFJyYcrlLTeJ3Gpyw8ptP/55yF/QF2eFDKVpnfkJAAAAAElFTkSuQmCC")
       96% 50% no-repeat;
     background-size: 36px;

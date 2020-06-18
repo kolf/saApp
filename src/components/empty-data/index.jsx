@@ -27,7 +27,7 @@ export default class Index extends Component {
             src={imgUrl}
             className="img"
             mode="widthFix"
-            style="width:200px"
+            style="width:160px"
           />
         </View>
         <View className="empty-data__content">{this.props.children}</View>

@@ -10,9 +10,21 @@
     padding: 24px;
     text-align: center;
     font-size: 34px;
+    position: relative;
     &--active{
       color: #2254f5;
       background: url('../../../src/assets/images/tab-selected.svg') 50% 100% no-repeat;
+    }
+    &-badge{
+      font-size: 24px;
+      background-color: #E90000;
+      color: #fff;
+      position: absolute;
+      left: 50%;
+      top:6px;
+      margin-left: 48px;
+      border-radius: 30px;
+      padding: 4px 12px;
     }
   }
 }

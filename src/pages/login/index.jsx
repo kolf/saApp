@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image } from "@tarojs/components";
-import { AtButton, AtInput, AtForm } from "@/npm/taro-ui/dist";
+import { View, Image, Input } from "@tarojs/components";
+import { AtButton, AtIcon, AtForm } from "@/npm/taro-ui/dist";
 import CountDown from "@/components/count-down";
 import { goTo } from "@/utils";
 import storage from "@/utils/storage";
@@ -69,8 +69,8 @@ export default class Index extends Component {
       });
   };
 
-  handleChange = (key, value) => {
-    const nextValue = value.replace(/\D/g, "");
+  handleChange = (key, e) => {
+    const nextValue = e.target.value.replace(/\D/g, "");
     this.setState({
       formData: {
         ...this.state.formData,
@@ -105,36 +105,50 @@ export default class Index extends Component {
               src={logoUrl}
               className="img"
               mode="widthFix"
-              style="width:200px"
+              style="width:160px"
             />
           </View>
-          <AtForm>
-            <AtInput
-              clear
-              type="phone"
-              maxLength="11"
-              placeholder="请输入手机号"
-              className="text-primary"
-              value={formData.phone}
-              onChange={this.handleChange.bind(this, "phone")}
-            >
-              <CountDown
-                onStart={this.sendSMS}
-                onError={this.showPhoneError}
-                disabled={!isPhone(formData.phone)}
-              />
-            </AtInput>
-            <AtInput
-              clear
-              type="number"
-              maxLength="6"
-              minLength="6"
-              className="no-border"
-              placeholder="请输入验证码"
-              value={formData.vfCode}
-              onChange={this.handleChange.bind(this, "vfCode")}
-            />
-          </AtForm>
+
+          <View className="login__form">
+            <View className="login__form-item">
+              <View className="login__label">手机号</View>
+              <View className="login__control">
+                <View className="login__input-wrap">
+                  <View className="login__input-icon"><AtIcon prefixClass='iconfont' value='phone' size={18}/></View>
+                  <Input
+                    className="login__input"
+                    placeholder="请输入手机号"
+                    value={formData.phone}
+                    onChange={this.handleChange.bind(this, "phone")}
+                    maxLength={11}
+                  />
+                  <View className="login__input-extra">
+                    <CountDown
+                      onStart={this.sendSMS}
+                      onError={this.showPhoneError}
+                      disabled={!isPhone(formData.phone)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View className="login__form-item">
+              <View className="login__label">验证码</View>
+              <View className="login__control">
+                <View className="login__input-wrap">
+                  <View className="login__input-icon"><AtIcon prefixClass='iconfont' value='password' size={18}/></View>
+                  <Input
+                    className="login__input"
+                    placeholder="请输入验证码"
+                    value={formData.vfCode}
+                    maxLength={6}
+                    onChange={this.handleChange.bind(this, "vfCode")}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+
           <View className="next-button-wrap">
             <AtButton
               type="primary"

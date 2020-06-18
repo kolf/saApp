@@ -19,7 +19,7 @@ export default class Index extends Component {
     return (
       <View className="network-error__root">
         <View className="img">
-          <Image src={imgUrl} mode="widthFix" style="width:200px" />
+          <Image src={imgUrl} mode="widthFix" style="width:160px" />
         </View>
         <View className="network-error__content text-center">
           {this.props.content}

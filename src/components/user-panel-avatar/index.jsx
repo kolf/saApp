@@ -15,7 +15,7 @@ function handleClick(imgUrl) {
   });
 }
 
-export default function UserPanelAvater({ imageUrl, onChange }) {
+export default function UserPanelAvater({ imageUrl, editable, onChange }) {
   return (
     <View className="user-panel-avatar__root">
       <Image
@@ -24,14 +24,14 @@ export default function UserPanelAvater({ imageUrl, onChange }) {
         mode="aspectFill"
         onClick={handleClick.bind(this, imageUrl)}
       />
-      {onChange && (
-        <Image
+  
+        {editable && <Image
           src={editUrl}
           className="user-panel-avatar__icon"
           mode="aspectFill"
           onClick={onChange}
-        />
-      )}
+        />}
+     
     </View>
   );
 }

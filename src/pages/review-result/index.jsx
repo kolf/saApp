@@ -48,7 +48,7 @@ const textMap = {
               src={logoUrl}
               className="img"
               mode="widthFix"
-              style="width:200px"
+              style="width:160px"
             />
           </View>
           <View className="result__content">{textMap[checkStatus]}</View>

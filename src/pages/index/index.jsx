@@ -14,10 +14,9 @@ export default class Index extends Component {
 
   componentDidShow() {
     const userInfo = storage.get("userInfo");
-    // console.log(userInfo, 'userInfo')
+    //  goTo('/owner/pages/profile');
+    //   return
     if (userInfo) {
-      // goTo('/pages/order-details',{id:1062});
-      // return
       if (userInfo.checkStatus !== 1) {
         goTo(
           "/pages/review-result",
@@ -59,20 +58,20 @@ export default class Index extends Component {
               src={imgUrl}
               className="img"
               mode="widthFix"
-              style="width:200px"
+              style="width:160px"
             />
           </View>
           <View className="index__feature-list">
-            <View>
-              <AtIcon prefixClass="iconfont" value="addteam" size={24} />
+            <View className='index__feature-item'>
+              <AtIcon prefixClass="iconfont" value="addteam" size={16} />
               <Text className="index__feature-item-title">客户维系</Text>
             </View>
-            <View>
-              <AtIcon prefixClass="iconfont" value="audit" size={24} />
+            <View className='index__feature-item'>
+              <AtIcon prefixClass="iconfont" value="audit" size={16} />
               <Text className="index__feature-item-title">业务处理</Text>
             </View>
-            <View>
-              <AtIcon prefixClass="iconfont" value="line-chart" size={24} />
+            <View className='index__feature-item'>
+              <AtIcon prefixClass="iconfont" value="line-chart" size={16} />
               <Text className="index__feature-item-title">业务查看</Text>
             </View>
           </View>

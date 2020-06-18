@@ -680,9 +680,9 @@ export default class Index extends Component {
         title: "超时理由",
         icon: "clock",
         show:
-        fawOrder.timeoutFlag === 1 &&
-        /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
-        /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus)
+          fawOrder.timeoutFlag === 1 &&
+          /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
+          /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus)
       },
       {
         title: "成交信息",
@@ -792,7 +792,7 @@ export default class Index extends Component {
               分钟{downTime[3]}秒
             </View>
           ) : (
-            <View style={{ marginTop: "12rpx", marginLeft: "-20rpx" }}>
+            <View style={{ marginTop: "8rpx", marginLeft: "-22rpx" }}>
               {fawOrder.evaluationStatus === 1 ? (
                 <AtButton
                   type="secondary"
@@ -845,7 +845,7 @@ export default class Index extends Component {
                       value={allTab[0].icon}
                       size={20}
                     />
-                    二手车顾问
+                    {fawOrder.orderType === 1 ? "二手车" : "销售"}顾问
                   </View>
                   <View className="order-details__panel-content">
                     <SelectAdviser
@@ -897,7 +897,7 @@ export default class Index extends Component {
                           onChange={this.handleWorkChange}
                         />
                       </View>
-                      {fawOrder.timeoutFlag === 1 &&
+                      {/* {fawOrder.timeoutFlag === 1 &&
                         /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
                         /^WAIT_(ESC|XS_A_CARD)/g.test(
                           fawOrder.processStatus
@@ -917,7 +917,7 @@ export default class Index extends Component {
                               />
                             </View>
                           </View>
-                        )}
+                        )} */}
                     </View>
                   </View>
                 </View>
@@ -957,7 +957,7 @@ export default class Index extends Component {
                           </View>
                         </View>
                       )}
-                    {fawOrder.timeoutFlag === 1 &&
+                    {/* {fawOrder.timeoutFlag === 1 &&
                       /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
                       /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus) && (
                         <View className="block">
@@ -975,7 +975,7 @@ export default class Index extends Component {
                             />
                           </View>
                         </View>
-                      )}
+                      )} */}
                   </View>
                 </View>
               </AtTabsPane>
@@ -1092,6 +1092,7 @@ export default class Index extends Component {
                       size={20}
                     />
                     关联的二手车订单信息
+                    <AtIcon value='chevron-right' className='order-details__panel-arrow'/>
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1170,6 +1171,7 @@ export default class Index extends Component {
                       size={20}
                     />
                     关联的置换订单
+                    <AtIcon value='chevron-right' className='order-details__panel-arrow'/>
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1491,15 +1493,16 @@ export default class Index extends Component {
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
                     <View className="order-details__panel-h3">
-                      {escUser.timeoutReason
-                        ? "评估工作是否超时："
-                        : "A卡上传工作是否超时："}
+                      请填写超时理由
+                      <Text className="text-error">*(用户不可见）</Text>
                     </View>
                     <View className="order-details__panel-desc">
                       <AtTextarea
-                        disabled
+                        placeholder="请填写超时理由，限200字内"
                         className="textarea no-border"
-                        value={escUser.timeoutReason || xsUser.timeoutReason}
+                        maxLength={200}
+                        value={this.state.timeoutReason}
+                        onChange={this.handleTimeoutReasonChange}
                       />
                     </View>
                   </View>

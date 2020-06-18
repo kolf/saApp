@@ -90,6 +90,7 @@ export default class Index extends Component {
             <UserPanelAvatar
               imageUrl={userInfo.avatarUrl}
               onChange={this.handleAvatarChange}
+              editable
             />
 
             <AtList className="no-border">

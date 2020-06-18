@@ -34,6 +34,7 @@ class Index extends PureComponent {
   render() {
     const { options } = this.props;
     const { current } = this.state;
+    console.log(options, 'options')
     return (
       <View className="tabs__root">
         {options.map((o, index) => (
@@ -44,6 +45,7 @@ class Index extends PureComponent {
             onClick={this.handleClick.bind(this, index)}
           >
             {o.label}
+            {o.badge !== undefined && <Text className='tabs__item-badge'>{o.badge}</Text>}
           </View>
         ))}
       </View>
