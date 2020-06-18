@@ -1,19 +1,20 @@
 @font-face {
   font-family: "icomoon";
-  src: url("../fonts/icomoon.eot?5s8xy");
-  src: url("../fonts/icomoon.eot?5s8xy#iefix") format("embedded-opentype"),
-    url("../fonts/icomoon.ttf?5s8xy") format("truetype"),
-    url("../fonts/icomoon.woff?5s8xy") format("woff"),
-    url("../fonts/icomoon.svg?5s8xy#icomoon") format("svg");
+  src: url("../fonts/icomoon.eot?o0j5uj");
+  src: url("../fonts/icomoon.eot?o0j5uj#iefix") format("embedded-opentype"),
+    url("../fonts/icomoon.ttf?o0j5uj") format("truetype"),
+    url("../fonts/icomoon.woff?o0j5uj") format("woff"),
+    url("../fonts/icomoon.svg?o0j5uj#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-.iconfont {
-  /* use !important to prevent issues with browser extensions that change ../fonts */
+[class^="iconfont-"],
+[class*=" iconfont-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "icomoon" !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -25,6 +26,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.iconfont-user-note:before {
+  content: "\e909";
+}
+.iconfont-jifen:before {
+  content: "\e90c";
+}
+.iconfont-addteam:before {
+  content: "\e90d";
+}
+.iconfont-audit:before {
+  content: "\e90e";
+}
+.iconfont-line-chart:before {
+  content: "\e911";
+}
 .iconfont-car:before {
   content: "\e900";
 }
@@ -52,26 +68,11 @@
 .iconfont-calendar:before {
   content: "\e908";
 }
-.iconfont-statistics-2:before {
-  content: "\e909";
-}
 .iconfont-shops:before {
   content: "\e90a";
 }
 .iconfont-search-text:before {
   content: "\e90b";
-}
-.iconfont-edit-cover .path1:before {
-  content: "\e90c";
-  color: rgb(0, 0, 0);
-}
-.iconfont-edit-cover .path2:before {
-  content: "\e90d";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.iconfont-users-large:before {
-  content: "\e90e";
 }
 .iconfont-arrow:before {
   content: "\e90f";
@@ -79,14 +80,8 @@
 .iconfont-password:before {
   content: "\e910";
 }
-.iconfont-service:before {
-  content: "\e911";
-}
 .iconfont-steering:before {
   content: "\e912";
-}
-.iconfont-help:before {
-  content: "\e913";
 }
 .iconfont-note:before {
   content: "\e914";
@@ -94,32 +89,11 @@
 .iconfont-fair:before {
   content: "\e915";
 }
-.iconfont-error-large:before {
-  content: "\e916";
-}
 .iconfont-user:before {
   content: "\e917";
 }
-.iconfont-statistics-more:before {
-  content: "\e918";
-}
 .iconfont-phone:before {
   content: "\e91c";
-}
-.iconfont-note-large:before {
-  content: "\e91d";
-}
-.iconfont-statistics-3:before {
-  content: "\e91e";
-}
-.iconfont-statistics-1:before {
-  content: "\e91f";
-}
-.iconfont-user-call:before {
-  content: "\e920";
-}
-.iconfont-user-large:before {
-  content: "\e921";
 }
 .iconfont-more:before {
   content: "\e922";

@@ -8,7 +8,7 @@ export default class Index extends Component {
     navigationBarTitleText: "积分规则说明"
   };
 
-  state = { imgUrl: "", isFetching: false };
+  state = { imgUrl: "", isFetching: true };
 
   componentDidMount() {
     this.loadData();

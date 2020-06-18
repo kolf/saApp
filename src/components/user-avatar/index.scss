@@ -2,11 +2,18 @@
   &__root {
     display: flex;
   }
+  &__heading{
+    .img{
+      width: 172px;
+      height: 172px;
+      border-radius: 100%;
+    }
+  }
   &__content {
     margin-left: 20px;
   }
   &__desc {
-    margin-top: 12px;
+    margin-top: 32px;
     font-size: 28px;
     color: #666;
   }

@@ -15,7 +15,7 @@ export default class Index extends Component {
   state = {
     keyword: "",
     listData: [],
-    isFetching: false
+    isFetching: true
   };
 
   componentDidShow() {

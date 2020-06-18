@@ -13,7 +13,7 @@ export default class Index extends Component {
 
   state = {
     activeIndex: 0,
-    isFetching: false,
+    isFetching: true,
     listData: [
       {
         title: "服务顾问",

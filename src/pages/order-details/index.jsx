@@ -637,7 +637,7 @@ export default class Index extends Component {
       },
       {
         title: "评估车辆信息",
-        icon: "users",
+        icon: "car",
         show: /^(1|2)$/.test(fawOrder.orderType)
       },
       {
@@ -664,7 +664,7 @@ export default class Index extends Component {
         show: /^(2|3|4)$/.test(fawOrder.orderType)
       },
       { title: "经销店信息", icon: "shops" },
-      { title: "服务订单信息", icon: "users" },
+      { title: "服务订单信息", icon: "user-love" },
       {
         title: "评估单照片",
         icon: "calendar",
@@ -737,7 +737,6 @@ export default class Index extends Component {
       fawOrderItem,
       intentionCar,
       userType,
-      selectCarIndex,
       selectedUserId,
       escFiles,
       orderTimeDTO,
@@ -799,7 +798,7 @@ export default class Index extends Component {
                   type="secondary"
                   size="small"
                   className="btn"
-                  onClick={goTo.bind(this, "/admin/pages/evaluation", {
+                  onClick={goTo.bind(this, "/admin/pages/evaluation-details", {
                     orderId: fawOrder.id
                   })}
                 >

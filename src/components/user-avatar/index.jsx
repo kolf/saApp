@@ -8,7 +8,9 @@ export default class Index extends PureComponent {
   render() {
     return (
       <View className="user-avatar__root">
-        <AtAvatar image={this.props.avatarUrl || defaultAvatar} />
+        <View className='user-avatar__heading'>
+          <Image src={this.props.avatarUrl || defaultAvatar} className='img' mode="aspectFill"/>
+        </View>
         <View className="user-avatar__content">
           <View className="user-avatar__name">{this.props.name}</View>
           <View className="user-avatar__desc">{this.props.desc}</View>

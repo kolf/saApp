@@ -23,7 +23,7 @@ export default class Index extends Component {
   state = {
     listData: [],
     total: 0,
-    isFetching: false,
+    isFetching: true,
     isError: false,
     keyword: ""
   };

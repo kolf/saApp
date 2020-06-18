@@ -13,7 +13,7 @@ export default class Index extends Component {
   };
 
   state = {
-    isFetching: false,
+    isFetching: true,
     distributor: {},
     tobeEvaluations: [{}, {}]
   };
@@ -42,50 +42,55 @@ export default class Index extends Component {
 
     if (isFetching) {
       return (
-        <View className='page eva__root bg-gray'>
-          <AtActivityIndicator size={64} mode="center" content='加载中...' />
+        <View className="page eva__root bg-gray">
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
         </View>
       );
     }
     const [saUser, xsUser] = tobeEvaluations;
     return (
-      <View className='page eva__root'>
-        <View className='eva__heading'>{distributor.name}</View>
-        <View className='eva__panel'>
-          <View className='eva__panel-title'>经销商评价</View>
-          <AtRate
-            size='28'
-            margin={28}
-            value={distributor.evaluationResult * 1}
-          />
-        </View>
-        <View className='eva__heading'>
-          <UserAvatar
-            name={saUser.adviserRealName}
-            desc={saUser.positionName}
-            avatarUrl={saUser.avatarUrl}
-          />
-        </View>
-        <View className='eva__panel'>
-          <View className='eva__panel-title'>服务评价</View>
-          <RetaRadio activeKey={saUser.evaluationResult * 1 - 1} />
+      <View className="page eva__root bg-gray">
+        <View className="eva__panel-wrap box-shadow">
+          <View className="eva__heading">
+            <UserAvatar
+              name={saUser.adviserRealName}
+              desc={saUser.positionName}
+              avatarUrl={saUser.avatarUrl}
+            />
+          </View>
+          <View className="eva__panel">
+            <View className="eva__panel-title">服务评价</View>
+            <RetaRadio value={saUser.evaluationResult * 1 - 1} />
+          </View>
         </View>
 
         {xsUser && (
-          <View className='eva__heading'>
-            <UserAvatar
-              name={xsUser.adviserRealName}
-              desc={xsUser.positionName}
-              avatarUrl={xsUser.avatarUrl}
+          <View className="eva__panel-wrap box-shadow">
+            <View className="eva__heading">
+              <UserAvatar
+                name={xsUser.adviserRealName}
+                desc={xsUser.positionName}
+                avatarUrl={xsUser.avatarUrl}
+              />
+            </View>
+            <View className="eva__panel">
+              <View className="eva__panel-title">服务评价</View>
+              <RetaRadio value={xsUser.evaluationResult * 1 - 1} />
+            </View>
+          </View>
+        )}
+
+        <View className="eva__panel-wrap box-shadow">
+          <View className="eva__heading">{distributor.name}</View>
+          <View className="eva__panel">
+            <View className="eva__panel-title">经销商评价</View>
+            <AtRate
+              size="28"
+              margin={28}
+              value={distributor.evaluationResult * 1}
             />
           </View>
-        )}
-        {xsUser && (
-          <View className='eva__panel'>
-            <View className='eva__panel-title'>服务评价</View>
-            <RetaRadio activeKey={xsUser.evaluationResult * 1 - 1} />
-          </View>
-        )}
+        </View>
       </View>
     );
   }

@@ -13,7 +13,7 @@ export default  class Index extends Component {
   };
 
   state = {
-    isFetching: false,
+    isFetching: true,
     listData: []
   };
 

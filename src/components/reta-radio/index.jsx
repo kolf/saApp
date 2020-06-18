@@ -9,17 +9,17 @@ import imgUrl3 from "@/assets/images/rating-5.svg";
 // const icons = ["biaoqing2", "wubiaoqing", "biaoqing"];
 const options = [
   {
-    value: "1",
+    value: 1,
     label: "非常差",
     imgUrl: imgUrl1
   },
   {
-    value: "2",
+    value: 2,
     label: "一般",
     imgUrl: imgUrl2
   },
   {
-    value: "3",
+    value: 3,
     label: "超赞",
     imgUrl: imgUrl3
   }

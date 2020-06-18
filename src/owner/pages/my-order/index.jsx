@@ -17,7 +17,7 @@ export default class Index extends Component {
 
   state = {
     tabIndex: 0,
-    isFetching: false,
+    isFetching: true,
     listData: [],
     newCount: 0,
     hisCount: 0

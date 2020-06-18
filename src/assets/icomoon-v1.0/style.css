@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?5s8xy');
-  src:  url('fonts/icomoon.eot?5s8xy#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?5s8xy') format('truetype'),
-    url('fonts/icomoon.woff?5s8xy') format('woff'),
-    url('fonts/icomoon.svg?5s8xy#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?o0j5uj');
+  src:  url('fonts/icomoon.eot?o0j5uj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?o0j5uj') format('truetype'),
+    url('fonts/icomoon.woff?o0j5uj') format('woff'),
+    url('fonts/icomoon.svg?o0j5uj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -13,7 +13,7 @@
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -25,6 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-user-note:before {
+  content: "\e909";
+}
+.icon-jifen:before {
+  content: "\e90c";
+}
+.icon-addteam:before {
+  content: "\e90d";
+}
+.icon-audit:before {
+  content: "\e90e";
+}
+.icon-line-chart:before {
+  content: "\e911";
+}
 .icon-car:before {
   content: "\e900";
 }
@@ -52,26 +67,11 @@
 .icon-calendar:before {
   content: "\e908";
 }
-.icon-statistics-2:before {
-  content: "\e909";
-}
 .icon-shops:before {
   content: "\e90a";
 }
 .icon-search-text:before {
   content: "\e90b";
-}
-.icon-edit-cover .path1:before {
-  content: "\e90c";
-  color: rgb(0, 0, 0);
-}
-.icon-edit-cover .path2:before {
-  content: "\e90d";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-users-large:before {
-  content: "\e90e";
 }
 .icon-arrow:before {
   content: "\e90f";
@@ -79,14 +79,8 @@
 .icon-password:before {
   content: "\e910";
 }
-.icon-service:before {
-  content: "\e911";
-}
 .icon-steering:before {
   content: "\e912";
-}
-.icon-help:before {
-  content: "\e913";
 }
 .icon-note:before {
   content: "\e914";
@@ -94,32 +88,11 @@
 .icon-fair:before {
   content: "\e915";
 }
-.icon-error-large:before {
-  content: "\e916";
-}
 .icon-user:before {
   content: "\e917";
 }
-.icon-statistics-more:before {
-  content: "\e918";
-}
 .icon-phone:before {
   content: "\e91c";
-}
-.icon-note-large:before {
-  content: "\e91d";
-}
-.icon-statistics-3:before {
-  content: "\e91e";
-}
-.icon-statistics-1:before {
-  content: "\e91f";
-}
-.icon-user-call:before {
-  content: "\e920";
-}
-.icon-user-large:before {
-  content: "\e921";
 }
 .icon-more:before {
   content: "\e922";
