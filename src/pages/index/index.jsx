@@ -14,8 +14,10 @@ export default class Index extends Component {
 
   componentDidShow() {
     const userInfo = storage.get("userInfo");
-    //  goTo('/owner/pages/profile');
-    //   return
+    // goTo("/pages/order-details", {
+    //   id: 1115
+    // });
+    // return;
     if (userInfo) {
       if (userInfo.checkStatus !== 1) {
         goTo(
@@ -62,15 +64,15 @@ export default class Index extends Component {
             />
           </View>
           <View className="index__feature-list">
-            <View className='index__feature-item'>
+            <View className="index__feature-item">
               <AtIcon prefixClass="iconfont" value="addteam" size={16} />
               <Text className="index__feature-item-title">客户维系</Text>
             </View>
-            <View className='index__feature-item'>
+            <View className="index__feature-item">
               <AtIcon prefixClass="iconfont" value="audit" size={16} />
               <Text className="index__feature-item-title">业务处理</Text>
             </View>
-            <View className='index__feature-item'>
+            <View className="index__feature-item">
               <AtIcon prefixClass="iconfont" value="line-chart" size={16} />
               <Text className="index__feature-item-title">业务查看</Text>
             </View>

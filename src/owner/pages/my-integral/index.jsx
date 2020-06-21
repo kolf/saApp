@@ -52,7 +52,7 @@ export default class Index extends Component {
             <AtListItem
               title="您已获得的积分"
               arrow="right"
-              extraBange={total}
+              badge={total}
               onClick={goTo.bind(this, "/owner/pages/integral-details")}
             />
             <AtListItem

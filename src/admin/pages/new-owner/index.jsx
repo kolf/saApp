@@ -2,6 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtSearchBar } from "@/npm/taro-ui/dist";
 import EmptyData from "@/components/empty-data";
+import SearchInput from "@/components/search-input";
 import "./index.scss";
 import defaultAvatarUrl from "@/assets/images/default-avatar.png";
 import { getNewStaffList } from "@/servers/apis";
@@ -13,10 +14,11 @@ export default class Index extends Component {
   };
 
   state = {
-    keyword: "",
     listData: [],
     isFetching: true
   };
+
+  keyword = ''
 
   componentDidShow() {
     this.loadData();
@@ -29,19 +31,9 @@ export default class Index extends Component {
     });
   };
 
-  handleChange = value => {
-    this.setState({ keyword: value });
-  };
-
-  handleClear = () => {
-    this.setState(
-      {
-        keyword: ""
-      },
-      () => {
-        this.loadData();
-      }
-    );
+  onSearch = keyword => {
+    this.keyword=keyword;
+    this.loadData();
   };
 
   loadData = () => {
@@ -49,7 +41,7 @@ export default class Index extends Component {
       isFetching: true
     });
     getNewStaffList({
-      realName: this.state.keyword
+      realName: this.keyword
     }).then(res => {
       this.setState({
         isFetching: false,
@@ -73,19 +65,16 @@ export default class Index extends Component {
     const { listData, isFetching } = this.state;
 
     return (
-      <View className="page owner__root">
-        <AtSearchBar
-          onClear={this.handleClear}
-          className="owner__search-bar"
-          value={this.state.keyword}
-          onChange={this.handleChange.bind(this)}
-          onActionClick={this.loadData}
-        />
+      <View className="page new-owner__root">
+        <View className="new-owner__search-bar">
+          <SearchInput onSearch={this.onSearch} />
+        </View>
         {listData.length > 0 ? (
-          <AtList>
+          <AtList className="gap-top">
             {listData.map(item => (
               <AtListItem
                 key={item.key}
+                className="new-owner__list-item"
                 title={item.name}
                 thumb={item.avatar}
                 arrow="right"

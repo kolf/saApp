@@ -78,10 +78,10 @@ export default class Index extends Component {
   render() {
     const { formData } = this.state;
     return (
-      <View className="page">
+      <View className="page bg-gray">
         <AtForm>
           <AtInput
-            className="no-border"
+            className="border-top"
             clear
             type="text"
             placeholder="请输入您姓名"

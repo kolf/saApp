@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtIcon, AtList, AtListItem } from "@/npm/taro-ui/dist";
+import { AtIcon, AtList } from "@/npm/taro-ui/dist";
 import { View } from "@tarojs/components";
 import GoodsPanel from "@/components/goods-panel";
 import EmptyData from "@/components/empty-data";
@@ -8,7 +8,7 @@ import { getGiftOrderList } from "@/servers/apis";
 import { goTo } from "@/utils";
 import storage from "@/utils/storage";
 
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的兑换"
   };
@@ -76,14 +76,13 @@ export default  class Index extends Component {
             onClick={this.handleTabClick.bind(this, "time")}
           >
             时间
-            <AtIcon
-              prefixClass="iconfont"
-              value={
-                orderby !== "time" || seq === "0"
-                  ? "paixu-jiangxu"
-                  : "paixu-shengxu"
+            <Text
+              className={
+                "arrow " +
+                (orderby !== "time" || seq === "0"
+                  ? "arrow--down"
+                  : "arrow--up")
               }
-              size={20}
             />
           </View>
           <View
@@ -94,14 +93,13 @@ export default  class Index extends Component {
             onClick={this.handleTabClick.bind(this, "score")}
           >
             积分
-            <AtIcon
-              prefixClass="iconfont"
-              value={
-                orderby !== "score" || seq === "0"
-                  ? "paixu-jiangxu"
-                  : "paixu-shengxu"
+            <Text
+              className={
+                "arrow " +
+                (orderby !== "score" || seq === "0"
+                  ? "arrow--down"
+                  : "arrow--up")
               }
-              size={20}
             />
           </View>
         </View>
@@ -123,5 +121,3 @@ export default  class Index extends Component {
     );
   }
 }
-
-

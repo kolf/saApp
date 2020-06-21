@@ -23,23 +23,24 @@
       color: #999;
     }
   }
-  &__footer{
+  &__footer {
     position: fixed;
     left: 0;
     bottom: 0;
     right: 0;
-    padding: 36px 32px;
     height: 180px;
+    padding: 36px 32px;
     background-color: #fff;
+    box-shadow: 0 -3px 11px 0 rgba(67, 107, 232, 0.08);
   }
 }
 
-.question-card{
-  &__header{
+.question-card {
+  &__header {
     padding: 24px 32px;
     border-bottom-width: 0;
   }
-  &__content{
+  &__content {
     padding: 32px;
   }
 }

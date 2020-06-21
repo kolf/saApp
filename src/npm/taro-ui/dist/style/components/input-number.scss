@@ -1,17 +1,16 @@
-@import '../variables/default.scss';
-@import '../mixins/index.scss';
+@import "../variables/default.scss";
+@import "../mixins/index.scss";
 
-$component: '.at-input-number';
-$at-input-number-btn-padding: 12px;
+$component: ".at-input-number";
+$at-input-number-btn-padding: 12px 24px;
 $at-input-number-btn-padding-lg: 20px;
+$input-number-height: 60px;
 
 #{$component} {
   display: inline-flex;
-  @include border-thin($width: 1PX);
-
   font-size: $at-input-number-font-size;
-  border-radius: $border-radius-md;
-  background-color: $color-bg;
+  border-radius: $input-number-height;
+  background-color: #f7f7f7;
   overflow: hidden;
 
   /* elements */
@@ -39,13 +38,12 @@ $at-input-number-btn-padding-lg: 20px;
   input {
     display: inline-block;
     width: $at-input-number-width-min;
-    height: auto;
+    height: $input-number-height;
     border-radius: 0;
     color: $at-input-number-text-color;
     font-size: $at-input-number-font-size;
     text-align: center;
     line-height: $line-height-zh;
-    @include border-thin($width: 1PX, $directions: left right);
   }
 
   /* modifiers */

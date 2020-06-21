@@ -18,6 +18,13 @@ export default class Index extends Component {
     listData: []
   };
 
+  componentWillMount() {
+    Taro.setNavigationBarColor({
+      frontColor: "#ffffff",
+      backgroundColor: "#4268e6"
+    });
+  }
+
   componentDidShow() {
     this.loadData();
   }
@@ -65,7 +72,7 @@ export default class Index extends Component {
         <View className="gift-list__header">
           <View className="gift-list__header-name">当前剩余积分</View>
           <View className="gift-list__header-total">
-            <AtIcon prefixClass="iconfont" value="jifen" size={20} />{" "}
+            <AtIcon prefixClass="iconfont" value="jifen" size={20} />
             {integralTotal}
           </View>
           <View
@@ -89,7 +96,7 @@ export default class Index extends Component {
                     <Image src={item.imgurl} mode="aspectFit" className="img" />
                     <View className="goods-item__name">{item.name}</View>
                     <View className="goods-item__pirce">
-                      <AtIcon prefixClass="iconfont" value="jifen" size={16} />
+                      <AtIcon prefixClass="iconfont" value="jifen" size={14} />
                       {item.score} 积分
                     </View>
                   </View>

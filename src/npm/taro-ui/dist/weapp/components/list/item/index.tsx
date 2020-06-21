@@ -41,6 +41,8 @@ export default class AtListItem extends AtComponent<AtListItemProps> {
       isSwitch,
       hasBorder,
       extraThumb,
+      isRequire,
+      badge,
       switchColor,
       switchIsCheck
     } = this.props;
@@ -56,7 +58,8 @@ export default class AtListItem extends AtComponent<AtListItemProps> {
         "at-list__item--thumb": thumb || avatar,
         "at-list__item--multiple": note,
         "at-list__item--disabled": disabled,
-        "at-list__item--no-border": !hasBorder
+        "at-list__item--no-border": !hasBorder,
+        "at-list__item--avatar": extraThumb
       },
       this.props.className
     );
@@ -102,15 +105,16 @@ export default class AtListItem extends AtComponent<AtListItemProps> {
           )}
           <View className="at-list__item-content item-content">
             <View className="item-content__info">
-              <View className="item-content__info-title">{title}</View>
+                <View className="item-content__info-title">{title}{isRequire && <Text className="item-content__isRequire">*</Text>}</View>
               {note && <View className="item-content__info-note">{note}</View>}
             </View>
           </View>
           <View className="at-list__item-extra item-extra">
             {extraText && <View className="item-extra__info">{extraText}</View>}
+                {badge!==undefined && <View className="item-extra__info"><View className='item-extra__badge'>{badge}</View></View>}
 
             {extraThumb && !extraText && (
-              <View className="item-extra__image">
+              <View className="item-extra__image-avatar">
                 <Image
                   className="item-extra__image-info"
                   mode="aspectFit"

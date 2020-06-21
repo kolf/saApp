@@ -2,55 +2,48 @@
 # yarn lockfile v1
 
 
-"@antv/adjust@~0.1.1":
-  version "0.1.1"
-  resolved "https://registry.npm.taobao.org/@antv/adjust/download/@antv/adjust-0.1.1.tgz#e263ab0e1a1941a648842fc086cf65a7e3b75e98"
-  integrity sha1-4mOrDhoZQaZIhC/Ahs9lp+O3Xpg=
+"@antv/adjust@~0.0.3":
+  version "0.0.7"
+  resolved "https://registry.npm.taobao.org/@antv/adjust/download/@antv/adjust-0.0.7.tgz?cache=0&sync_timestamp=1582683947866&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fadjust%2Fdownload%2F%40antv%2Fadjust-0.0.7.tgz#01e83c36b28c50eecb98fad9dc662176b4036ab7"
+  integrity sha1-Aeg8NrKMUO7LmPrZ3GYhdrQDarc=
   dependencies:
-    "@antv/util" "~1.3.1"
+    "@antv/util" "~1.2.5"
 
-"@antv/attr@~0.1.0":
-  version "0.1.2"
-  resolved "https://registry.npm.taobao.org/@antv/attr/download/@antv/attr-0.1.2.tgz#2eeb122fcaaf851a2d8749abc7c60519d3f77e37"
-  integrity sha1-LusSL8qvhRoth0mrx8YFGdP3fjc=
+"@antv/attr@~0.0.3":
+  version "0.0.7"
+  resolved "https://registry.npm.taobao.org/@antv/attr/download/@antv/attr-0.0.7.tgz#333f252ce35fc3efdf8ad48046c263a6be2d7d04"
+  integrity sha1-Mz8lLONfw+/fitSARsJjpr4tfQQ=
   dependencies:
-    "@antv/util" "~1.3.1"
+    "@antv/util" "~1.2.5"
 
-"@antv/f2@3.4.1":
-  version "3.4.1"
-  resolved "https://registry.npm.taobao.org/@antv/f2/download/@antv/f2-3.4.1.tgz?cache=0&sync_timestamp=1591880877496&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Ff2%2Fdownload%2F%40antv%2Ff2-3.4.1.tgz#7fa5c3ccf5677e2f03252b84cc98e3fb8c0849f2"
-  integrity sha1-f6XDzPVnfi8DJSuEzJjj+4wISfI=
+"@antv/f2@3.3.1":
+  version "3.3.1"
+  resolved "https://registry.npm.taobao.org/@antv/f2/download/@antv/f2-3.3.1.tgz?cache=0&sync_timestamp=1591881483097&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Ff2%2Fdownload%2F%40antv%2Ff2-3.3.1.tgz#17ef9e6d9e7d7f8445becddb552649bc122473e4"
+  integrity sha1-F++ebZ59f4RFvs3bVSZJvBIkc+Q=
   dependencies:
-    "@antv/adjust" "~0.1.1"
-    "@antv/attr" "~0.1.0"
-    "@antv/scale" "~0.1.2"
+    "@antv/adjust" "~0.0.3"
+    "@antv/attr" "~0.0.3"
+    "@antv/scale" "~0.0.6"
     "@antv/util" "~1.2.5"
     hammerjs "^2.0.8"
 
 "@antv/gl-matrix@^2.7.1":
   version "2.7.1"
-  resolved "https://registry.npm.taobao.org/@antv/gl-matrix/download/@antv/gl-matrix-2.7.1.tgz?cache=0&sync_timestamp=1586943858235&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fgl-matrix%2Fdownload%2F%40antv%2Fgl-matrix-2.7.1.tgz#acb8e37f7ab3df01345aba4372d7942be42eba14"
+  resolved "https://registry.npm.taobao.org/@antv/gl-matrix/download/@antv/gl-matrix-2.7.1.tgz#acb8e37f7ab3df01345aba4372d7942be42eba14"
   integrity sha1-rLjjf3qz3wE0WrpDcteUK+QuuhQ=
 
-"@antv/scale@~0.1.2":
-  version "0.1.5"
-  resolved "https://registry.npm.taobao.org/@antv/scale/download/@antv/scale-0.1.5.tgz?cache=0&sync_timestamp=1584003392879&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fscale%2Fdownload%2F%40antv%2Fscale-0.1.5.tgz#243266e8b9047cf64b2fdfc40f9834cf0846496e"
-  integrity sha1-JDJm6LkEfPZLL9/ED5g0zwhGSW4=
+"@antv/scale@~0.0.6":
+  version "0.0.9"
+  resolved "https://registry.npm.taobao.org/@antv/scale/download/@antv/scale-0.0.9.tgz?cache=0&sync_timestamp=1584003392879&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fscale%2Fdownload%2F%40antv%2Fscale-0.0.9.tgz#24a96d3c3a4a507315a9a335e5a435be4d6ccd45"
+  integrity sha1-JKltPDpKUHMVqaM15aQ1vk1szUU=
   dependencies:
-    "@antv/util" "~1.3.1"
+    "@antv/util" "~1.2.5"
     fecha "~2.3.3"
 
 "@antv/util@~1.2.5":
   version "1.2.5"
   resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-1.2.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Futil%2Fdownload%2F%40antv%2Futil-1.2.5.tgz#8896c5055ec29e4a344b5daa97bf82905f7d40cd"
   integrity sha1-iJbFBV7Cnko0S12ql7+CkF99QM0=
-  dependencies:
-    "@antv/gl-matrix" "^2.7.1"
-
-"@antv/util@~1.3.1":
-  version "1.3.1"
-  resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-1.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Futil%2Fdownload%2F%40antv%2Futil-1.3.1.tgz#30a34b201ff9126ec0d58c72c8166a9c3e644ccd"
-  integrity sha1-MKNLIB/5Em7A1YxyyBZqnD5kTM0=
   dependencies:
     "@antv/gl-matrix" "^2.7.1"
 

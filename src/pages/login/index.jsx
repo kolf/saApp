@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
-import { AtButton, AtIcon, AtForm } from "@/npm/taro-ui/dist";
+import { AtButton, AtIcon, AtInput } from "@/npm/taro-ui/dist";
 import CountDown from "@/components/count-down";
 import { goTo } from "@/utils";
 import storage from "@/utils/storage";
@@ -119,7 +119,7 @@ export default class Index extends Component {
                     className="login__input"
                     placeholder="请输入手机号"
                     value={formData.phone}
-                    onChange={this.handleChange.bind(this, "phone")}
+                    onInput={this.handleChange.bind(this, "phone")}
                     maxLength={11}
                   />
                   <View className="login__input-extra">
@@ -142,7 +142,7 @@ export default class Index extends Component {
                     placeholder="请输入验证码"
                     value={formData.vfCode}
                     maxLength={6}
-                    onChange={this.handleChange.bind(this, "vfCode")}
+                    onInput={this.handleChange.bind(this, "vfCode")}
                   />
                 </View>
               </View>

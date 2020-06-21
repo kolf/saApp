@@ -1,0 +1,27 @@
+.checkbox {
+  &__root {
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    &-cnt {
+      width: 32px;
+      height: 32px;
+      line-height: 16px;
+      margin-right: 16px;
+      border: 1px solid #426ee9;
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      &.checked {
+        background: linear-gradient(
+          136deg,
+          rgba(66, 104, 230, 1) 0%,
+          rgba(73, 142, 250, 1) 100%
+        );
+      }
+    }
+  }
+}

@@ -6,17 +6,16 @@
     padding: 56px 32px 0 32px;
     text-align: center;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 40px;
     &::after {
       display: none;
     }
   }
   &__footer {
-    padding: 32px 48px 64px 48px;
-  }
-  &__close {
-    position: absolute;
-    right: 32px;
-    top: 24px;
+    &-btn{
+      font-size: 36px !important;
+      line-height: 120px !important;
+      height: 120px !important;
+    }
   }
 }

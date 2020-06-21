@@ -1,13 +1,9 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import {
-  AtList,
-  AtListItem,
-  AtIndexes,
-  AtSearchBar
-} from "@/npm/taro-ui/dist";
+import { AtList, AtListItem, AtIndexes, AtSearchBar } from "@/npm/taro-ui/dist";
 import EmptyData from "@/components/empty-data";
 import NetworkError from "@/components/network-error";
+import SearchInput from "@/components/search-input";
 
 import newFriendUrl from "@/assets/images/user-add.svg";
 import defaultAvatarUrl from "@/assets/images/default-avatar.png";
@@ -24,11 +20,12 @@ export default class Index extends Component {
     listData: [],
     total: 0,
     isFetching: true,
-    isError: false,
-    keyword: ""
+    isError: false
   };
 
-  componentDidShow() {
+  keyword = "";
+
+  componentDidMount() {
     this.loadData();
   }
 
@@ -38,21 +35,9 @@ export default class Index extends Component {
     });
   };
 
-  handleChange = value => {
-    this.setState({ keyword: value });
-  };
-
-  handleSubmit = () => {
+  handleSubmit = keyword => {
+    this.keyword = keyword;
     this.loadData();
-  };
-
-  handleClear = () => {
-    this.setState(
-      {
-        keyword: ""
-      },
-      this.loadData
-    );
   };
 
   loadData = () => {
@@ -61,7 +46,7 @@ export default class Index extends Component {
       isError: false
     });
     getStaffList({
-      realName: this.state.keyword
+      realName: this.keyword
     })
       .then(res => {
         const { staffList, newStaffCount } = res.data;
@@ -108,23 +93,23 @@ export default class Index extends Component {
   render() {
     const { listData, total, isFetching, isError, newCount } = this.state;
     return (
-      <View className="page my-owner__root">
+      <View className="page bg-gray my-owner__root">
         {!isError && (
           <View className="my-owner__main">
-            <AtIndexes className='indexes__list' list={listData} onClick={this.handleClick.bind(this)}>
-              <AtSearchBar
-                className="my-owner__search-bar"
-                onClear={this.handleClear}
-                value={this.state.keyword}
-                onChange={this.handleChange.bind(this)}
-                onActionClick={this.handleSubmit.bind(this)}
-              />
+            <AtIndexes
+              className="indexes__list"
+              list={listData}
+              onClick={this.handleClick.bind(this)}
+            >
+              <View className="my-owner__search-bar">
+                <SearchInput onSearch={this.handleSubmit} />
+              </View>
               <AtList>
                 <AtListItem
                   arrow="right"
                   title="新的员工"
                   thumb={newFriendUrl}
-                  extraBange={newCount}
+                  bange={newCount}
                   onClick={goTo.bind(this, "/admin/pages/new-owner", null)}
                 />
               </AtList>

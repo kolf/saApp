@@ -12,7 +12,7 @@ textarea {
 
 .gap {
   &-top {
-    margin-top: 32px;
+    margin-top: 20px;
   }
 }
 
@@ -55,7 +55,7 @@ textarea {
 
 .bg {
   &-gray {
-    background: #f5f5f5;
+    background: #f7f7fb;
   }
 }
 
@@ -68,6 +68,7 @@ textarea {
 }
 
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -157,7 +158,7 @@ textarea {
   font-size: 24px;
   height: 56px;
   line-height: 54px;
-  padding: 0 24px
+  padding: 0 24px;
 }
 
 .at-button.at-button--small.at-button--disabled.at-button--secondary {
@@ -176,15 +177,6 @@ textarea {
   }
 }
 
-.list-item__has-avatar.list__item {
-  padding: 24px 36px;
-}
-
-.input.at-input {
-  padding: 33px 36px;
-  margin-left: 0;
-}
-
 .at-float-layout.float-layout {
   &.no-pad {
     .layout-body {
@@ -194,24 +186,5 @@ textarea {
 
   .layout-body {
     padding: 24px;
-  }
-}
-
-.at-modal__content {
-  .img {
-    max-width: 100%;
-  }
-  &.modal__body__unpad {
-    padding: 36px 0 0;
-  }
-  &.modal__body {
-    padding: 36px;
-  }
-}
-
-.indexes__list.at-indexes__list{
-  .at-list__item{
-    padding-top: 24px;
-    padding-bottom: 24px;
   }
 }

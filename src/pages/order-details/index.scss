@@ -3,8 +3,8 @@
     .image-list {
       margin: -6px -12px;
       &-item {
-        width: 25vw;
-        height: 25vw;
+        width: 180px;
+        height: 180px;
         padding: 12px;
         .img {
           width: 100%;
@@ -18,25 +18,26 @@
     .radios {
       margin-left: -12px;
     }
-    .at-checkbox__title {
-      font-size: 28px;
-      color: #666;
-    }
+
     .textarea {
-      padding: 24px;
+      padding: 16px;
+      margin-top: 12px;
       background-color: #f5f5f5;
-      .at-textarea__textarea  {
+      .at-textarea__textarea {
         font-size: 24px;
       }
     }
-    .at-checkbox__option-wrap {
-      padding:12px 0;
-      &::after{
-        border-width: 0;
+    .input.at-input {
+      padding: 12px 0 20px;
+      input {
+        font-size: 28px;
       }
     }
-    .at-checkbox__option {
-      padding-left: 0;
+    .input--text {
+      padding: 20px 0 24px;
+    }
+    .input--placeholder {
+      color: #ccc;
     }
   }
   &__header {
@@ -55,7 +56,8 @@
   }
   &__footer {
     height: 180px;
-    padding: 12px * 3;
+    padding: 12px * 3 32px;
+    background-color: #fff;
     box-shadow: 0px -3px 11px 0px rgba(67, 107, 232, 0.08);
   }
   &__tabs {
@@ -77,14 +79,14 @@
       color: #436be8;
       font-size: 34px;
       padding-right: 36px;
-      .iconfont{
+      .iconfont {
         font-size: 24px;
         margin-right: 12px;
         position: relative;
-        top:6px
+        top: 6px;
       }
     }
-    &-arrow{
+    &-arrow {
       float: right;
     }
     &-hr {
@@ -101,9 +103,14 @@
       font-size: 30px;
       margin: 32px 0 6px;
     }
-    &-desc{
+    &-desc {
       font-size: 28px;
-      color: #6F717C;
+      color: #6f717c;
     }
   }
+}
+
+.rule-link {
+  color: #2254f5;
+  margin-top: 12px;
 }

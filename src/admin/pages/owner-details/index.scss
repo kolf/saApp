@@ -1,5 +1,8 @@
 .owner-details {
+  &__root{
+    padding-bottom: 36px;
+  }
   &__content {
-    padding: 36px 32px;
+    padding: 36px 32px 0;
   }
 }

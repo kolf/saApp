@@ -31,7 +31,8 @@ class App extends Component {
       "pages/question-list/index",
       "pages/question-post/index",
       "pages/update-phone/index",
-      "pages/update-name/index"
+      "pages/update-name/index",
+      'pages/rule-details/index'
     ],
     subpackages: [
       {
@@ -72,6 +73,7 @@ class App extends Component {
           "pages/gift-order-details/index",
           "pages/my-order/index",
           "pages/my-user/index",
+          "pages/new-user/index",
           "pages/profile/index",
           "pages/user-details/index"
         ]

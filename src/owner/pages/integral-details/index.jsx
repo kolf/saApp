@@ -13,7 +13,7 @@ export default class Index extends Component {
     listData: {}
   };
 
-  componentDidShow() {
+  componentDidMount() {
     this.loadData();
   }
 
@@ -41,7 +41,7 @@ export default class Index extends Component {
               <View className="at-row table-head border-bottom">
                 <View
                   className="at-col at-col-4 text-underline"
-                  onClick={goTo.bind(this,"/owner/pages/integral-rule", null)}
+                  onClick={e => goTo("/owner/pages/integral-rule", null)}
                 >
                   达成要求?
                 </View>

@@ -84,7 +84,7 @@ export default class Index extends Component {
   render() {
     const { formData } = this.state;
     return (
-      <View className="page">
+      <View className="page bg-gray">
         <AtForm>
           <AtInput
             clear
@@ -93,7 +93,7 @@ export default class Index extends Component {
             value={formData.phone}
             onChange={this.handleChange.bind(this, "phone")}
             placeholder="请输入新手机号"
-            className="text-primary"
+            className="text-primary border-top"
           >
             <CountDown
               onStart={this.sendSMS}

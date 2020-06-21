@@ -39,6 +39,10 @@
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    &-item.at-list__item{
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 
   &__list-title {

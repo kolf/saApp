@@ -1,6 +1,8 @@
 .user-avatar {
   &__root {
     display: flex;
+    align-items: center;
+
   }
   &__heading{
     .img{
@@ -10,11 +12,15 @@
     }
   }
   &__content {
-    margin-left: 20px;
+    margin-left: 32px;
+  }
+  &__name{
+    font-size: 36px;
+    color: #262626;
   }
   &__desc {
     margin-top: 32px;
     font-size: 28px;
-    color: #666;
+    color: #737373;
   }
 }

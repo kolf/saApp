@@ -3,6 +3,10 @@ import { AtCheckbox } from "@/npm/taro-ui/dist";
 import "./index.scss";
 
 export default class Index extends Component {
+  static defaultProps = {
+    onChange() {}
+  };
+
   state = {
     checkedList: []
   };
@@ -22,7 +26,7 @@ export default class Index extends Component {
       checkedList: [value]
     });
 
-    onChange && onChange(value);
+    onChange(value);
   };
 
   render() {
@@ -31,6 +35,7 @@ export default class Index extends Component {
 
     return (
       <AtCheckbox
+        className='radio-xs no-border'
         options={options}
         selectedList={checkedList}
         onChange={this.handleChange}

@@ -3,6 +3,7 @@ import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtIndexes, AtSearchBar } from "@/npm/taro-ui/dist";
 import EmptyData from "@/components/empty-data";
 import NetworkError from "@/components/network-error";
+import SearchInput from "@/components/search-input";
 import "./index.scss";
 
 import newFriendUrl from "@/assets/images/user-add.svg";
@@ -21,11 +22,12 @@ export default class Index extends Component {
     total: 0,
     isFetching: true,
     isError: false,
-    keyword: "",
     userInfo: storage.get("userInfo") || {}
   };
 
-  componentDidShow() {
+  keyword = "";
+
+  componentDidMount() {
     this.loadData();
   }
 
@@ -35,21 +37,9 @@ export default class Index extends Component {
     });
   };
 
-  handleChange = value => {
-    this.setState({ keyword: value });
-  };
-
-  handleSubmit = () => {
+  handleSubmit = keyword => {
+    this.keyword = keyword;
     this.loadData();
-  };
-
-  handleClear = () => {
-    this.setState(
-      {
-        keyword: ""
-      },
-      this.loadData
-    );
   };
 
   loadData = () => {
@@ -58,7 +48,7 @@ export default class Index extends Component {
       isError: false
     });
     getCuList({
-      realName: this.state.keyword
+      realName: this.keyword
     })
       .then(res => {
         const { cus = [], newCUCount = 0 } = res.data;
@@ -112,24 +102,24 @@ export default class Index extends Component {
       userInfo: { type }
     } = this.state;
     return (
-      <View className="page owner__root">
+      <View className="page bg-gray my-user__root">
         {!isError && (
-          <View className="owner__main">
-            <AtIndexes className='indexes__list' list={listData} onClick={this.handleClick.bind(this)}>
-              <AtSearchBar
-                className="owner__search-bar"
-                onClear={this.handleClear}
-                value={this.state.keyword}
-                onChange={this.handleChange.bind(this)}
-                onActionClick={this.handleSubmit.bind(this)}
-              />
+          <View className="page-content">
+            <AtIndexes
+              className="indexes__list"
+              list={listData}
+              onClick={this.handleClick.bind(this)}
+            >
+              <View className="my-user__search-bar">
+                <SearchInput onSearch={this.handleSubmit} />
+              </View>
               {type === "FW" && (
-                <AtList className="gap-top">
+                <AtList className="no-border">
                   <AtListItem
                     arrow="right"
                     title="新的客户"
                     thumb={newFriendUrl}
-                    extraBange={newCUCount}
+                    badge={newCUCount}
                     onClick={goTo.bind(this, "/owner/pages/new-user")}
                   />
                 </AtList>
@@ -144,9 +134,11 @@ export default class Index extends Component {
                 </EmptyData>
               )}
             </AtIndexes>
-            <View className="owner__list-total text-center">
-              共{total}位客户
-            </View>
+            {listData.length > 0 && !isFetching && (
+              <View className="my-user__list-total text-center">
+                共{total}位客户
+              </View>
+            )}
           </View>
         )}
         {isError && <NetworkError onClick={this.loadData} />}

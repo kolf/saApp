@@ -56,7 +56,9 @@ export default class Index extends Component {
     chart
       .line()
       .position("date*count")
-      .color("#EC3333")
+      .color("#EC3333");
+
+    chart.tooltip(false);
 
     chart.render();
   };

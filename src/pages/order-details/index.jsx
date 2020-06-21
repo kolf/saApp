@@ -11,7 +11,8 @@ import {
   AtInput
 } from "@/npm/taro-ui/dist";
 import SelectAdviser from "@/components/select-adviser";
-import XRadio from "@/components/x-radio";
+import KCheckbox from "@/components/checkbox";
+import RadioXS from "@/components/x-radio";
 import OrderArrow from "./OrderArrow";
 import { goTo, getDownTime } from "@/utils";
 import storage from "@/utils/storage";
@@ -39,16 +40,6 @@ try {
   // Do something when catch error
 }
 
-const hasReplacementOrderList = [
-  {
-    label: "车主没有置换需求",
-    value: "0"
-  },
-  {
-    label: "车主有置换需求",
-    value: "1"
-  }
-];
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "订单详情"
@@ -60,7 +51,7 @@ export default class Index extends Component {
     confirmLoading: false,
     customer: {},
     fawDistributor: {},
-    fawOrder: null,
+    fawOrder: {},
     fawOrderForwards: [{}, {}],
     fawOrderItem: {},
     intentionCar: {},
@@ -98,7 +89,7 @@ export default class Index extends Component {
     });
   }
 
-  handleWorkChange = value => {
+  selectReplaceMentOrder = value => {
     this.setState({
       hasReplacementOrder: value
     });
@@ -169,13 +160,13 @@ export default class Index extends Component {
 
   handleTimeoutReasonChange = e => {
     this.setState({
-      timeoutReason: e.target.value
+      timeoutReason: e
     });
   };
 
   handleOrderResultSeasonChange = e => {
     this.setState({
-      orderResultSeason: e.target.value
+      orderResultSeason: e
     });
   };
 
@@ -597,7 +588,6 @@ export default class Index extends Component {
       userType,
       fawOrder,
       fawOrderItem,
-      fawOrderForwards,
       escFawOrderDTO,
       zhxcFawOrderDTO,
       escFiles,
@@ -605,14 +595,11 @@ export default class Index extends Component {
       cCardFiles
     } = this.state;
     const userOrderStatus = `${userType}_${fawOrder.orderType}_${fawOrder.orderStatus}`;
-    const saUser = fawOrderForwards.find(f => f.positionName === "FW") || {};
-    const escUser = fawOrderForwards.find(f => f.positionName === "ESC") || {};
-    const xsUser = fawOrderForwards.find(f => f.positionName === "XS") || {};
 
     return [
       {
         title: "受理人选择",
-        icon: "user",
+        icon: "user-note",
         show:
           fawOrder.processStatus === "WAIT_SA" &&
           /^FW_[1234]_1/g.test(userOrderStatus)
@@ -624,10 +611,24 @@ export default class Index extends Component {
       },
       {
         title: "A卡信息",
-        icon: "search-text",
+        icon: "pin",
         show:
           /^XS_[234]_1/g.test(userOrderStatus) &&
           fawOrder.processStatus === "WAIT_XS_A_CARD"
+      },
+      {
+        title: "A卡信息",
+        icon: "pin",
+        show:
+          /^XS_[234]_1/g.test(userOrderStatus) &&
+          fawOrder.processStatus === "WAIT_XS_C_CARD"
+      },
+      {
+        title: "C卡信息",
+        icon: "fair",
+        show:
+          /^XS_[234]_1/g.test(userOrderStatus) &&
+          fawOrder.processStatus === "WAIT_XS_C_CARD"
       },
       { title: "客户信息", icon: "user" },
       {
@@ -673,7 +674,12 @@ export default class Index extends Component {
       {
         title: "A卡信息",
         icon: "pin",
-        show: aCardFiles.length > 0
+        show:
+          aCardFiles.length > 0 &&
+          !(
+            /^XS_[234]_1/g.test(userOrderStatus) &&
+            fawOrder.processStatus === "WAIT_XS_C_CARD"
+          )
       },
       { title: "C卡信息", icon: "fair", show: cCardFiles.length > 0 },
       {
@@ -731,6 +737,7 @@ export default class Index extends Component {
       fawDistributor,
       fawOrder,
       assessmentCar,
+      orderResult,
       aCardFiles,
       cCardFiles,
       cars,
@@ -744,20 +751,17 @@ export default class Index extends Component {
       zhxcFawOrderDTO,
       fawOrderForwards,
       downTime,
+      hasReplacementOrder,
       isFetching,
       confirmLoading
     } = this.state;
 
     if (isFetching) {
       return (
-        <View className="page order-details__root bg-gray">
-          {/* <AtActivityIndicator size={64} mode="center" content="加载中..." /> */}
+        <View className="page bg-gray">
+          <AtActivityIndicator size={64} mode="center" content="加载中..." />
         </View>
       );
-    }
-
-    if (!fawOrder) {
-      return null;
     }
 
     const allTab = this.getTabList();
@@ -798,9 +802,16 @@ export default class Index extends Component {
                   type="secondary"
                   size="small"
                   className="btn"
-                  onClick={goTo.bind(this, "/admin/pages/evaluation-details", {
-                    orderId: fawOrder.id
-                  })}
+                  onClick={e => {
+                    if (
+                      /^DZ/.test(userType) &&
+                      fawOrder.evaluationStatus === 1
+                    ) {
+                      goTo("/admin/pages/evaluation-details", {
+                        orderId: fawOrder.id
+                      });
+                    }
+                  }}
                 >
                   已评价
                 </AtButton>
@@ -884,40 +895,28 @@ export default class Index extends Component {
                           onChange={this.handleFileChange}
                           multiple
                           showAddBtn={this.state.updateFiles.length < 2}
-                          length={4}
+                          length={3}
                         />
                       </View>
                       <View className="order-details__panel-h3">
                         请选择本次工作完成情况
                       </View>
-                      <View className="order-details__panel-desc">
-                        <XRadio
-                          className="radios no-border"
-                          options={hasReplacementOrderList}
-                          onChange={this.handleWorkChange}
-                        />
+                      <View className="order-details__panel-h3">
+                        <KCheckbox
+                          onClick={this.selectReplaceMentOrder.bind(this, "0")}
+                          checked={hasReplacementOrder === "0"}
+                        >
+                          车主没有置换需求
+                        </KCheckbox>
                       </View>
-                      {/* {fawOrder.timeoutFlag === 1 &&
-                        /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
-                        /^WAIT_(ESC|XS_A_CARD)/g.test(
-                          fawOrder.processStatus
-                        ) && (
-                          <View className="block">
-                            <View className="order-details__panel-h3">
-                              请填写超时理由
-                              <Text className="text-error">*(用户不可见）</Text>
-                            </View>
-                            <View className="order-details__panel-desc">
-                              <AtTextarea
-                                placeholder="请填写超时理由，限200字内"
-                                className="textarea no-border"
-                                maxLength={200}
-                                value={this.state.timeoutReason}
-                                onChange={this.handleTimeoutReasonChange}
-                              />
-                            </View>
-                          </View>
-                        )} */}
+                      <View className="order-details__panel-h3">
+                        <KCheckbox
+                          onClick={this.selectReplaceMentOrder.bind(this, "1")}
+                          checked={hasReplacementOrder === "1"}
+                        >
+                          车主有置换需求
+                        </KCheckbox>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -952,30 +951,11 @@ export default class Index extends Component {
                               files={this.state.updateFiles}
                               onChange={this.handleFileChange}
                               showAddBtn={this.state.updateFiles.length < 2}
-                              length={4}
+                              length={3}
                             />
                           </View>
                         </View>
                       )}
-                    {/* {fawOrder.timeoutFlag === 1 &&
-                      /^(ESC|XS)_[1234]_1/g.test(userOrderStatus) &&
-                      /^WAIT_(ESC|XS_A_CARD)/g.test(fawOrder.processStatus) && (
-                        <View className="block">
-                          <View className="order-details__panel-h3">
-                            请填写超时理由
-                            <Text className="text-error">*(用户不可见）</Text>
-                          </View>
-                          <View className="order-details__panel-desc">
-                            <AtTextarea
-                              placeholder="超时理由..，限200字内"
-                              className="textarea no-border"
-                              maxLength={200}
-                              value={this.state.timeoutReason}
-                              onChange={this.handleTimeoutReasonChange}
-                            />
-                          </View>
-                        </View>
-                      )} */}
                   </View>
                 </View>
               </AtTabsPane>
@@ -986,7 +966,218 @@ export default class Index extends Component {
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[3].icon}
+                      value={allTab[14].icon}
+                      size={20}
+                    />
+                    A卡信息
+                  </View>
+                  <View className="order-details__panel-hr"></View>
+                  <View className="order-details__panel-content">
+                    <View className="order-details__panel-h3">A卡照片</View>
+                    <View className="order-details__panel-desc">
+                      <View className="at-row image-list">
+                        {aCardFiles.map(f => (
+                          <View
+                            key={f.id}
+                            className="image-list-item"
+                            onClick={this.onPreviewImage.bind(
+                              this,
+                              aCardFiles,
+                              f
+                            )}
+                          >
+                            <Image
+                              className="img"
+                              src={f.fileUrl}
+                              mode="aspectFill"
+                            />
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+                    {fawOrder.timeoutFlag === 1 && xsUser.timeoutReason && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          A卡上传工作是否超时：
+                          <Text className="text-error">*(用户不可见）</Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <AtTextarea
+                            disabled
+                            className="textarea no-border"
+                            value={xsUser.timeoutReason}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              </AtTabsPane>
+            )}
+            {allTab[4].show !== false && (
+              <AtTabsPane tabDirection="vertical" current={current}>
+                <View className="order-details__panel">
+                  <View className="order-details__panel-heading">
+                    <AtIcon
+                      prefixClass="iconfont"
+                      value={allTab[4].icon}
+                      size={20}
+                    />
+                    C卡信息
+                  </View>
+                  <View className="order-details__panel-hr"></View>
+                  <View className="order-details__panel-content">
+                    <View className="order-details__panel-h3">
+                      请选择本次工作完成情况
+                    </View>
+                    <View
+                      className="order-details__panel-h3"
+                      style={{ margin: "24rpx 0" }}
+                    >
+                      <KCheckbox
+                        onClick={this.handleOrderResultChange.bind(this, "1")}
+                        checked={orderResult === "1"}
+                      >
+                        成交：请提交成交车主、车辆信息
+                      </KCheckbox>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtButton type="secondary" onClick={this.updateVinCode}>
+                        扫描行驶证信息
+                      </AtButton>
+                    </View>
+                    <View className="order-details__panel-h3">
+                      购车人姓名<Text className="text-error">* </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtInput
+                        placeholder="请填写购车人姓名或行驶证扫描"
+                        className="input border-bottom"
+                        value={this.state.vinData.buyName}
+                        onChange={e =>
+                          this.setState({
+                            vinData: {
+                              ...this.state.vinData,
+                              buyName: e
+                            }
+                          })
+                        }
+                      />
+                    </View>
+                    <View className="order-details__panel-h3">
+                      车辆VIN码<Text className="text-error">* </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtInput
+                        placeholder="请填写17位VIN码或行驶证扫描"
+                        className="input border-bottom"
+                        value={this.state.vinData.vinCode}
+                        length={17}
+                        onChange={e => {
+                          const nextValue = e
+                            .replace(/[\W\s]+/g, "")
+                            .substr(0, 17)
+                            .toUpperCase();
+                          this.setState({
+                            vinData: {
+                              ...this.state.vinData,
+                              vinCode: nextValue
+                            }
+                          });
+                          return nextValue;
+                        }}
+                      />
+                    </View>
+                    <View className="order-details__panel-h3">
+                      上牌时间<Text className="text-error">* </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <Picker
+                        mode="date"
+                        onChange={e => {
+                          this.setState({
+                            vinData: {
+                              ...this.state.vinData,
+                              releaseDate: e.target.value
+                            }
+                          });
+                        }}
+                      >
+                        <View className="input--text border-bottom">
+                          {this.state.vinData.releaseDate || (
+                            <Text className="input--placeholder">
+                              请填写上牌时间或行驶证扫描
+                            </Text>
+                          )}
+                        </View>
+                      </Picker>
+                    </View>
+                    <View
+                      className="order-details__panel-desc"
+                      style={{ marginTop: "16rpx" }}
+                    >
+                      <Text className="text-error">
+                        注：以上获取信息有误，可手动录入或修改
+                      </Text>
+                    </View>
+                    <View className="order-details__panel-h3">
+                      请手动填写购车人手机号
+                      <Text className="text-error">* </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtInput
+                        placeholder="请填写购车人11位手机号"
+                        className="input border-bottom"
+                        value={this.state.vinData.phone}
+                        length={11}
+                        type="number"
+                        onChange={e =>
+                          this.setState({
+                            vinData: {
+                              ...this.state.vinData,
+                              phone: e
+                            }
+                          })
+                        }
+                      />
+                    </View>
+                    <View
+                      className="order-details__panel-desc"
+                      style={{ marginTop: "16rpx" }}
+                    >
+                      <Text className="text-error">
+                        注：请核对订单发起人或被介绍人的手机号后填写
+                      </Text>
+                    </View>
+                    <View className="order-details__panel-h3">
+                      <KCheckbox
+                        onClick={this.handleOrderResultChange.bind(this, "0")}
+                        checked={orderResult === "0"}
+                      >
+                        未成交
+                      </KCheckbox>
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <AtTextarea
+                        disabled={orderResult === "1"}
+                        placeholder="请填写未成交原因，限200字"
+                        className="textarea no-border"
+                        maxLength={200}
+                        value={this.state.orderResultSeason}
+                        onChange={this.handleOrderResultSeasonChange}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </AtTabsPane>
+            )}
+            {allTab[5].show !== false && (
+              <AtTabsPane tabDirection="vertical" current={current}>
+                <View className="order-details__panel">
+                  <View className="order-details__panel-heading">
+                    <AtIcon
+                      prefixClass="iconfont"
+                      value={allTab[5].icon}
                       size={20}
                     />
                     客户信息
@@ -1015,13 +1206,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[4].show !== false && (
+            {allTab[6].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[4].icon}
+                      value={allTab[6].icon}
                       size={20}
                     />
                     被介绍人信息
@@ -1044,13 +1235,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[5].show !== false && (
+            {allTab[7].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[5].icon}
+                      value={allTab[7].icon}
                       size={20}
                     />
                     评估车辆信息
@@ -1075,7 +1266,7 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[6].show !== false && (
+            {allTab[8].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View
@@ -1088,11 +1279,14 @@ export default class Index extends Component {
                   >
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[6].icon}
+                      value={allTab[8].icon}
                       size={20}
                     />
                     关联的二手车订单信息
-                    <AtIcon value='chevron-right' className='order-details__panel-arrow'/>
+                    <AtIcon
+                      value="chevron-right"
+                      className="order-details__panel-arrow"
+                    />
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1154,7 +1348,7 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[7].show !== false && (
+            {allTab[9].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View
@@ -1167,11 +1361,14 @@ export default class Index extends Component {
                   >
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[7].icon}
+                      value={allTab[9].icon}
                       size={20}
                     />
                     关联的置换订单
-                    <AtIcon value='chevron-right' className='order-details__panel-arrow'/>
+                    <AtIcon
+                      value="chevron-right"
+                      className="order-details__panel-arrow"
+                    />
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1183,13 +1380,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[8].show !== false && (
+            {allTab[10].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[8].icon}
+                      value={allTab[10].icon}
                       size={20}
                     />
                     意向车型
@@ -1204,13 +1401,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[9].show !== false && (
+            {allTab[11].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[9].icon}
+                      value={allTab[11].icon}
                       size={20}
                     />
                     {fawDistributor.name}
@@ -1277,13 +1474,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[10].show !== false && (
+            {allTab[12].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[10].icon}
+                      value={allTab[12].icon}
                       size={20}
                     />
                     服务订单信息
@@ -1361,13 +1558,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[11].show !== false && (
+            {allTab[13].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[11].icon}
+                      value={allTab[13].icon}
                       size={20}
                     />
                     评估单照片
@@ -1397,20 +1594,35 @@ export default class Index extends Component {
                         ))}
                       </View>
                     </View>
+                    {fawOrder.timeoutFlag === 1 && escUser.timeoutReason && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          评估工作是否超时：
+                          <Text className="text-error">*(用户不可见）</Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <AtTextarea
+                            disabled
+                            className="textarea no-border"
+                            value={escUser.timeoutReason}
+                          />
+                        </View>
+                      </View>
+                    )}
                   </View>
                 </View>
               </AtTabsPane>
             )}
-            {allTab[12].show !== false && (
+            {allTab[14].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[12].icon}
+                      value={allTab[14].icon}
                       size={20}
                     />
-                    A卡照片
+                    A卡信息
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1436,20 +1648,35 @@ export default class Index extends Component {
                         ))}
                       </View>
                     </View>
+                    {fawOrder.timeoutFlag === 1 && xsUser.timeoutReason && (
+                      <View className="block">
+                        <View className="order-details__panel-h3">
+                          A卡上传工作是否超时：
+                          <Text className="text-error">*(用户不可见）</Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <AtTextarea
+                            disabled
+                            className="textarea no-border"
+                            value={xsUser.timeoutReason}
+                          />
+                        </View>
+                      </View>
+                    )}
                   </View>
                 </View>
               </AtTabsPane>
             )}
-            {allTab[13].show !== false && (
+            {allTab[15].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[13].icon}
+                      value={allTab[15].icon}
                       size={20}
                     />
-                    C卡照片
+                    C卡信息
                   </View>
                   <View className="order-details__panel-hr"></View>
                   <View className="order-details__panel-content">
@@ -1479,13 +1706,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[14].show !== false && (
+            {allTab[16].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[14].icon}
+                      value={allTab[16].icon}
                       size={20}
                     />
                     超时理由
@@ -1509,13 +1736,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[15].show !== false && (
+            {allTab[17].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[15].icon}
+                      value={allTab[17].icon}
                       size={20}
                     />
                     成交信息
@@ -1548,13 +1775,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[16].show !== false && (
+            {allTab[18].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[16].icon}
+                      value={allTab[18].icon}
                       size={20}
                     />
                     试驾信息
@@ -1569,13 +1796,13 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[17].show !== false && (
+            {allTab[19].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
                   <View className="order-details__panel-heading">
                     <AtIcon
                       prefixClass="iconfont"
-                      value={allTab[10].icon}
+                      value={allTab[19].icon}
                       size={20}
                     />
                     订单是否有效
@@ -1587,6 +1814,14 @@ export default class Index extends Component {
                     </View>
                     <View className="order-details__panel-desc">
                       {fawOrder.orderEffectiveness === 1 ? "有效" : "无效"}
+                    </View>
+                    <View className="order-details__panel-desc">
+                      <View
+                        className="rule-link"
+                        onClick={e => goTo("/pages/rule-details", null)}
+                      >
+                        规则说明
+                      </View>
                     </View>
                   </View>
                 </View>

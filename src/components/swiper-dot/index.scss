@@ -1,7 +1,7 @@
 .swiper-dot {
   &__root {
     text-align: center;
-    height: 12px;
+    height: 8px;
     padding: 12px;
     box-sizing: border-box;
     font-size: 0;
@@ -9,9 +9,9 @@
   }
   &__item {
     display: inline-block;
-    height: 12px;
-    width: 24px;
-    border-radius: 6px;
+    height: 8px;
+    width: 18px;
+    border-radius: 8px;
     background-color: #dae6fd;
     margin: 0 6px;
     &.active {

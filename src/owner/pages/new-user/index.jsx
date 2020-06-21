@@ -2,7 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtList, AtListItem, AtSearchBar } from "@/npm/taro-ui/dist";
 import EmptyData from "@/components/empty-data";
-
+import SearchInput from "@/components/search-input";
 import "./index.scss";
 import defaultAvatarUrl from "@/assets/images/default-avatar.png";
 import { getNewCUList } from "@/servers/apis";
@@ -23,10 +23,11 @@ export default class Index extends Component {
   };
 
   state = {
-    keyword: "",
     listData: [],
-    isFetching: false
+    isFetching: true
   };
+
+  keyword = ''
 
   componentDidShow() {
     this.loadData();
@@ -39,23 +40,9 @@ export default class Index extends Component {
     });
   };
 
-  handleChange = value => {
-    this.setState({ keyword: value });
-  };
-
-  handleSubmit = () => {
+  onSearch = keyword => {
+    this.keyword=keyword;
     this.loadData();
-  };
-
-  handleClear = () => {
-    this.setState(
-      {
-        keyword: ""
-      },
-      () => {
-        this.loadData();
-      }
-    );
   };
 
   loadData = () => {
@@ -63,7 +50,7 @@ export default class Index extends Component {
       isFetching: true
     });
     getNewCUList({
-      realName: this.state.keyword
+      realName: this.keyword
     }).then(res => {
       this.setState({
         isFetching: false,
@@ -88,19 +75,16 @@ export default class Index extends Component {
     const { listData, isFetching } = this.state;
 
     return (
-      <View className="page owner__root">
-        <AtSearchBar
-          onClear={this.handleClear}
-          className="owner__search-bar"
-          value={this.state.keyword}
-          onChange={this.handleChange.bind(this)}
-          onActionClick={this.handleSubmit.bind(this)}
-        />
+      <View className="page bg-gray new-user__root">
+        <View className="new-user__search-bar">
+          <SearchInput onSearch={this.onSearch} />
+        </View>
         {listData.length > 0 ? (
-          <AtList>
+          <AtList className="gap-top">
             {listData.map(item => (
               <AtListItem
                 key={item.key}
+                className="new-user__list-item"
                 title={item.name}
                 arrow={item.status !== 1 ? "right" : null}
                 extraText={bindStatusMap[item.status]}

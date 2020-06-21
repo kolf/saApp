@@ -1,16 +1,15 @@
-.owner {
+.new-user {
   &__root {
-    background: #f7f7f7;
-    padding-bottom: 160px;
+    padding-bottom: 36px;
   }
   &__search-bar {
-    padding: 16px 24px;
+    padding: 16px 32px 32px;
+    background-color: #fff;
   }
-  &__item {
-    display: flex;
-    align-items: center;
-    & > .at-avatar {
-      margin-right: 12px;
+  &__list {
+    &-item.at-list__item--thumb .item-thumb {
+      border-radius: 50%;
+      overflow: hidden;
     }
   }
 }

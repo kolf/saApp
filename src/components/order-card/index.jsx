@@ -13,7 +13,7 @@ const orderResultMap = {
   "": "未成交"
 };
 
-export default function OrderCard({ dataSource, onClick }) {
+export default function Index({ dataSource, onClick }) {
   if (!dataSource) {
     return null;
   }

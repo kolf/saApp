@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { AtSearchBar } from "@/npm/taro-ui/dist";
+// import { AtSearchBar } from "@/npm/taro-ui/dist";
 import KRadio from "../../components/radio";
 import SearchInput from "../../components/search-input";
 import "./index.scss";
@@ -18,8 +18,10 @@ export default class Index extends Component {
 
   state = {
     listData: [],
-    keyword: ""
+    isFetching: true
   };
+
+  keyword = "";
 
   componentDidMount() {
     this.loadData();
@@ -29,10 +31,11 @@ export default class Index extends Component {
     const { userType } = this.props;
     getadvisersList({
       positionName: userType,
-      realName: this.state.keyword
+      realName: this.keyword
     }).then(res => {
       this.setState({
-        listData: this.markData(res.data)
+        listData: this.markData(res.data),
+        isFetching: false
       });
     });
   };
@@ -51,6 +54,11 @@ export default class Index extends Component {
       }));
   };
 
+  onSearch = keyword => {
+    this.keyword = keyword;
+    this.loadData();
+  };
+
   handleChange = index => {
     this.props.onChange(this.state.listData[index].value);
   };
@@ -61,7 +69,7 @@ export default class Index extends Component {
     return (
       <View className="page bg-gray adviser__root">
         <View className="adviser__search-bar">
-          <SearchInput />
+          <SearchInput onSearch={this.onSearch} />
         </View>
         {listData.length > 0 && (
           <View className="adviser__list">

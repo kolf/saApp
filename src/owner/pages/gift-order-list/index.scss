@@ -1,13 +1,13 @@
 .gift-orders {
   &__root {
-    .border-bottom::after{
+    .border-bottom::after {
       left: 0;
     }
-    .iconfont{
+    .iconfont {
       height: 12px;
       line-height: 12px;
       position: relative;
-      top:4px
+      top: 4px;
     }
   }
   &__list {
@@ -23,5 +23,23 @@
       line-height: 1;
       padding: 24px 0;
     }
+  }
+}
+
+.arrow {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  left: 10px;
+  border-width: 14px 10px;
+  border-style: solid;
+  position: relative;
+  &--down {
+    border-color: #436be8 transparent transparent transparent;
+    top: 10px;
+  }
+  &--up {
+    border-color: transparent transparent #436be8 transparent;
+    top: -4px;
   }
 }

@@ -143,7 +143,7 @@ export default class Index extends Component {
       success: res => {
         const tempFilePaths = res.tempFilePaths;
         Taro.uploadFile({
-          url: getBaseUrl("/api/v1/base/upload") + "/api/v1/base/upload",
+          url: getBaseUrl("/api/v1") + "/api/v1/base/upload",
           filePath: tempFilePaths[0],
           name: "file",
           header: {
@@ -174,7 +174,7 @@ export default class Index extends Component {
 
     return (
       <View className="page bg-gray">
-        <View className="content">
+        <View className="page-content">
           <AtList>
             <AtListItem
               isRequire
@@ -189,7 +189,9 @@ export default class Index extends Component {
               extraText={userInfo.realName || "必填项"}
               arrow={submitUserInfo.realName ? "" : "right"}
               onClick={
-                submitUserInfo.realName ? loop : goTo.bind(this, "/pages/update-name")
+                submitUserInfo.realName
+                  ? loop
+                  : goTo.bind(this, "/pages/update-name")
               }
             />
             <ListItem
@@ -202,7 +204,7 @@ export default class Index extends Component {
                   range={genderNames}
                   onChange={this.handleGenderChange}
                 >
-                  <Text>
+                  <Text style={{paddingRight:30}}>
                     {userInfo.gender
                       ? getOptionLabel("genders", userInfo.gender)
                       : "必填项"}
@@ -223,7 +225,7 @@ export default class Index extends Component {
                   mode="date"
                   onChange={this.handleDateChange}
                 >
-                  <Text>{userInfo.workStart || "必填项"}</Text>
+                  <Text style={{paddingRight:30}}>{userInfo.workStart || "必填项"}</Text>
                 </Picker>
               }
               arrow={submitUserInfo.workStart ? "" : "right"}
@@ -245,6 +247,7 @@ export default class Index extends Component {
               onClick={this.handleSubmit}
               loading={this.state.confirmLoading}
               disabled={this.getSubmitDisabledStatus()}
+              className="btn-lg btn-primary"
             >
               提交至店总审核
             </AtButton>

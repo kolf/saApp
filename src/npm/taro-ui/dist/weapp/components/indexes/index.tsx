@@ -209,6 +209,7 @@ export default class AtIndexes extends AtComponent<
           {dataList.items &&
             dataList.items.map(item => (
               <AtListItem
+               className='at-indexes__list-item'
                 key={item.name}
                 title={item.name}
                 avatar={item.avatar}

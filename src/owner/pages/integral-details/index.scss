@@ -1,16 +1,17 @@
 .integral-details {
   &__root {
+    padding-bottom: 36px;
     .table-head {
       font-weight: 700;
       font-size: 32px;
       padding: 32px 16px;
     }
     .table-body {
-      padding: 16px;
+      padding: 16px 0;
     }
   }
   &__heading {
-    padding: 24px 32px;
+    padding: 24px 32px 16px;
   }
   &__content {
     padding: 0 32px;

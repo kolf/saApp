@@ -1,15 +1,14 @@
-@import '../variables/default.scss';
-@import '../mixins/index.scss';
+@import "../variables/default.scss";
+@import "../mixins/index.scss";
 
 .at-input {
   position: relative;
-  padding: $spacing-v-lg 0;
+  padding: $spacing-v-lg $spacing-h-xl;
   color: $at-input-label-color;
   background-color: $color-bg;
-  margin-left: $spacing-h-xl;
 
   /* 修复底线隐藏问题 */
-  margin-bottom: 1PX;
+  margin-bottom: 1px;
   @include hairline-bottom();
 
   &__overlay {
@@ -55,7 +54,6 @@
   &__input {
     flex: 1;
     display: inline-block;
-    padding-right: $spacing-v-md;
     color: $at-input-text-color;
     font-size: $at-input-font-size;
     line-height: $line-height-zh;
@@ -74,7 +72,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
     width: 40px;
     min-width: 40px;
     height: 100%;
@@ -87,7 +84,7 @@
     }
 
     &-alert {
-      color: #FF4949;
+      color: #ff4949;
     }
   }
 
@@ -102,7 +99,6 @@
     image,
     .taro-img {
       display: inline-block;
-      padding: 0 $spacing-v-md;
       color: $color-brand-dark;
       font-size: $at-input-font-size;
       text-align: center;

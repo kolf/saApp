@@ -102,7 +102,7 @@ export default class Index extends Component {
                         <AtIcon
                           prefixClass="iconfont"
                           value="jifen"
-                          size={16}
+                          size={14}
                         />
                         {data.score}积分
                       </View>
