@@ -15,12 +15,12 @@ export default class Index extends PureComponent {
   render() {
     return (
       <View className={this.props.className + " pager__root"}>
-        <View className='pager__buttom' onClick={this.props.onPrev}>
+        <View className='pager__btn' onClick={this.props.onPrev}>
           <AtIcon value='chevron-left' />
         </View>
         <Text className='pager__title'>{this.props.title}</Text>
-        <View className='pager__buttom' onClick={this.props.onNext}>
-          <AtIcon className='page__buttom' value='chevron-right' />
+        <View className='pager__btn' onClick={this.props.onNext}>
+          <AtIcon value='chevron-right' />
         </View>
       </View>
     );

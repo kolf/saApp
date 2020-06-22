@@ -15,16 +15,13 @@
     .image-picker {
       margin: 0 -16px;
     }
-    .radios {
-      margin-left: -12px;
-    }
 
     .textarea {
       padding: 16px;
       margin-top: 12px;
       background-color: #f5f5f5;
       .at-textarea__textarea {
-        font-size: 24px;
+        font-size: 28px;
       }
     }
     .input.at-input {
@@ -93,7 +90,7 @@
       content: "";
       margin: 32px 0;
       height: 0;
-      border-bottom: 1PX dashed #ccc;
+      border-bottom: 1px dashed #ccc;
     }
     &-content {
       padding-right: 36px;
@@ -113,4 +110,11 @@
 .rule-link {
   color: #2254f5;
   margin-top: 12px;
+}
+.scan-btn__text {
+  padding-left: 64px;
+  display: inline-block;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAMAAAC7m5rvAAAAP1BMVEUAAABDbOlDa+lDa+hEbOlDbeZEbOlDa+hDa+lDa+hEa+hEbupDa+lBcOdDa+lEbelEbOlDbOlEZt1Jbe1Da+gVZSP3AAAAFHRSTlMAx9/4qy3o0PLMnlZFION1dGoPDsuvEtIAAADJSURBVEjH7ZbLDoQgDAArFpCnr/7/t27lIms2Rpq9mDBXMmlJlAwwW/RqpBMToCIYOhmVjzsUNE70jao1dTmcUBfL0hVXa46uWPY2LLPtcIK61jRWR7bcBneIvGGeEzwkzZn3jOB51gINzDzPHzdWqUVLhwHsWmjC8n5AREObNrDSta490AwRtmlIZCAop9s07VSA17EausOsv7VM92TptM6/EX7Kwh/nHY9C196pyQJDmDPSeCqptjxPtaWkmjAMZRkqjV5hYn8AEmAoSeJmK24AAAAASUVORK5CYII=")
+    0 52% no-repeat;
+  background-size: 32px;
 }

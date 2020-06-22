@@ -22,7 +22,7 @@ export default class Index extends Component {
     const { current } = this.state;
 
     return (
-      <View className="at-radio radio__root no-border">
+      <View className="at-radio radio__root">
         {options.map((o, index) => (
           <View
             key={o.value}

@@ -64,13 +64,14 @@ export default class Index extends Component {
   };
 
   render() {
+    const {showSearch} = this.props
     const { listData } = this.state;
 
     return (
       <View className="page bg-gray adviser__root">
-        <View className="adviser__search-bar">
+        {showSearch && <View className="adviser__search-bar">
           <SearchInput onSearch={this.onSearch} />
-        </View>
+        </View>}
         {listData.length > 0 && (
           <View className="adviser__list">
             <KRadio options={listData} onChange={this.handleChange} />

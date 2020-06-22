@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 
 export default function modal(options) {
-  Taro.showModal({
+  return Taro.showModal({
     showCancel: false,
     ...options
   });

@@ -28,7 +28,7 @@ $at-list-item-horizontal-padding: 24px;
   }
 
   &__item {
-    padding: $spacing-v-lg $spacing-h-lg;
+    padding: $spacing-v-lg 20px $spacing-v-lg 40px;
     position: relative;
     box-sizing: border-box;
     color: $at-list-text-color;

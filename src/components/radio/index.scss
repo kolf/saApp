@@ -2,6 +2,11 @@
 
 .radio {
   &__root.at-radio {
+    border: none;
+    &::before {
+      content: initial;
+      border: none;
+    }
     .at-radio__option {
       padding-left: 0;
     }

@@ -12,7 +12,6 @@ import {
 } from "@/npm/taro-ui/dist";
 import SelectAdviser from "@/components/select-adviser";
 import KCheckbox from "@/components/checkbox";
-import RadioXS from "@/components/x-radio";
 import OrderArrow from "./OrderArrow";
 import { goTo, getDownTime } from "@/utils";
 import storage from "@/utils/storage";
@@ -65,7 +64,7 @@ export default class Index extends Component {
     updateFiles: [],
     hasReplacementOrder: "0",
     carOptions: [],
-    selectCarIndex: -1,
+    selectedCarIndex: '',
     timeoutReason: "",
     orderResult: "1",
     orderResultSeason: "",
@@ -172,7 +171,7 @@ export default class Index extends Component {
 
   handleCarSelect = e => {
     this.setState({
-      selectCarIndex: e.target.value
+      selectedCarIndex: e.target.value
     });
   };
 
@@ -485,7 +484,7 @@ export default class Index extends Component {
     const {
       hasReplacementOrder,
       updateFiles,
-      selectCarIndex,
+      selectedCarIndex,
       carOptions,
       selectedUserId,
       fawOrder,
@@ -506,7 +505,7 @@ export default class Index extends Component {
         });
         return;
       }
-      if (!selectCarIndex) {
+      if (!selectedCarIndex) {
         modal({
           content: "请选择意向车型"
         });
@@ -538,7 +537,7 @@ export default class Index extends Component {
       fileIds: successFileIds.join(","),
       hasReplacementOrder,
       intentionCarId:
-        hasReplacementOrder === "1" ? carOptions[selectCarIndex].value : "",
+        hasReplacementOrder === "1" ? carOptions[selectedCarIndex].value : "",
       xsId: hasReplacementOrder === "1" ? selectedUserId : ""
     }).then(async res => {
       const res1 = await setTimeoutReason({
@@ -619,9 +618,7 @@ export default class Index extends Component {
       {
         title: "A卡信息",
         icon: "pin",
-        show:
-          /^XS_[234]_1/g.test(userOrderStatus) &&
-          fawOrder.processStatus === "WAIT_XS_C_CARD"
+        show: false // 预留
       },
       {
         title: "C卡信息",
@@ -675,11 +672,7 @@ export default class Index extends Component {
         title: "A卡信息",
         icon: "pin",
         show:
-          aCardFiles.length > 0 &&
-          !(
-            /^XS_[234]_1/g.test(userOrderStatus) &&
-            fawOrder.processStatus === "WAIT_XS_C_CARD"
-          )
+          aCardFiles.length
       },
       { title: "C卡信息", icon: "fair", show: cCardFiles.length > 0 },
       {
@@ -745,6 +738,7 @@ export default class Index extends Component {
       intentionCar,
       userType,
       selectedUserId,
+      selectedCarIndex,
       escFiles,
       orderTimeDTO,
       escFawOrderDTO,
@@ -859,10 +853,12 @@ export default class Index extends Component {
                     {fawOrder.orderType === 1 ? "二手车" : "销售"}顾问
                   </View>
                   <View className="order-details__panel-content">
-                    <SelectAdviser
+                  <SelectAdviser
+                    showSearch
                       userType={this.getAdviserUserType()}
                       onChange={this.handleUserSelect}
                     />
+                    
                   </View>
                 </View>
               </AtTabsPane>
@@ -909,13 +905,38 @@ export default class Index extends Component {
                           车主没有置换需求
                         </KCheckbox>
                       </View>
-                      <View className="order-details__panel-h3">
+                      <View className="order-details__panel-h3" >
                         <KCheckbox
                           onClick={this.selectReplaceMentOrder.bind(this, "1")}
                           checked={hasReplacementOrder === "1"}
                         >
                           车主有置换需求
                         </KCheckbox>
+                      </View>
+                      <View className='block'>
+                      <View className="order-details__panel-h3" style={{marginTop:'48rpx'}}>
+                      意向车型<Text className="text-error">* </Text>
+                    </View>
+                    <View className="order-details__panel-desc">
+                    <Picker
+                      mode="selector"
+                      range={this.state.carOptions.map(c => c.label)}
+                      onChange={this.handleCarSelect}
+                    >
+                      <View className="input--text border-bottom">
+                        {selectedCarIndex
+                          ? this.state.carOptions[selectedCarIndex].label
+                          : <Text className="input--placeholder">请选择意向车型</Text>}
+                      </View>
+                    </Picker>
+                    </View>
+                    <View className="order-details__panel-h3" style={{marginTop:'36rpx'}}>
+                      销售顾问<Text className="text-error">* </Text>
+                    </View>
+                    <SelectAdviser
+                      userType='XS'
+                      onChange={this.handleUserSelect}
+                    />
                       </View>
                     </View>
                   </View>
@@ -960,60 +981,7 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-            {allTab[3].show !== false && (
-              <AtTabsPane tabDirection="vertical" current={current}>
-                <View className="order-details__panel">
-                  <View className="order-details__panel-heading">
-                    <AtIcon
-                      prefixClass="iconfont"
-                      value={allTab[14].icon}
-                      size={20}
-                    />
-                    A卡信息
-                  </View>
-                  <View className="order-details__panel-hr"></View>
-                  <View className="order-details__panel-content">
-                    <View className="order-details__panel-h3">A卡照片</View>
-                    <View className="order-details__panel-desc">
-                      <View className="at-row image-list">
-                        {aCardFiles.map(f => (
-                          <View
-                            key={f.id}
-                            className="image-list-item"
-                            onClick={this.onPreviewImage.bind(
-                              this,
-                              aCardFiles,
-                              f
-                            )}
-                          >
-                            <Image
-                              className="img"
-                              src={f.fileUrl}
-                              mode="aspectFill"
-                            />
-                          </View>
-                        ))}
-                      </View>
-                    </View>
-                    {fawOrder.timeoutFlag === 1 && xsUser.timeoutReason && (
-                      <View className="block">
-                        <View className="order-details__panel-h3">
-                          A卡上传工作是否超时：
-                          <Text className="text-error">*(用户不可见）</Text>
-                        </View>
-                        <View className="order-details__panel-desc">
-                          <AtTextarea
-                            disabled
-                            className="textarea no-border"
-                            value={xsUser.timeoutReason}
-                          />
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                </View>
-              </AtTabsPane>
-            )}
+          
             {allTab[4].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
@@ -1043,7 +1011,7 @@ export default class Index extends Component {
                     </View>
                     <View className="order-details__panel-desc">
                       <AtButton type="secondary" onClick={this.updateVinCode}>
-                        扫描行驶证信息
+                      <Text className="scan-btn__text">扫描行驶证信息</Text>
                       </AtButton>
                     </View>
                     <View className="order-details__panel-h3">
