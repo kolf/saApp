@@ -4,41 +4,6 @@ import { F2Canvas } from "taro-f2";
 import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
 
-const data = [
-  {
-    type: "1951 年",
-    value: 38
-  },
-  {
-    type: "1952 年",
-    value: 52
-  },
-  {
-    type: "1956 年",
-    value: 61
-  },
-  {
-    type: "1957 年",
-    value: 145
-  },
-  {
-    type: "1958 年",
-    value: 48
-  },
-  {
-    type: "1959 年",
-    value: 38
-  },
-  {
-    type: "1960 年",
-    value: 38
-  },
-  {
-    type: "1962 年",
-    value: 38
-  }
-];
-
 export default class Index extends Component {
   static defaultProps = {
     dataSource: []
@@ -46,6 +11,7 @@ export default class Index extends Component {
 
   drawData = (canvas, width, height) => {
     fixF2(F2);
+    const {dataSource} = this.props;
     const Global = F2.Global;
     const chart = new F2.Chart({
       el: canvas,
@@ -53,9 +19,11 @@ export default class Index extends Component {
       height
     });
 
-    chart.source(this.props.dataSource, {
+    chart.source(dataSource, {
       value: {
-        tickCount: 5
+        tickCount: 5,
+        min: 0,
+        alias: '推荐总数'
       }
     });
     chart.coord({
@@ -70,7 +38,7 @@ export default class Index extends Component {
     chart.interval().position("type*value");
 
     // 绘制柱状图文本
-    data.map(function(item, index) {
+    dataSource.map(function(item, index) {
       chart.guide().text({
         position: [index, item.value],
         content: item.value,

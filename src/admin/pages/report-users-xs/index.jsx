@@ -17,7 +17,8 @@ import {
 import { toPercentage } from "@/utils";
 import "./index.scss";
 
-const format = "YYYY-MM-DD";
+const FORMAT = "YYYY-MM-DD";
+const FORMAT_CN = "YYYY年M月D日";
 const tabList = [
   { label: `日`, value: "days" },
   { label: `周`, value: "weeks" },
@@ -25,7 +26,7 @@ const tabList = [
 ];
 const DEFAULT_DATE = moment()
   .subtract(1, "days")
-  .format(format);
+  .format(FORMAT);
 
 const orderTypeNameMap = {
   ZGXCTotal: "再购新车",
@@ -89,7 +90,7 @@ export default class Index extends Component {
       uId: id,
       startDateTime: moment(selectedDate)
         .subtract(1, tabList[dateType].value)
-        .format(format),
+        .format(FORMAT),
       endDateTime: selectedDate
     };
   };
@@ -175,11 +176,11 @@ export default class Index extends Component {
     if (n === -1) {
       nextSelectedDate = moment(selectedDate)
         .subtract(1, "days")
-        .format(format);
+        .format(FORMAT);
     } else if (n === 1) {
       nextSelectedDate = moment(selectedDate)
         .add(1, "days")
-        .format(format);
+        .format(FORMAT);
     }
     this.setState(
       {
@@ -214,10 +215,14 @@ export default class Index extends Component {
 
   getPagerTitle = () => {
     const { selectedDate, dateType } = this.state;
-    let endDateStr = moment(selectedDate).format("YYYY年MM月D日");
-    let startDateStr = moment(selectedDate)
-      .subtract(1, tabList[dateType].value)
-      .format("YYYY年MM月D日");
+    let startDateStr = moment(selectedDate).format(FORMAT_CN);
+    let endDateStr = moment(selectedDate).format(FORMAT_CN);
+
+    if (dateType !== 0) {
+      startDateStr = moment(selectedDate)
+        .subtract(1, tabList[dateType].value)
+        .format(FORMAT_CN);
+    }
 
     if (startDateStr === endDateStr) {
       return startDateStr;
@@ -235,7 +240,6 @@ export default class Index extends Component {
           current={dateType}
           options={tabList}
           onChange={this.handleTabClick.bind(this)}
-
         />
         <View className="report__control-wrap">
           <AtSegmentedControl

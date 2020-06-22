@@ -64,7 +64,7 @@ export default class Index extends Component {
     updateFiles: [],
     hasReplacementOrder: "0",
     carOptions: [],
-    selectedCarIndex: '',
+    selectedCarIndex: "",
     timeoutReason: "",
     orderResult: "1",
     orderResultSeason: "",
@@ -671,8 +671,7 @@ export default class Index extends Component {
       {
         title: "A卡信息",
         icon: "pin",
-        show:
-          aCardFiles.length
+        show: aCardFiles.length
       },
       { title: "C卡信息", icon: "fair", show: cCardFiles.length > 0 },
       {
@@ -853,12 +852,11 @@ export default class Index extends Component {
                     {fawOrder.orderType === 1 ? "二手车" : "销售"}顾问
                   </View>
                   <View className="order-details__panel-content">
-                  <SelectAdviser
-                    showSearch
+                    <SelectAdviser
+                      showSearch
                       userType={this.getAdviserUserType()}
                       onChange={this.handleUserSelect}
                     />
-                    
                   </View>
                 </View>
               </AtTabsPane>
@@ -905,7 +903,7 @@ export default class Index extends Component {
                           车主没有置换需求
                         </KCheckbox>
                       </View>
-                      <View className="order-details__panel-h3" >
+                      <View className="order-details__panel-h3">
                         <KCheckbox
                           onClick={this.selectReplaceMentOrder.bind(this, "1")}
                           checked={hasReplacementOrder === "1"}
@@ -913,31 +911,41 @@ export default class Index extends Component {
                           车主有置换需求
                         </KCheckbox>
                       </View>
-                      <View className='block'>
-                      <View className="order-details__panel-h3" style={{marginTop:'48rpx'}}>
-                      意向车型<Text className="text-error">* </Text>
-                    </View>
-                    <View className="order-details__panel-desc">
-                    <Picker
-                      mode="selector"
-                      range={this.state.carOptions.map(c => c.label)}
-                      onChange={this.handleCarSelect}
-                    >
-                      <View className="input--text border-bottom">
-                        {selectedCarIndex
-                          ? this.state.carOptions[selectedCarIndex].label
-                          : <Text className="input--placeholder">请选择意向车型</Text>}
-                      </View>
-                    </Picker>
-                    </View>
-                    <View className="order-details__panel-h3" style={{marginTop:'36rpx'}}>
-                      销售顾问<Text className="text-error">* </Text>
-                    </View>
-                    <SelectAdviser
-                      userType='XS'
-                      onChange={this.handleUserSelect}
-                    />
-                      </View>
+                      {hasReplacementOrder === "1" && <View className="block">
+                        <View
+                          className="order-details__panel-h3"
+                          style={{ marginTop: "48rpx" }}
+                        >
+                          意向车型<Text className="text-error">* </Text>
+                        </View>
+                        <View className="order-details__panel-desc">
+                          <Picker
+                            mode="selector"
+                            range={this.state.carOptions.map(c => c.label)}
+                            onChange={this.handleCarSelect}
+                          >
+                            <View className="input--text border-bottom">
+                              {selectedCarIndex ? (
+                                this.state.carOptions[selectedCarIndex].label
+                              ) : (
+                                <Text className="input--placeholder">
+                                  请选择意向车型
+                                </Text>
+                              )}
+                            </View>
+                          </Picker>
+                        </View>
+                        <View
+                          className="order-details__panel-h3"
+                          style={{ marginTop: "36rpx" }}
+                        >
+                          销售顾问<Text className="text-error">* </Text>
+                        </View>
+                        <SelectAdviser
+                          userType="XS"
+                          onChange={this.handleUserSelect}
+                        />
+                      </View>}
                     </View>
                   </View>
                 </View>
@@ -981,7 +989,7 @@ export default class Index extends Component {
                 </View>
               </AtTabsPane>
             )}
-          
+
             {allTab[4].show !== false && (
               <AtTabsPane tabDirection="vertical" current={current}>
                 <View className="order-details__panel">
@@ -1011,7 +1019,7 @@ export default class Index extends Component {
                     </View>
                     <View className="order-details__panel-desc">
                       <AtButton type="secondary" onClick={this.updateVinCode}>
-                      <Text className="scan-btn__text">扫描行驶证信息</Text>
+                        <Text className="scan-btn__text">扫描行驶证信息</Text>
                       </AtButton>
                     </View>
                     <View className="order-details__panel-h3">

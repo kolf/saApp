@@ -1,7 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import {
-  AtTabs,
   AtSegmentedControl,
   AtActivityIndicator
 } from "@/npm/taro-ui/dist";
@@ -14,8 +13,8 @@ import moment from "moment";
 import { getxsTopTotal, getxsTrend } from "@/servers/apis";
 import { toPercentage } from "@/utils";
 import "./index.scss";
-const format = "YYYY-MM-DD";
-
+const FORMAT = "YYYY-MM-DD";
+const FORMAT_CN = "YYYY年M月D日";
 const tabList = [
   { label: `日`, value: "days", paramValue: "DAY" },
   { label: `周`, value: "weeks", paramValue: "WEEK" },
@@ -24,7 +23,7 @@ const tabList = [
 
 const DEFAULT_DATE = moment()
   .subtract(1, "days")
-  .format(format);
+  .format(FORMAT);
 
 export default class Index extends Component {
   config = {
@@ -70,51 +69,6 @@ export default class Index extends Component {
       selectDate: selectedDate
     };
   };
-  //柱状图标下方的表格数据
-  makeTendencyTableData = data => {
-    let newArr = JSON.parse(JSON.stringify(data));
-    let sdata = newArr.xsTopReports;
-    if (sdata) {
-      sdata.unshift(newArr.total);
-      sdata.push(newArr.avg);
-      // this.setState({
-      //   zhuData:sdata
-      // })
-      // console.log('5555',sdata)
-      return Object.values(sdata).map(item => ({
-        name: item.name, //顾问
-        gxcCount: item.gxcCount, //二手车评估
-        zhxcCount: item.zhxcCount, //再购新车
-        zjsCount: item.zjsCount, //再购新车
-        totalCount: item.totalCount //转介绍//推荐总量
-      }));
-    }
-  };
-  //折线图下方表格数据
-  makeStatisticalTableData = data => {
-    // console.log('销售部折线',data)
-    let result = data.xsTrendList;
-    let newArr = [];
-    if (result) {
-      this.setState({
-        zheData: result[0].list
-      });
-      result.map(item => {
-        let oldData = {};
-        let orderDate = item.dateStr;
-        item.list.map(val => {
-          oldData.dateStr = orderDate;
-          oldData[val.userId] = val.count;
-        });
-        newArr.push(oldData);
-      });
-      return newArr;
-    }
-    return Object.values(newArr).map(item => ({
-      dateStr: item.dateStr,
-      total: item.count
-    }));
-  };
 
   makeBasicData = data => {
     const list = data.xsTopReports || [];
@@ -131,6 +85,10 @@ export default class Index extends Component {
       .sort((a, b) => a.value - b.value);
   };
 
+  makeBasicTableData = data => {
+    return data.xsTopReports || [];
+  };
+
   makeLineData = data => {
     const list = data.xsTrendList || [];
     return list.reduce((result, item) => {
@@ -145,6 +103,10 @@ export default class Index extends Component {
     }, []);
   };
 
+  makeLineTableData = data => {
+    return data.xsTrendList || [];
+  };
+
   handleDateChange = n => {
     const { selectedDate } = this.state;
 
@@ -152,11 +114,11 @@ export default class Index extends Component {
     if (n === -1) {
       nextSelectedDate = moment(selectedDate)
         .subtract(1, "days")
-        .format(format);
+        .format(FORMAT);
     } else if (n === 1) {
       nextSelectedDate = moment(selectedDate)
         .add(1, "days")
-        .format(format);
+        .format(FORMAT);
     }
     this.setState(
       {
@@ -191,10 +153,14 @@ export default class Index extends Component {
 
   getPagerTitle = () => {
     const { selectedDate, dateType } = this.state;
-    let endDateStr = moment(selectedDate).format("YYYY年MM月D日");
-    let startDateStr = moment(selectedDate)
-      .subtract(1, tabList[dateType].value)
-      .format("YYYY年MM月D日");
+    let startDateStr = moment(selectedDate).format(FORMAT_CN);
+    let endDateStr = moment(selectedDate).format(FORMAT_CN);
+
+    if (dateType !== 0) {
+      startDateStr = moment(selectedDate)
+        .subtract(1, tabList[dateType].value)
+        .format(FORMAT_CN);
+    }
 
     if (startDateStr === endDateStr) {
       return startDateStr;
@@ -203,73 +169,10 @@ export default class Index extends Component {
     }
   };
 
-  renderMain = () => {
-    const { showType, data, isFetching, zheData } = this.state;
-    if (isFetching) {
-      return <AtActivityIndicator size={64} mode="center" content='加载中...' />;
-    }
-    if (showType === 0) {
-      return (
-        <View className="report__main">
-          <View style="width:100%;height:320px">
-            <F2Canvas onCanvasInit={this.drawDatass} />
-          </View>
-          <View className="table">
-            <View className="at-row table-head text-center bg-gray">
-              <View className="at-col at-col-2">顾问</View>
-              <View className="at-col at-col-3">再购新车</View>
-              <View className="at-col at-col-2">置换新车</View>
-              <View className="at-col at-col-2">转介绍</View>
-              <View className="at-col at-col-3">完成总台数</View>
-            </View>
-            <View className="table-body">
-              {data &&
-                this.makeTendencyTableData(data).map(item => (
-                  <View className="at-row at-list__item" key={item.name}>
-                    <View className="at-col at-col-2">{item.name}</View>
-                    <View className="at-col at-col-3">{item.gxcCount}</View>
-                    <View className="at-col at-col-2">{item.zhxcCount}</View>
-                    <View className="at-col at-col-2">{item.zjsCount}</View>
-                    <View className="at-col at-col-3">{item.totalCount}</View>
-                  </View>
-                ))}
-            </View>
-          </View>
-        </View>
-      );
-    } else if (showType === 1) {
-      return (
-        <View className="report__main">
-          <View style="width:100%;height:320px">
-            <F2Canvas onCanvasInit={this.drawData} />
-          </View>
-          <View className="table">
-            <View className="at-row table-head text-center bg-gray">
-              <View className="at-col at-col-3">日期</View>
-              {this.state.zheData.map(item => (
-                <View className="at-col at-col-3">{item.name}</View>
-              ))}
-            </View>
-            <View className="table-body">
-              {this.makeStatisticalTableData(data).map(item => (
-                <View className="at-row at-list__item" key={item.dateStr}>
-                  <View className="at-col at-col-3">{item.dateStr}</View>
-                  {zheData.map(val => (
-                    <View className="at-col at-col-3">
-                      {item[val.userId] || 0}
-                    </View>
-                  ))}
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
-      );
-    }
-  };
-
   render() {
     const { dateType, showType, data, isFetching } = this.state;
+
+    console.log(data, "data");
 
     return (
       <View className="page report__root">
@@ -309,7 +212,19 @@ export default class Index extends Component {
                 <View className="at-col at-col-3">完成总台数</View>
               </View>
               <View className="table-body">
-                {this.makeTendencyTableData(data).map(item => (
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-3">{data.total.name}</View>
+                  <View className="at-col at-col-3">
+                    {data.total.escpgTotal || 0}
+                  </View>
+                  <View className="at-col at-col-3">
+                    {data.total.escpgTotal || 0}
+                  </View>
+                  <View className="at-col at-col-3">
+                    {data.total.total || 0}
+                  </View>
+                </View>
+                {this.makeBasicTableData(data).map(item => (
                   <View className="at-row border-bottom" key={item.name}>
                     <View className="at-col at-col-2">{item.name}</View>
                     <View className="at-col at-col-3">{item.gxcCount}</View>
@@ -318,6 +233,16 @@ export default class Index extends Component {
                     <View className="at-col at-col-3">{item.totalCount}</View>
                   </View>
                 ))}
+                <View className="at-row border-bottom">
+                  <View className="at-col at-col-3">{data.avg.name}</View>
+                  <View className="at-col at-col-3">
+                    {data.avg.escpgTotal || 0}
+                  </View>
+                  <View className="at-col at-col-3">
+                    {data.avg.escpgTotal || 0}
+                  </View>
+                  <View className="at-col at-col-3">{data.avg.total || 0}</View>
+                </View>
               </View>
             </View>
           </View>
@@ -329,17 +254,17 @@ export default class Index extends Component {
             <View className="table">
               <View className="at-row table-head bg-gray">
                 <View className="at-col at-col-3">日期</View>
-                {[].map(item => (
-                  <View className="at-col at-col-3">{item.name}</View>
+                {this.makeLineData(data).map(item => (
+                  <View className="at-col at-col-3">{item.type}</View>
                 ))}
               </View>
               <View className="table-body">
-                {this.makeStatisticalTableData(data).map(item => (
-                  <View className="at-row border-bottom" key={item.dateStr}>
+                {this.makeLineTableData(data).map(item => (
+                  <View className="at-row border-bottom" key={item.orderDate}>
                     <View className="at-col at-col-3">{item.dateStr}</View>
-                    {[].map(val => (
+                    {item.dataList.map(c => (
                       <View className="at-col at-col-3">
-                        {item[val.userId] || 0}
+                        {c.totalCount || 0}
                       </View>
                     ))}
                   </View>
