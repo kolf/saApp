@@ -129,18 +129,6 @@ export default class Index extends Component {
     }, []);
   };
 
-  makeTendencyTableData = data => {
-    return Object.values(data).map(item => ({
-      name: item.orderTypeName,
-      total: item.orderTotal,
-      dealTotal: item.orderDealTotal,
-      scale:
-        (item.orderTotal === 0
-          ? ""
-          : parseInt((item.orderDealTotal / item.orderTotal) * 100)) + "%"
-    }));
-  };
-
   makeStatisticalData = data => {
     return data.reduce((result, item) => {
       const { ACTotal, CJTotal, date } = item;
@@ -163,10 +151,6 @@ export default class Index extends Component {
 
       return result;
     }, []);
-  };
-
-  makeStatisticalTableData = data => {
-    return Array.isArray(data) ? data : [];
   };
 
   handleDateChange = n => {

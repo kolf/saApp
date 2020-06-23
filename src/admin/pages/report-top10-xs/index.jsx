@@ -1,9 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import {
-  AtSegmentedControl,
-  AtActivityIndicator
-} from "@/npm/taro-ui/dist";
+import { AtSegmentedControl, AtActivityIndicator } from "@/npm/taro-ui/dist";
 import Tabs from "@/components/tabs";
 import Pager from "../../components/pager";
 import BasicChart from "../../components/charts/BasicChart";
@@ -97,7 +94,7 @@ export default class Index extends Component {
         ...item.list.map(c => ({
           date: item.dateStr,
           type: c.name,
-          value: c.totalCount * 1
+          value: c.count * 1
         }))
       ];
     }, []);
@@ -180,7 +177,6 @@ export default class Index extends Component {
           current={dateType}
           options={tabList}
           onChange={this.handleTabClick.bind(this)}
-
         />
         <View className="report__control-wrap">
           <AtSegmentedControl
@@ -213,15 +209,14 @@ export default class Index extends Component {
               </View>
               <View className="table-body">
                 <View className="at-row border-bottom">
-                  <View className="at-col at-col-3">{data.total.name}</View>
-                  <View className="at-col at-col-3">
-                    {data.total.escpgTotal || 0}
+                  <View className="at-col at-col-2">{data.total.name}</View>
+                  <View className="at-col at-col-3">{data.total.gxcCount}</View>
+                  <View className="at-col at-col-2">
+                    {data.total.zhxcCount}
                   </View>
+                  <View className="at-col at-col-2">{data.total.zjsCount}</View>
                   <View className="at-col at-col-3">
-                    {data.total.escpgTotal || 0}
-                  </View>
-                  <View className="at-col at-col-3">
-                    {data.total.total || 0}
+                    {data.total.totalCount}
                   </View>
                 </View>
                 {this.makeBasicTableData(data).map(item => (
@@ -234,14 +229,15 @@ export default class Index extends Component {
                   </View>
                 ))}
                 <View className="at-row border-bottom">
-                  <View className="at-col at-col-3">{data.avg.name}</View>
-                  <View className="at-col at-col-3">
-                    {data.avg.escpgTotal || 0}
+                <View className="at-col at-col-2">{data.avg.name}</View>
+                  <View className="at-col at-col-3">{data.avg.gxcCount}</View>
+                  <View className="at-col at-col-2">
+                    {data.avg.zhxcCount}
                   </View>
+                  <View className="at-col at-col-2">{data.avg.zjsCount}</View>
                   <View className="at-col at-col-3">
-                    {data.avg.escpgTotal || 0}
+                    {data.avg.totalCount}
                   </View>
-                  <View className="at-col at-col-3">{data.avg.total || 0}</View>
                 </View>
               </View>
             </View>
@@ -254,18 +250,16 @@ export default class Index extends Component {
             <View className="table">
               <View className="at-row table-head bg-gray">
                 <View className="at-col at-col-3">日期</View>
-                {this.makeLineData(data).map(item => (
-                  <View className="at-col at-col-3">{item.type}</View>
+                {data.xsNameList.map(item => (
+                  <View className="at-col at-col-3">{item}</View>
                 ))}
               </View>
               <View className="table-body">
                 {this.makeLineTableData(data).map(item => (
                   <View className="at-row border-bottom" key={item.orderDate}>
                     <View className="at-col at-col-3">{item.dateStr}</View>
-                    {item.dataList.map(c => (
-                      <View className="at-col at-col-3">
-                        {c.totalCount || 0}
-                      </View>
+                    {item.list.map(c => (
+                      <View className="at-col at-col-3">{c.count || 0}</View>
                     ))}
                   </View>
                 ))}

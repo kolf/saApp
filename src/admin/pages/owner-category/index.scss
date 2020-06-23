@@ -6,6 +6,10 @@
     margin-top: 20px;
     &-item {
       background: #fff;
+      padding:0 32px;
+      &-child{
+        padding: 20px 40px;
+      }
     }
   }
 }

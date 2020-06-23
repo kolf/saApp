@@ -19,6 +19,7 @@ export default class Index extends Component {
   }
 
   drawData = (canvas, width, height) => {
+    console.log(this.props.dataSource, 'this.props.dataSource')
     fixF2(F2);
     const chart = new F2.Chart({
       el: canvas,

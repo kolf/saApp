@@ -119,19 +119,6 @@ export default class Index extends Component {
         percent: item.proportion / 100
       }));
   };
-
-  makeTendencyTableData = data => {
-    return Object.values(data).map(item => ({
-      name: item.orderTypeName,
-      total: item.orderTotal,
-      dealTotal: item.orderDealTotal,
-      scale:
-        (item.orderTotal === 0
-          ? ""
-          : parseInt((item.orderDealTotal / item.orderTotal) * 100)) + "%"
-    }));
-  };
-
   makeStatisticalData = data => {
     return data.reduce((result, item) => {
       const { ESCTotal, ZGXCTotal, ZJSTotal, date } = item;
@@ -157,9 +144,6 @@ export default class Index extends Component {
     }, []);
   };
 
-  makeStatisticalTableData = data => {
-    return Array.isArray(data) ? data : [];
-  };
 
   handleDateChange = n => {
     const { selectedDate } = this.state;
@@ -232,7 +216,6 @@ export default class Index extends Component {
           current={dateType}
           options={tabList}
           onChange={this.handleTabClick.bind(this)}
-
         />
         <View className="report__control-wrap">
           <AtSegmentedControl

@@ -88,6 +88,7 @@ export default class Index extends Component {
                   <AtListItem
                     key={c.id}
                     title={c.title}
+                    className='owner-category__list-item-child'
                     onClick={this.handleClick.bind(this, c, item.key)}
                     arrow="right"
                   />

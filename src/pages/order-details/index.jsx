@@ -671,7 +671,7 @@ export default class Index extends Component {
       {
         title: "A卡信息",
         icon: "pin",
-        show: aCardFiles.length
+        show: aCardFiles.length > 0
       },
       { title: "C卡信息", icon: "fair", show: cCardFiles.length > 0 },
       {
@@ -911,41 +911,43 @@ export default class Index extends Component {
                           车主有置换需求
                         </KCheckbox>
                       </View>
-                      {hasReplacementOrder === "1" && <View className="block">
-                        <View
-                          className="order-details__panel-h3"
-                          style={{ marginTop: "48rpx" }}
-                        >
-                          意向车型<Text className="text-error">* </Text>
-                        </View>
-                        <View className="order-details__panel-desc">
-                          <Picker
-                            mode="selector"
-                            range={this.state.carOptions.map(c => c.label)}
-                            onChange={this.handleCarSelect}
+                      {hasReplacementOrder === "1" && (
+                        <View className="block">
+                          <View
+                            className="order-details__panel-h3"
+                            style={{ marginTop: "48rpx" }}
                           >
-                            <View className="input--text border-bottom">
-                              {selectedCarIndex ? (
-                                this.state.carOptions[selectedCarIndex].label
-                              ) : (
-                                <Text className="input--placeholder">
-                                  请选择意向车型
-                                </Text>
-                              )}
-                            </View>
-                          </Picker>
+                            意向车型<Text className="text-error">* </Text>
+                          </View>
+                          <View className="order-details__panel-desc">
+                            <Picker
+                              mode="selector"
+                              range={this.state.carOptions.map(c => c.label)}
+                              onChange={this.handleCarSelect}
+                            >
+                              <View className="input--text border-bottom">
+                                {selectedCarIndex ? (
+                                  this.state.carOptions[selectedCarIndex].label
+                                ) : (
+                                  <Text className="input--placeholder">
+                                    请选择意向车型
+                                  </Text>
+                                )}
+                              </View>
+                            </Picker>
+                          </View>
+                          <View
+                            className="order-details__panel-h3"
+                            style={{ marginTop: "36rpx" }}
+                          >
+                            销售顾问<Text className="text-error">* </Text>
+                          </View>
+                          <SelectAdviser
+                            userType="XS"
+                            onChange={this.handleUserSelect}
+                          />
                         </View>
-                        <View
-                          className="order-details__panel-h3"
-                          style={{ marginTop: "36rpx" }}
-                        >
-                          销售顾问<Text className="text-error">* </Text>
-                        </View>
-                        <SelectAdviser
-                          userType="XS"
-                          onChange={this.handleUserSelect}
-                        />
-                      </View>}
+                      )}
                     </View>
                   </View>
                 </View>
