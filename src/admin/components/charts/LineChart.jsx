@@ -3,6 +3,9 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
+
+
+
 export default class Index extends Component {
   static defaultProps = {
     dataSource: []
@@ -28,7 +31,19 @@ export default class Index extends Component {
     });
 
     chart.source(this.props.dataSource);
-    chart.tooltip(false);
+    chart.axis("date", {
+      labelOffset: 20,
+      tickLine: {
+        length: 4,
+        stroke: "#e8e8e8",
+        lineWidth: 1
+      },
+      label: {
+        textAlign: "center",
+        textBaseline: "middle",
+        rotate: 75
+      }
+    });
     chart
       .line()
       .position("date*value")

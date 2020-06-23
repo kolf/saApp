@@ -3,64 +3,40 @@ import { View } from "@tarojs/components";
 import { F2Canvas } from "taro-f2";
 import { fixF2 } from "taro-f2/dist/weapp/common/f2-tool.ts";
 import F2 from "@antv/f2";
+import "./HreoChart.scss";
 
-const data = [
-  {
-    name: "再购新车占比",
-    percent: 21,
-    a: "1"
-  },
-  {
-    name: "转介绍占比",
-    percent: 34,
-    a: "1"
-  },
-  {
-    name: "置换新车占比",
-    percent: 45,
-    a: "1"
-  }
-];
+const colors = ["#F7B579", "#6478D3", "#CDCDD7"];
+function toPercentage(floatNumber = 0) {
+  return parseInt(floatNumber * 100) + "%";
+}
 
-const map = {};
-data.forEach(function(item) {
-  map[item.name] = item.percent + "%";
-});
+function getTotal(data) {
+  return data.reduce((result, item) => {
+    return result + item.total;
+  }, 0);
+}
 
-function drawData(canvas, width, height) {
+function drawData(data, canvas, width, height) {
   fixF2(F2);
-
   const chart = new F2.Chart({
     el: canvas,
     width,
     height,
-    padding: [0, 0, 0, 140]
+    padding: [0, 0, 0, 0]
   });
 
-  chart.source(data, {
-    percent: {
-      formatter: function formatter(val) {
-        return val + "%";
-      }
-    }
-  });
-  chart.tooltip(false);
-  chart.legend({
-    position: "left",
-    itemFormatter: function itemFormatter(val) {
-      return val + "    " + map[val];
-    }
-  });
+  chart.source(data);
   chart.coord("polar", {
     transposed: true,
     innerRadius: 0.8,
     radius: 0.8
   });
   chart.axis(false);
+  chart.legend(false);
   chart
     .interval()
     .position("a*percent")
-    .color("name", ["#F7B579", "#6478D3", "#CDCDD7"])
+    .color("type", colors)
     .adjust("stack");
 
   chart.render();
@@ -68,8 +44,30 @@ function drawData(canvas, width, height) {
 
 export default function HreoChart({ dataSource = [] }) {
   return (
-    <View style={{ width: "100%", height: "140px" }}>
-      <F2Canvas onCanvasInit={drawData} />
+    <View className="hreo-chart__root">
+      <View className="hreo-chart__left">
+        {dataSource.map((item, index) => (
+          <View className="chart__item-container" key={item.type}>
+            <View
+              className="chart__item-icon"
+              style={{ backgroundColor: colors[index] }}
+            />
+            <View className="chart__item-cont">
+              <Text className="chart__item-title">
+                {toPercentage(item.percent)}
+              </Text>
+              <Text>{item.type}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+      <View className="hreo-chart__right">
+        <View style={{ height: "260rpx" }} className="hreo-chart__canvas">
+          <F2Canvas onCanvasInit={drawData.bind(this, dataSource)} />
+          <Text className="hreo-chart__percentage">%</Text>
+        </View>
+        <View className="hreo-chart__total">总成交 {getTotal(dataSource)} 台</View>
+      </View>
     </View>
   );
 }
