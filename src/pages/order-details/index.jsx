@@ -342,29 +342,25 @@ export default class Index extends Component {
       return;
     }
 
-    if (cardType === "A") {
-      const successFileIds = await this.uploadAllFile();
-
-      if (successFileIds.length === 0) {
-        modal({
-          content: "图片上传失败"
-        });
-        return;
-      }
-
-      newParams.fileAcCardIds = successFileIds.join(",");
-    }
-
     const _this = this;
     if (cardType === "A") {
       modal({
         title: "确认并继续跟进",
         content:
           "请继续跟进订单，同时请邀约用户进行试驾，并在试驾系统中及时完善预约试驾信息，以免在订单成交后影响您获取最终奖励。"
-      }).then(res => {
+      }).then(async res => {
         if (!res.confirm) {
           return false;
         }
+        const successFileIds = await this.uploadAllFile();
+        if (successFileIds.length === 0) {
+          modal({
+            content: "图片上传失败"
+          });
+          return;
+        }
+        newParams.fileAcCardIds = successFileIds.join(",");
+
         onOK();
       });
     } else if (cardType === "C") {
@@ -415,7 +411,11 @@ export default class Index extends Component {
         Taro.navigateBack({
           delta: 1
         });
-      });
+      }).catch(error => {
+        _this.setState({
+          confirmLoading: false
+        })
+      })
     }
   };
 
