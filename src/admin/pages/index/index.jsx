@@ -18,6 +18,10 @@ const DEFAULT_DATE = moment()
   .subtract(1, "days")
   .format(FORMAT);
 export default class Index extends Component {
+  config = {
+    disableScroll: true
+  }
+
   state = {
     userInfo: storage.get("userInfo") || {},
     data: null

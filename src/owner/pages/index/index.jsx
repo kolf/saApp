@@ -12,6 +12,10 @@ import serviceUrl from "@/assets/images/service.svg";
 import userLargeUrl from "@/assets/images/user-large.svg";
 
 export default class Index extends Component {
+  confit = {
+    disableScroll: true
+  };
+
   state = {
     userInfo: storage.get("userInfo") || {}
   };
@@ -45,24 +49,27 @@ export default class Index extends Component {
         </View>
         <View style={{ margin: "16rpx -16rpx" }}>
           <View className="at-row at-row--wrap">
-            <View
-              className="at-col at-col-12"
-            >
-              <View className="owner-index__nav owner-index__hero" style={{ fontSize: 0 }}>
+            <View className="at-col at-col-12">
+              <View
+                className="owner-index__nav owner-index__hero"
+                style={{ fontSize: 0 }}
+              >
                 <Image
                   src={leadUrl}
                   className="img"
                   style={{ width: "100%", fontSize: 0 }}
                   mode="widthFix"
                 />
-                <Text className='owner-index__hero-text'>功能即将上线，敬请期待</Text>
+                <Text className="owner-index__hero-text">
+                  功能即将上线，敬请期待
+                </Text>
               </View>
             </View>
             <View className="at-col at-col-6">
               <View className="owner-index__nav">
                 <NavPanel
                   title="我的业绩"
-                  onClick={goTo.bind(this, '/owner/pages/my-order', null)}
+                  onClick={goTo.bind(this, "/owner/pages/my-order", null)}
                 >
                   <Image
                     src={noteLargeUrl}
@@ -76,7 +83,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="客户列表"
-                  onClick={goTo.bind(this, '/owner/pages/my-user', null)}
+                  onClick={goTo.bind(this, "/owner/pages/my-user", null)}
                 >
                   <Image
                     src={usersLargeUrl}
@@ -90,7 +97,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="联系客服"
-                  onClick={goTo.bind(this, '/pages/service-index')}
+                  onClick={goTo.bind(this, "/pages/service-index")}
                 >
                   <View className="nav-icon">
                     <Image
@@ -106,7 +113,7 @@ export default class Index extends Component {
               <View className="owner-index__nav">
                 <NavPanel
                   title="信息展示墙"
-                  onClick={goTo.bind(this, '/owner/pages/profile', null)}
+                  onClick={goTo.bind(this, "/owner/pages/profile", null)}
                 >
                   <Image
                     src={userLargeUrl}
