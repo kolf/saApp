@@ -126,12 +126,12 @@ export default class Index extends Component {
               )}
 
               {listData.length === 0 && (
-                <EmptyData
-                  loading={isFetching}
-                  style={{ padding: "20vh 60px" }}
-                >
-                  你还没有添加过客户 我们一起努力吧
-                </EmptyData>
+                <View style={{height:'80vh'}}>
+                  <EmptyData loading={isFetching}>
+                  <View style={{paddingBottom:'24rpx'}}>你还没有添加过客户</View>
+                    <View>我们一起努力吧</View>
+                  </EmptyData>
+                </View>
               )}
             </AtIndexes>
             {listData.length > 0 && !isFetching && (

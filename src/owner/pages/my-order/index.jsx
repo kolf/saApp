@@ -102,8 +102,10 @@ export default class Index extends Component {
           </View>
         ) : (
           <EmptyData loading={isFetching}>
-            您还没有{this.tabList[tabIndex].value.replace(/（\d）/, "")}
-            我相信就在今天
+            <View>
+              您还没有{this.tabList[tabIndex].label.replace(/（\d）/, "")}
+            </View>
+            <View>我相信就在今天</View>
           </EmptyData>
         )}
       </View>

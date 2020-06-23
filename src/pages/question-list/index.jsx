@@ -6,7 +6,7 @@ import { goTo } from "@/utils";
 import EmptyData from "@/components/empty-data";
 import { getMessageBoardList } from "@/servers/apis";
 
-export default  class Index extends Component {
+export default class Index extends Component {
   config = {
     navigationBarTitleText: "人工解答"
   };
@@ -67,13 +67,17 @@ export default  class Index extends Component {
               })}
             </View>
           ) : (
-            <EmptyData loading={isFetching}>
+            <EmptyData loading={isFetching} showLogo>
               您还没有发起过任何问题反馈
             </EmptyData>
           )}
         </View>
         <View className="page-footer question-list__footer">
-          <AtButton className='btn-primary btn-lg' type="primary" onClick={goTo.bind(this, "/pages/question-post")}>
+          <AtButton
+            className="btn-primary btn-lg"
+            type="primary"
+            onClick={goTo.bind(this, "/pages/question-post")}
+          >
             问题反馈
           </AtButton>
         </View>
@@ -81,5 +85,3 @@ export default  class Index extends Component {
     );
   }
 }
-
-

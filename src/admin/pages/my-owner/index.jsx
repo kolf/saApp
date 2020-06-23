@@ -115,12 +115,12 @@ export default class Index extends Component {
               </AtList>
 
               {listData.length === 0 && (
-                <EmptyData
-                  loading={isFetching}
-                  style={{ padding: "20vh 60px" }}
-                >
-                  系统还没有添加过员工 我们一起努力吧
-                </EmptyData>
+                <View style={{ height: "80vh" }}>
+                  <EmptyData loading={isFetching}>
+                    <View style={{paddingBottom:'24rpx'}}>你还没有添加过员工</View>
+                    <View>我们一起努力吧</View>
+                  </EmptyData>
+                </View>
               )}
             </AtIndexes>
             <View className="my-owner__list-total text-center">

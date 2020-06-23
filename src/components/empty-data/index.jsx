@@ -22,14 +22,14 @@ export default class Index extends Component {
 
     return (
       <View className="empty-data__root" style={this.props.style}>
-        <View className="empty-data__title">
+        {this.props.showLogo && <View className="empty-data__title">
           <Image
             src={imgUrl}
             className="img"
             mode="widthFix"
             style="width:160px"
           />
-        </View>
+        </View>}
         <View className="empty-data__content">{this.props.children}</View>
       </View>
     );

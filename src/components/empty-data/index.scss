@@ -1,12 +1,15 @@
 .empty-data {
   &__root {
-    min-height: 94vw;
-    margin: auto;
-    padding: 30vh 60px 24vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
   }
+  &__title {
+    padding-bottom: 10vh;
+  }
   &__content {
-    padding-top: 84px;
     font-size: 12 * 3px;
   }
 }
