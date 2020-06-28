@@ -239,6 +239,10 @@ export const getMessageBoardList = params => {
 };
 // /api/v1/bg/iocr/getVinCodeByImg
 // /行驶证VIN码识别
+export const getVinCodeByImg = params => {
+  return http.post("/api/v1/bg/iocr/getVinCodeByImg", params);
+};
+
 export const addGiftOrder = params => {
   return http.post("/api/v1/front/fawCommodityOrder/add", params);
 };

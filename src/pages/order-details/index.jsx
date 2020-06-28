@@ -438,7 +438,9 @@ export default class Index extends Component {
           success: async res => {
             try {
               const fileId = JSON.parse(res.data).data.id;
+              
               const res1 = await getVinCodeByImg({ fileId });
+
               const { releaseDate, vinCode, carOwner } = res1.data;
               this.setState({
                 vinData: {
@@ -450,6 +452,7 @@ export default class Index extends Component {
               });
               Taro.hideLoading();
             } catch (error) {
+              console.error(error)
               Taro.hideLoading();
             }
           },
