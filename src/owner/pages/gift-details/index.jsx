@@ -25,14 +25,13 @@ export default class Index extends Component {
       return;
     }
 
-    this.userId = userInfo.id;
+    this.userInfo = userInfo;
   }
 
   handleChange = e => {
     this.setState({
       number: Math.max(e, 1)
     });
-    console.log(e);
   };
 
   handleRemarkChange = e => {
@@ -54,13 +53,23 @@ export default class Index extends Component {
       return;
     }
 
-    onOk();
+    modal({
+      title: '请确认是否兑换该礼品,确认兑换后不可取消~',
+      content: `礼品将在一个月内派送至您的\r\n${this.userInfo.disName}\r\n请您耐心等待`,
+      showCancel:true,
+      success(res){
+        if(res.confirm){
+          onOk()
+        }
+      }
+    })
+
     async function onOk() {
       const res = await addGiftOrder({
         id,
         number,
         remark,
-        userId: _this.userId
+        userId: _this.userInfo.id
       });
 
       if (res.code !== 200) {
@@ -69,7 +78,7 @@ export default class Index extends Component {
 
       modal({
         title: "亲您的商品已经兑换成功了哦~",
-        content: `礼品将在一个月内派送至您的\r\n${res.data}\r\n请您耐心等待`,
+        content: `礼品将在一个月内派送至您的\r\n${_this.userInfo.disName}\r\n请您耐心等待`,
         showCancel: false,
         success() {
           Taro.navigateBack({ delta: 1 });
