@@ -39,7 +39,7 @@ export default class Index extends Component {
         <View className="owner-index__header">
           <View className="owner-index__header-title">
             <View className="owner-index__header-name">
-              你好，{userInfo.positionName}
+              你好，{userInfo.realName}
             </View>
             <View className="owner-index__header-desc">{userInfo.disName}</View>
           </View>

@@ -88,7 +88,7 @@ export default class Index extends Component {
         <View className="admin-index__header">
           <View className="admin-index__header-title">
             <View className="admin-index__header-name">
-              你好，{userInfo.positionName}
+              你好，{userInfo.realName}
             </View>
             <View className="admin-index__header-desc">{userInfo.disName}</View>
           </View>
