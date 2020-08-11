@@ -11,7 +11,6 @@ import imgMoreUrl from "@/assets/images/statistics-more.svg";
 import { goTo } from "@/utils";
 export default  class Index extends Component {
   config = {
-    disableScroll: true,
     navigationBarTitleText: "报表"
   };
 

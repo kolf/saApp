@@ -13,7 +13,7 @@ import userLargeUrl from "@/assets/images/user-large.svg";
 
 export default class Index extends Component {
   confit = {
-    disableScroll: true
+
   };
 
   state = {

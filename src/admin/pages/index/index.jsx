@@ -19,7 +19,7 @@ const DEFAULT_DATE = moment()
   .format(FORMAT);
 export default class Index extends Component {
   config = {
-    disableScroll: true
+
   }
 
   state = {

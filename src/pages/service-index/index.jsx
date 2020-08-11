@@ -8,7 +8,6 @@ import userCallUrl from "@/assets/images/user-call.svg";
 import { goTo } from "@/utils";
 export default class Index extends Component {
   config = {
-    disableScroll: true,
     navigationBarTitleText: "联系客服"
   };
 
