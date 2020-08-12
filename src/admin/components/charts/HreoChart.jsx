@@ -28,7 +28,7 @@ function drawData(data, canvas, width, height) {
   chart.source(data);
   chart.coord("polar", {
     transposed: true,
-    innerRadius: 0.8,
+    innerRadius: 0.5,
     radius: 0.8
   });
   chart.axis(false);
@@ -64,9 +64,8 @@ export default function HreoChart({ dataSource = [] }) {
       <View className="hreo-chart__right">
         <View style={{ height: "260rpx" }} className="hreo-chart__canvas">
           <F2Canvas onCanvasInit={drawData.bind(this, dataSource)} />
-          <Text className="hreo-chart__percentage">%</Text>
         </View>
-        <View className="hreo-chart__total">总成交 {getTotal(dataSource)} 台</View>
+        <View className="hreo-chart__total">昨日总成交 {getTotal(dataSource)} 台</View>
       </View>
     </View>
   );
