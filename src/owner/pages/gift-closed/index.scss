@@ -1,0 +1,19 @@
+.gift-closed {
+  &__root {
+    text-align: center;
+    padding-top: 20vh;
+  }
+  &__img{
+    width:380px
+  }
+  &__title {
+    font-size: 48px;
+    color: #262626;
+    padding-top: 36px;
+    padding-bottom: 24px;
+  }
+  &__desc {
+    font-size: 34px;
+    color: #7a7878;
+  }
+}

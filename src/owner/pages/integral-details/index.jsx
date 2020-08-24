@@ -32,7 +32,7 @@ export default class Index extends Component {
     return (
       <View className="page integral-details__root">
         <View className="at-row integral-details__heading text-primary">
-          <View className="at-col">当前积分总计</View>
+          <View className="at-col">累计积分总计</View>
           <View className="at-col text-right">{total}</View>
         </View>
         <View className="integral-details__content">

@@ -3,48 +3,35 @@ import { View } from "@tarojs/components";
 import { AtList, AtListItem } from "@/npm/taro-ui/dist";
 
 import "./index.scss";
-import { getMyJF, getCreditStatus } from "@/servers/apis";
+import { getCreditStatus } from "@/servers/apis";
 import { goTo } from "@/utils";
-import modal from "@/utils/modal";
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的积分"
   };
 
-  state = {
-    total: 0,
-    status: false
-  };
+  // loadData = async () => {
+  //   const res2 = await getCreditStatus({}).then(res => res.data);
 
-  componentDidShow() {
-    this.loadData();
-  }
+  //   this.setState({
+  //     status: res2
+  //   });
+  // };
 
-  loadData = async () => {
-    const res1 = await getMyJF().then(res => res.data);
-    const res2 = await getCreditStatus({}).then(res => res.data);
+  // goToGiftList = () => {
+  //   const { status } = this.state;
+  //   if (!status) {
+  //     modal({
+  //       content: "积分兑换活动已结束，敬请期待",
+  //       showCancel: false
+  //     });
+  //     return;
+  //   }
 
-    this.setState({
-      total: res1.zf,
-      status: res2
-    });
-  };
-
-  goToGiftList = () => {
-    const { status } = this.state;
-    if (!status) {
-      modal({
-        content: "积分兑换活动已结束，敬请期待",
-        showCancel: false
-      });
-      return;
-    }
-
-    goTo("/owner/pages/gift-list");
-  };
+  //   goTo("/owner/pages/gift-list");
+  // };
 
   render() {
-    const { total } = this.state;
     return (
       <View className="page bg-gray">
         <View className="content">
@@ -52,13 +39,12 @@ export default class Index extends Component {
             <AtListItem
               title="您已获得的积分"
               arrow="right"
-              badge={total}
               onClick={goTo.bind(this, "/owner/pages/integral-details")}
             />
             <AtListItem
               title="积分兑换"
               arrow="right"
-              onClick={this.goToGiftList}
+              onClick={goTo.bind(this, "/owner/pages/gift-list")}
             />
           </AtList>
         </View>

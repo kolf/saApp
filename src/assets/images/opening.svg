@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="194px" height="186px" viewBox="0 0 194 186" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <defs>
+        <ellipse id="path-1" cx="81.5" cy="79" rx="81" ry="79"></ellipse>
+    </defs>
+    <g id="服务顾问" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="积分兑换-活动结束" transform="translate(-94.000000, -236.000000)">
+            <g id="编组" transform="translate(94.500000, 236.000000)">
+                <g id="地球" transform="translate(0.000000, 28.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="椭圆形" fill="#89B3F5" xlink:href="#path-1"></use>
+                    <g id="编组-10" mask="url(#mask-2)">
+                        <g transform="translate(7.500000, 90.000000)">
+                            <ellipse id="椭圆形" stroke="#031F3F" stroke-width="5" fill="#6590D2" cx="78" cy="75.5" rx="75.5" ry="73"></ellipse>
+                            <ellipse id="椭圆形" stroke="none" fill="#ACC5EF" cx="76.3246073" cy="74.1157895" rx="70.2408377" ry="68.3473684"></ellipse>
+                            <ellipse id="椭圆形" stroke="none" fill="#052142" cx="74.3246073" cy="25.0342105" rx="22.052356" ry="5.16578947"></ellipse>
+                            <ellipse id="椭圆形备份" stroke="none" fill="#052142" cx="37.5706806" cy="38.5447368" rx="8.98429319" ry="5.16578947"></ellipse>
+                            <ellipse id="椭圆形备份-3" stroke="none" fill="#052142" cx="96.3769634" cy="48.8763158" rx="8.98429319" ry="5.16578947"></ellipse>
+                            <ellipse id="椭圆形备份-4" stroke="none" fill="#052142" cx="114.753927" cy="29.8026316" rx="6.12565445" ry="5.16578947"></ellipse>
+                            <ellipse id="椭圆形备份-2" stroke="none" fill="#052142" cx="46.9633508" cy="60.7973684" rx="4.4921466" ry="3.57631579"></ellipse>
+                        </g>
+                    </g>
+                </g>
+                <g id="旗帜" transform="translate(80.000000, 6.000000)">
+                    <path d="M2.72151753,17.2459893 C21.9943497,16.1800357 35.5667667,18.5784314 43.4387685,24.4411765 C55.2467713,33.2352941 59.725669,44.4278075 83.3416745,46.026738 C106.95768,47.6256684 111.84375,47.2259358 110.21506,54.0213904 C108.58637,60.8168449 97.1855399,74.8074866 70.3121542,81.2032086 C43.4387685,87.5989305 20.2299355,77.2058824 1.5,86" id="路径-2" stroke="#001B3B" stroke-width="5" fill="#F5C949"></path>
+                    <line x1="1" y1="0.398843931" x2="1" y2="137.601156" id="直线-2" stroke="#001C3C" stroke-width="6" stroke-linecap="square"></line>
+                    <path d="M4.5,20 C24.921474,22.7687022 42.3702017,29.5646077 56.8461833,40.3877164 C65.7644219,48.6938231 73.9071616,52.4693262 76.2336586,50.5815746 C78.5601556,48.6938231 66.5399209,86.4488535 4.5,74.7447941" id="路径-3" fill="#FFDD7B"></path>
+                </g>
+                <g id="圆球" transform="translate(74.000000, 0.000000)">
+                    <circle id="椭圆形" stroke="#001C3C" stroke-width="4" fill="#96CE9A" cx="7.5" cy="8" r="6"></circle>
+                    <circle id="椭圆形" fill="#C1FEC6" cx="8" cy="8.5" r="4.5"></circle>
+                </g>
+                <text id="来晚啦" font-family="PingFangSC-Medium, PingFang SC" font-size="22" font-weight="400" fill="#262626">
+                    <tspan x="90" y="75">来晚啦</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,9 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
-import { AtIcon } from "@/npm/taro-ui/dist";
 import { View, Image } from "@tarojs/components";
+import { AtIcon } from "@/npm/taro-ui/dist";
+
 import EmptyData from "@/components/empty-data";
+import GiftClosedBlock from "../gift-closed";
 import "./index.scss";
-import { getScore, getGiftList } from "@/servers/apis";
+import { getScore, getCreditStatus, getGiftList } from "@/servers/apis";
 import { goTo } from "@/utils";
 import modal from "@/utils/modal";
 
@@ -13,6 +15,7 @@ export default class Index extends Component {
   };
 
   state = {
+    openStatus: true,
     isFetching: true,
     integralTotal: 0,
     listData: []
@@ -35,13 +38,20 @@ export default class Index extends Component {
       listData: []
     });
 
+    let listData = [];
+
     try {
-      const res = await getGiftList().then(res => res.data);
-      const res1 = await getScore().then(res => res.data);
+      const openStatus = await getCreditStatus({}).then(res => res.data);
+      if (openStatus) {
+        listData = await getGiftList().then(res => res.data.list || []);
+      }
+
+      const integralTotal = await getScore().then(res => res.data || 0);
 
       this.setState({
-        listData: res.list,
-        integralTotal: res1 || 0,
+        listData,
+        integralTotal,
+        openStatus,
         isFetching: false
       });
     } catch (error) {
@@ -64,13 +74,44 @@ export default class Index extends Component {
     goTo("/owner/pages/gift-details", { ...item, integralTotal });
   };
 
-  render() {
-    const { listData, isFetching } = this.state;
+  renderBody = () => {
+    const { openStatus, listData, isFetching } = this.state;
+    if (!openStatus) {
+      return <GiftClosedBlock />;
+    }
 
+    return listData.length > 0 ? (
+      <View className="goods-list">
+        <View className="goods-list__title">积分兑礼</View>
+        <View className="at-row at-row--wrap">
+          {listData.map((item, index) => (
+            <View className="at-col at-col-6">
+              <View
+                className="goods-item"
+                onClick={this.handleClick.bind(this, index)}
+              >
+                <Image src={item.imgurl} mode="aspectFit" className="img" />
+                <View className="goods-item__name">{item.name}</View>
+                <View className="goods-item__pirce">
+                  <AtIcon prefixClass="iconfont" value="jifen" size={14} />
+                  {item.score} 积分
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+    ) : (
+      <EmptyData loading={isFetching}>商品正在上架中，尽请期待~</EmptyData>
+    );
+  };
+
+  render() {
+    const { integralTotal, openStatus } = this.state;
     return (
       <View className="page gift-list__root">
         <View className="gift-list__header">
-          <View className="gift-list__header-name">当前剩余积分</View>
+          <View className="gift-list__header-name">当前可用积分</View>
           <View className="gift-list__header-total">
             <AtIcon prefixClass="iconfont" value="jifen" size={20} />
             {integralTotal}
@@ -83,30 +124,7 @@ export default class Index extends Component {
           </View>
         </View>
 
-        {listData.length > 0 ? (
-          <View className="goods-list">
-            <View className="goods-list__title">积分兑礼</View>
-            <View className="at-row at-row--wrap">
-              {listData.map((item, index) => (
-                <View className="at-col at-col-6">
-                  <View
-                    className="goods-item"
-                    onClick={this.handleClick.bind(this, index)}
-                  >
-                    <Image src={item.imgurl} mode="aspectFit" className="img" />
-                    <View className="goods-item__name">{item.name}</View>
-                    <View className="goods-item__pirce">
-                      <AtIcon prefixClass="iconfont" value="jifen" size={14} />
-                      {item.score} 积分
-                    </View>
-                  </View>
-                </View>
-              ))}
-            </View>
-          </View>
-        ) : (
-          <EmptyData loading={isFetching}>系统还没有此类商品~</EmptyData>
-        )}
+        {this.renderBody()}
       </View>
     );
   }
