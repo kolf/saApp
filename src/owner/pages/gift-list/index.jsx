@@ -102,12 +102,15 @@ export default class Index extends Component {
         </View>
       </View>
     ) : (
-      <EmptyData loading={isFetching}>商品正在上架中，尽请期待~</EmptyData>
+      <EmptyData loading={isFetching}>
+        <View>商品正在上架中</View>
+        <View>尽请期待</View>
+      </EmptyData>
     );
   };
 
   render() {
-    const { integralTotal, openStatus } = this.state;
+    const { integralTotal } = this.state;
     return (
       <View className="page gift-list__root">
         <View className="gift-list__header">
