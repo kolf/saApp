@@ -130,7 +130,7 @@ export default class Index extends Component {
               </View>
             </View>
           </View>
-          <View className="pad">
+          {/* <View className="pad">
             <View className="at-row">
               <View className="at-col at-col-4">备注</View>
               <View className="at-col at-col-8 text-right text-gray">
@@ -141,8 +141,8 @@ export default class Index extends Component {
                 />
               </View>
             </View>
-          </View>
-          <View className="pad border-top border-bottom">
+          </View> */}
+          <View className="pad _border-top border-bottom">
             <View className="at-row">
               <View className="at-col at-col-4">账户剩余</View>
               <View className="at-col at-col-8 text-right text-gray">

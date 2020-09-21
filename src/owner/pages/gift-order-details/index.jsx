@@ -31,14 +31,13 @@ export default class Index extends Component {
       isFetching: false,
       data: res.data
     });
-    console.log(res, "res");
   };
 
   render() {
     const { data } = this.state;
     return (
       <View className="page gift-order-details__root">
-        <View style={{ padding: "36rpx 36rpx 0 36rpx" }}>
+        <View style={{ padding: "36rpx" }}>
           <View className="goods-panel__root">
             <View className="at-row">
               <View className="at-col at-col-4">
@@ -66,14 +65,14 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        <View className="pad">
+        {/* <View className="pad">
           <View className="at-row">
             <View className="at-col at-col-4">备注</View>
             <View className="at-col at-col-8 text-right text-gray">
               {data.remark}
             </View>
           </View>
-        </View>
+        </View> */}
         <View className="pad border-top border-bottom">
           <View className="at-row">
             <View className="at-col at-col-4">积分订单编号</View>
