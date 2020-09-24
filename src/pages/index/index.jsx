@@ -36,8 +36,8 @@ export default class Index extends Component {
   toLogin = () => {
     modal({
       title: "提示",
-      content: "您没有相应权限，请先登陆",
-      confirmText: "去登陆",
+      content: "您没有相应权限，请先登录",
+      confirmText: "去登录",
       showCancel: true,
       success(res) {
         if (res.confirm) {

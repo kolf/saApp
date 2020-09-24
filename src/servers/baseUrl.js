@@ -13,5 +13,5 @@ const getBaseUrl = url => {
   }
   return BASE_URL;
 };
-
+//
 export default getBaseUrl;
